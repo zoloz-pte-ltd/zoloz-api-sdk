@@ -1,0 +1,19 @@
+# ak config
+.akconfig
+
+# idea files
+.idea/
+*.iml
+
+# target files
+**/target/
+
+# log files
+**/logs/
+**/test-logs/
+test.log*
+**/log.txt
+
+# OS files
+**/.DS_Store
+
