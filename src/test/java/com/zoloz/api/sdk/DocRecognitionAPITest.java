@@ -1,12 +1,12 @@
 /**
  * Alipay.com Inc. Copyright (c) 2004-2019 All Rights Reserved.
  */
-package com.zoloz.openapi.sdk;
+package com.zoloz.api.sdk;
 
 import com.alibaba.fastjson.JSON;
-import com.zoloz.openapi.sdk.api.DocRecognitionAPI;
-import com.zoloz.openapi.sdk.model.DocRecognitionRequest;
-import com.zoloz.openapi.sdk.model.DocRecognitionResponse;
+import com.zoloz.api.sdk.model.DocRecognitionRequest;
+import com.zoloz.api.sdk.model.DocRecognitionResponse;
+import com.zoloz.api.sdk.api.DocRecognitionAPI;
 import org.junit.Assert;
 import org.junit.Test;
 

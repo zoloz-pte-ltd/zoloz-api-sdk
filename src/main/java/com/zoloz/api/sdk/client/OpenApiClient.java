@@ -1,9 +1,9 @@
-package com.zoloz.openapi.sdk.client;
+package com.zoloz.api.sdk.client;
 
-import com.zoloz.openapi.sdk.util.AESUtil;
-import com.zoloz.openapi.sdk.util.GenSignUtil;
-import com.zoloz.openapi.sdk.util.OpenApiData;
-import com.zoloz.openapi.sdk.util.RSAUtil;
+import com.zoloz.api.sdk.util.RSAUtil;
+import com.zoloz.api.sdk.util.AESUtil;
+import com.zoloz.api.sdk.util.GenSignUtil;
+import com.zoloz.api.sdk.util.OpenApiData;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,11 +1,9 @@
-package com.zoloz.openapi.sdk.api;
+package com.zoloz.api.sdk.api;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.zoloz.openapi.sdk.client.OpenApiClient;
-import com.zoloz.openapi.sdk.model.FaceCompareRequest;
-import com.zoloz.openapi.sdk.model.FaceCompareResponse;
-import com.zoloz.openapi.sdk.model.OpenApiCommonResult;
+import com.zoloz.api.sdk.client.OpenApiClient;
+import com.zoloz.api.sdk.model.FaceCompareRequest;
+import com.zoloz.api.sdk.model.FaceCompareResponse;
 
 /**
  * Created with IntelliJ IDEA.

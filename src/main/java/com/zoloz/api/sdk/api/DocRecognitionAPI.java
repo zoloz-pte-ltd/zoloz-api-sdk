@@ -1,9 +1,9 @@
-package com.zoloz.openapi.sdk.api;
+package com.zoloz.api.sdk.api;
 
 import com.alibaba.fastjson.JSON;
-import com.zoloz.openapi.sdk.client.OpenApiClient;
-import com.zoloz.openapi.sdk.model.DocRecognitionRequest;
-import com.zoloz.openapi.sdk.model.DocRecognitionResponse;
+import com.zoloz.api.sdk.model.DocRecognitionRequest;
+import com.zoloz.api.sdk.model.DocRecognitionResponse;
+import com.zoloz.api.sdk.client.OpenApiClient;
 
 /**
  * chenzc

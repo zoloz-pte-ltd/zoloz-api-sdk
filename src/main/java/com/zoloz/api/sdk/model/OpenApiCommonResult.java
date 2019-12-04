@@ -1,4 +1,4 @@
-package com.zoloz.openapi.sdk.model;
+package com.zoloz.api.sdk.model;
 
 import lombok.Data;
 

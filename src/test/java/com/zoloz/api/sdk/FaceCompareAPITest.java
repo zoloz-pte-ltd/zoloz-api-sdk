@@ -1,17 +1,10 @@
-package com.zoloz.openapi.sdk;
+package com.zoloz.api.sdk;
 
 import com.alibaba.fastjson.JSON;
-import com.zoloz.openapi.sdk.client.OpenApiClient;
-import com.zoloz.openapi.sdk.model.FaceCompareRequest;
-import com.zoloz.openapi.sdk.model.FaceCompareResponse;
-import com.zoloz.openapi.sdk.api.FaceCompareAPI;
+import com.zoloz.api.sdk.api.FaceCompareAPI;
+import com.zoloz.api.sdk.model.FaceCompareRequest;
+import com.zoloz.api.sdk.model.FaceCompareResponse;
 import org.junit.Test;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.Base64;
 
 /**
  * Created with IntelliJ IDEA.

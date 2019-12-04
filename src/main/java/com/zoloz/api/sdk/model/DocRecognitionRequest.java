@@ -1,7 +1,7 @@
 /**
  * Alipay.com Inc. Copyright (c) 2004-2019 All Rights Reserved.
  */
-package com.zoloz.openapi.sdk.model;
+package com.zoloz.api.sdk.model;
 
 import lombok.Data;
 

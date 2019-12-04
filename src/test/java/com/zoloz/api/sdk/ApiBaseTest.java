@@ -1,9 +1,9 @@
 /**
  * Alipay.com Inc. Copyright (c) 2004-2019 All Rights Reserved.
  */
-package com.zoloz.openapi.sdk;
+package com.zoloz.api.sdk;
 
-import com.zoloz.openapi.sdk.client.OpenApiClient;
+import com.zoloz.api.sdk.client.OpenApiClient;
 import lombok.Getter;
 import org.junit.Before;
 import java.io.ByteArrayOutputStream;
@@ -26,6 +26,7 @@ public class ApiBaseTest {
         String merchantPrivateKey = "";
         String openApiPublicKey = "";
         String hostUrl = "";
+
         // initialize OpenApiClient
         client= new OpenApiClient();  // 构造函数默认加签、加密
         client.setHostUrl(hostUrl);
