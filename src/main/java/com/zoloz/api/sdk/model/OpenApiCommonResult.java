@@ -22,7 +22,6 @@ public class OpenApiCommonResult {
         private String resultCode;
         private String resultStatus;
         private String resultMessage;
-        private String transactionId;
     }
 
 }
