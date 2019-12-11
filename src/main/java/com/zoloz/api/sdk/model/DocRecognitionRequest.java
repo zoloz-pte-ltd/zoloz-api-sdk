@@ -24,8 +24,10 @@ package com.zoloz.api.sdk.model;
 import lombok.Data;
 
 /**
- * @author chenzc
- * @version $Id: DocVerificationRequest.java, v 0.1 2019年11月12日 11:40 chenzc Exp $
+ * DocRecognitionRequest
+ *
+ * @Author: moxi
+ * @Date: 2019-12-11 21:13
  */
 @Data
 public class DocRecognitionRequest {

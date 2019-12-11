@@ -28,10 +28,10 @@ import com.zoloz.api.sdk.model.FaceCompareRequest;
 import com.zoloz.api.sdk.model.FaceCompareResponse;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-19
- * Time: 18:02
+ * FaceCompareAPI
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 public class FaceCompareAPI {
 

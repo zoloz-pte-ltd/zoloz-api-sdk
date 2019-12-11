@@ -25,10 +25,10 @@ package com.zoloz.api.sdk.model;
 import lombok.Data;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-19
- * Time: 19:19
+ * OpenApiCommonResult
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 @Data
 public class OpenApiCommonResult {

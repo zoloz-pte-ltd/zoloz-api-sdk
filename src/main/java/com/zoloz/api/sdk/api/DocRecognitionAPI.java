@@ -28,7 +28,10 @@ import com.zoloz.api.sdk.model.DocRecognitionResponse;
 import com.zoloz.api.sdk.client.OpenApiClient;
 
 /**
- * chenzc
+ * DocRecognitionAPI
+ *
+ * @Author: moxi
+ * @Date: 2019-12-11 21:13
  */
 public class DocRecognitionAPI {
 

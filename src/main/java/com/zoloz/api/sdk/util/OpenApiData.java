@@ -28,10 +28,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-18
- * Time: 21:17
+ * OpenApiData
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 @Data
 public class OpenApiData {

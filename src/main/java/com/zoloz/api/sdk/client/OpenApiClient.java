@@ -44,10 +44,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-18
- * Time: 20:34
+ * OpenApiClient
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 @Data
 public class OpenApiClient {

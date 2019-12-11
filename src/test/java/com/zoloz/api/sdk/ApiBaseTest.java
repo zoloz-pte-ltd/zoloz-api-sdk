@@ -29,9 +29,10 @@ import java.io.InputStream;
 import java.util.Base64;
 
 /**
+ * ApiBaseTest
  *
- * @author chenzc
- * @version $Id: BaseTest.java, v 0.1 2019年11月26日 20:43 chenzc Exp $
+ * @Author: moxi
+ * @Date: 2019-12-11 21:13
  */
 public class ApiBaseTest {
 

@@ -27,9 +27,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * DocRecognitionResponse
  *
- * @author chenzc
- * @version $Id: DocVerificationResponse.java, v 0.1 2019年11月12日 11:41 chenzc Exp $
+ * @Author: moxi
+ * @Date: 2019-12-11 21:13
  */
 @Data
 public class DocRecognitionResponse extends OpenApiCommonResult{

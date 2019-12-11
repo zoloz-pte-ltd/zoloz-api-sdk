@@ -29,10 +29,10 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-18
- * Time: 21:49
+ * AESUtil
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 public class AESUtil {
     /**

@@ -29,10 +29,10 @@ import com.zoloz.api.sdk.model.FaceCompareResponse;
 import org.junit.Test;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-18
- * Time: 20:24
+ * FaceCompareAPITest
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 public class FaceCompareAPITest extends ApiBaseTest {
 

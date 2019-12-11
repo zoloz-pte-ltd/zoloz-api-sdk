@@ -25,10 +25,10 @@ package com.zoloz.api.sdk.model;
 import lombok.Data;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-15
- * Time: 15:42
+ * FaceCompareRequest
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 @Data
 public class FaceCompareRequest {

@@ -29,9 +29,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * DocRecognitionAPITest
  *
- * @author chenzc
- * @version $Id: DocRecognitionAPITest.java, v 0.1 2019年11月26日 20:46 chenzc Exp $
+ * @Author: moxi
+ * @Date: 2019-12-11 21:13
  */
 public class DocRecognitionAPITest extends ApiBaseTest{
 
