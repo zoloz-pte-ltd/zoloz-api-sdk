@@ -16,6 +16,8 @@ import java.util.Map;
 @Data
 public class DocRecognitionResponse extends OpenApiCommonResult{
 
+    private String transactionId;
+
     private Map<String,String> ocrResult = new HashMap<>();
 
     private String  recognitionResult;

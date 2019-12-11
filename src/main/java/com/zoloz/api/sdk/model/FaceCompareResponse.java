@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 public class FaceCompareResponse extends OpenApiCommonResult {
 
+    private String transactionId;
+
     /**
      * same person
      */

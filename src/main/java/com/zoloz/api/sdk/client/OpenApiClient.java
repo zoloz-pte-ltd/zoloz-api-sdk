@@ -1,9 +1,12 @@
 package com.zoloz.api.sdk.client;
 
-import com.zoloz.api.sdk.util.RSAUtil;
 import com.zoloz.api.sdk.util.AESUtil;
 import com.zoloz.api.sdk.util.GenSignUtil;
 import com.zoloz.api.sdk.util.OpenApiData;
+import com.zoloz.api.sdk.util.RSAUtil;
+import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,14 +16,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-
-import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -65,7 +64,7 @@ public class OpenApiClient {
         String resultContent = null;
         try {
             // 1. sign the signature
-            String reqTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date());
+            String reqTime = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ"));
             String signature = null;
             if (signed) {
                 signature = sign(merchantPrivateKey, apiName, clientId, reqTime, request);
