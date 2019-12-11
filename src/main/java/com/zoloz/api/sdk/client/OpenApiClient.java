@@ -14,6 +14,10 @@ import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +69,7 @@ public class OpenApiClient {
         String resultContent = null;
         try {
             // 1. sign the signature
-            String reqTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date());
+            String reqTime = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ"));
             String signature = null;
             if (signed) {
                 signature = sign(merchantPrivateKey, apiName, clientId, reqTime, request);
