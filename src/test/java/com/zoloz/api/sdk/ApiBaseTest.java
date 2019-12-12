@@ -54,13 +54,13 @@ public class ApiBaseTest {
         String hostUrl = "https://open-sea.zoloz.com";*/
 
         // initialize OpenApiClient
-        client= new OpenApiClient();  // 构造函数默认加签、加密
+        client= new OpenApiClient();  // construct with signature and encryption by default
         client.setHostUrl(hostUrl);
         client.setClientId(clientId);
         client.setMerchantPrivateKey(merchantPrivateKey);
         client.setOpenApiPublicKey(openApiPublicKey);
-        //client.setSigned(false);     // 可以设置不加签
-        //client.setEncrypted(false);  // 可以设置不加密
+        //client.setSigned(false);     // signature can be turned off
+        //client.setEncrypted(false);  // encryption can be turned off
     }
 
     protected String getBase64ImageContent(String imageUrl) {

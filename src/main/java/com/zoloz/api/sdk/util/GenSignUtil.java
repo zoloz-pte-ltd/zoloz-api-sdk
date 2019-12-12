@@ -37,7 +37,14 @@ import java.util.Base64;
  * @Date: 2019-12-11 21:13
  */
 public class GenSignUtil {
-    // 用私钥签名
+
+    /**
+     * sign with RSA private key
+     * @param privateKey the RSA private key
+     * @param content to be signed
+     * @return the signature
+     * @throws Exception
+     */
     public static String sign(String privateKey, String content) throws Exception {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         byte[] decodedPrivateKey = Base64.getDecoder().decode(privateKey);
@@ -49,7 +56,14 @@ public class GenSignUtil {
         return Base64.getEncoder().encodeToString(signed);
     }
 
-    // 用公钥验签
+    /**
+     * verify signature with public key
+     * @param publicKey the RSA public key
+     * @param content the request content
+     * @param sign the signature to be verified
+     * @return true or false for the verifying result
+     * @throws Exception
+     */
     public static boolean verify(String publicKey, String content, String sign) throws Exception {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         byte[] decodedPublicKey = Base64.getDecoder().decode(publicKey);

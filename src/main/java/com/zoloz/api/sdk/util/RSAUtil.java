@@ -38,10 +38,10 @@ import java.util.Base64;
  */
 public class RSAUtil {
     /**
-     * 加密
-     * @param publicKey 公钥
-     * @param content 待加密内容，原文
-     * @return 加密后的密文Base64格式
+     * encrypt with RSA public key
+     * @param publicKey the RSA public key
+     * @param content original content to be encrypted
+     * @return the encrypted content in base64 format
      * @throws Exception
      */
     public static String encrypt(String publicKey, byte[] content) throws Exception {
@@ -51,10 +51,10 @@ public class RSAUtil {
     }
 
     /**
-     * 解密
-     * @param privateKey 私钥
-     * @param content 待解密的内容，Base64格式
-     * @return 原文
+     * decrypt with RSA private key
+     * @param privateKey the RSA private key
+     * @param content content to be decrypted in base64 format
+     * @return original content
      * @throws Exception
      */
     public static byte[] decrypt(String privateKey, String content) throws Exception {
@@ -64,9 +64,9 @@ public class RSAUtil {
     }
 
     /**
-     * 组装公钥
-     * @param base64PublicKey
-     * @return
+     * construct public key
+     * @param base64PublicKey public key in base64 format
+     * @return the public key
      * @throws Exception
      */
     private static PublicKey getPublicKey(String base64PublicKey) throws Exception {
@@ -76,9 +76,9 @@ public class RSAUtil {
     }
 
     /**
-     * 组装私钥
-     * @param base64PrivateKey
-     * @return
+     * construct private key
+     * @param base64PrivateKey private key in base64 format
+     * @return the private key
      * @throws Exception
      */
     private static PrivateKey getPrivateKey(String base64PrivateKey) throws Exception {

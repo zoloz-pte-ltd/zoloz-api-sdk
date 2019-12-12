@@ -72,7 +72,6 @@ public class OpenApiClient {
         byte[] key = null;
         try {
             if (encrypted) {
-                // encrypt
                 // Generate aes key
                 key = AESUtil.generateKey(128);
                 // encrypt content
@@ -102,7 +101,6 @@ public class OpenApiClient {
                     logger.info(k + "=" + data.getHeader().get(k).get(0));
                 }
             }
-            //logger.info(data.getContent());
 
             // 3. Check Signature
             if (data.getHeader().get("Signature") != null) {
@@ -125,7 +123,6 @@ public class OpenApiClient {
         } catch (Exception e) {
             logger.info("error: " + e);
         }
-        //logger.info(resultContent);
         return resultContent;
     }
 
@@ -146,9 +143,7 @@ public class OpenApiClient {
 
         try {
             URL realUrl = new URL(baseUrl);
-            // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
-            // 设置通用的请求属性
             if (encryptKey != null) {
                 conn.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
             } else {
@@ -162,23 +157,14 @@ public class OpenApiClient {
             if (encryptKey != null) {
                 conn.setRequestProperty("Encrypt", "algorithm=RSA_AES, symmetricKey=" + URLEncoder.encode(encryptKey, "UTF-8"));
             }
-
             for (String key : conn.getRequestProperties().keySet()) {
                 logger.info(key + "=" + conn.getRequestProperties().get(key).get(0));
             }
-
-            //logger.info(request);
-
-            // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            // 中文有乱码的需要将PrintWriter改为如下
             out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
-            // 发送请求参数
             out.write(request);
-            // flush输出流的缓冲
             out.flush();
-            // 定义BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             String line;
             while ((line = in.readLine()) != null) {
@@ -188,7 +174,7 @@ public class OpenApiClient {
             data.setHeader(conn.getHeaderFields());
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {  // 使用finally块来关闭输出流、输入流
+        } finally {
             try {
                 if (out != null) {
                     out.close();

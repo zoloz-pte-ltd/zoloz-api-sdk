@@ -36,10 +36,10 @@ import java.util.Base64;
  */
 public class AESUtil {
     /**
-     * 用AES密钥加密数据
-     * @param key 密钥
-     * @param content 待加密数据内容原文
-     * @return 输出的密文Base64格式
+     * encrypt data with AES key
+     * @param key the AES key
+     * @param content to be encrypted
+     * @return encrypted content in base64 format
      */
     public static String encrypt(byte[] key, String content) throws Exception {
         SecretKeySpec spec = new SecretKeySpec(key, "AES");
@@ -50,10 +50,10 @@ public class AESUtil {
     }
 
     /**
-     * 用AES进行解密
-     * @param key 密钥
-     * @param content 待解密数据内容Base64格式
-     * @return 原文
+     * decrypt data with AES key
+     * @param key the AES key
+     * @param content to be decrypted
+     * @return the original content
      */
     public static String decrypt(byte[] key, String content) throws Exception {
         SecretKeySpec spec = new SecretKeySpec(key, "AES");
@@ -65,9 +65,9 @@ public class AESUtil {
     }
 
     /**
-     * 生成密钥
-     * @param length 长度
-     * @return
+     * AES key generation
+     * @param length key length
+     * @return key in byte array
      * @throws Exception
      */
     public static byte[] generateKey(int length) throws Exception {

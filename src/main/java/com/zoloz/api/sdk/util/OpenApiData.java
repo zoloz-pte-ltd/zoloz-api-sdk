@@ -36,10 +36,14 @@ import java.util.Map;
 @Data
 public class OpenApiData {
 
-    // header
+    /**
+     * the header of http data
+     */
     private Map<String,List<String>> header;
 
-    // content
+    /**
+     * the body of http data
+     */
     private String content;
 
 }
