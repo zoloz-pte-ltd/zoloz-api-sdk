@@ -33,7 +33,7 @@ import lombok.Data;
 public class DocRecognitionRequest {
 
     /**
-     * business unique ID
+     * business tracing id
      */
     private String bizId;
 
