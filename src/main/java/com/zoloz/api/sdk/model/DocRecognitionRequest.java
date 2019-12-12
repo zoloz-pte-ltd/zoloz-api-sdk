@@ -31,11 +31,35 @@ import lombok.Data;
  */
 @Data
 public class DocRecognitionRequest {
+
+    /**
+     * business unique ID
+     */
     private String bizId;
+
+    /**
+     * doc type
+     */
     private String docType;
+
+    /**
+     * image of front page
+     */
     private String frontPageImage;
+
+    /**
+     * image of back page
+     */
     private String backPageImage;
+
+    /**
+     * product level
+     */
     private String productLevel;
+
+    /**
+     * operation mode
+     */
     private String operationMode;
 
     @Override

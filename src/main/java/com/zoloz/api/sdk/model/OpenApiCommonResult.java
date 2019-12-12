@@ -33,6 +33,9 @@ import lombok.Data;
 @Data
 public class OpenApiCommonResult {
 
+    /**
+     * api common result
+     */
     private OpenApiResultCode result;
 
     public OpenApiCommonResult() {
@@ -41,8 +44,17 @@ public class OpenApiCommonResult {
 
     @Data
     public static class OpenApiResultCode {
+        /**
+         * result code
+         */
         private String resultCode;
+        /**
+         * result status
+         */
         private String resultStatus;
+        /**
+         * result message
+         */
         private String resultMessage;
     }
 

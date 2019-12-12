@@ -33,6 +33,9 @@ import lombok.Data;
 @Data
 public class FaceCompareResponse extends OpenApiCommonResult {
 
+    /**
+     * transaction id
+     */
     private String transactionId;
 
     /**
@@ -44,28 +47,5 @@ public class FaceCompareResponse extends OpenApiCommonResult {
      * comparison score
      */
     private Double score;
-
-    /**
-     * face1 rect
-     */
-    //private FaceImage face1;
-
-    /**
-     * face2 rect
-     */
-    //private FaceImage face2;
-
-    public FaceCompareResponse() {
-        //face1 = new FaceImage();
-        //face2 = new FaceImage();
-    }
-
-    @Data
-    public static class FaceImage {
-        /**
-         * face liveness
-         */
-        private Boolean liveness;
-    }
 
 }

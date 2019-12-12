@@ -35,14 +35,29 @@ import java.util.Map;
 @Data
 public class DocRecognitionResponse extends OpenApiCommonResult{
 
+    /**
+     * transaction id
+     */
     private String transactionId;
 
+    /**
+     * OCR results
+     */
     private Map<String,String> ocrResult = new HashMap<>();
 
+    /**
+     * recognition result
+     */
     private String  recognitionResult;
 
+    /**
+     * recognition error code
+     */
     private String  recognitionErrorCode;
 
+    /**
+     * spoof result map
+     */
     private Map<String,String> spoofResult = new HashMap<>();
 
 }

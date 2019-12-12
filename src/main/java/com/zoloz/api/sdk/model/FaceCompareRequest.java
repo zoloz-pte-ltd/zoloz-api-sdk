@@ -38,11 +38,6 @@ public class FaceCompareRequest {
     private String bizId;
 
     /**
-     * liveness detect switch
-     */
-    // private String livenessDetectMode;
-
-    /**
      * face1
      */
     private FaceImage face1;
