@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2019 ZOLOZ PTE.LTD.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.zoloz.api.sdk.util;
 
 import javax.crypto.Cipher;
@@ -7,17 +29,17 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-18
- * Time: 21:49
+ * AESUtil
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 public class AESUtil {
     /**
-     * 用AES密钥加密数据
-     * @param key 密钥
-     * @param content 待加密数据内容原文
-     * @return 输出的密文Base64格式
+     * encrypt data with AES key
+     * @param key the AES key
+     * @param content to be encrypted
+     * @return encrypted content in base64 format
      */
     public static String encrypt(byte[] key, String content) throws Exception {
         SecretKeySpec spec = new SecretKeySpec(key, "AES");
@@ -28,10 +50,10 @@ public class AESUtil {
     }
 
     /**
-     * 用AES进行解密
-     * @param key 密钥
-     * @param content 待解密数据内容Base64格式
-     * @return 原文
+     * decrypt data with AES key
+     * @param key the AES key
+     * @param content to be decrypted
+     * @return the original content
      */
     public static String decrypt(byte[] key, String content) throws Exception {
         SecretKeySpec spec = new SecretKeySpec(key, "AES");
@@ -43,9 +65,9 @@ public class AESUtil {
     }
 
     /**
-     * 生成密钥
-     * @param length 长度
-     * @return
+     * AES key generation
+     * @param length key length
+     * @return key in byte array
      * @throws Exception
      */
     public static byte[] generateKey(int length) throws Exception {

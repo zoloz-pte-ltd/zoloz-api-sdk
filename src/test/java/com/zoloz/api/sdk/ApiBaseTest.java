@@ -1,5 +1,23 @@
-/**
- * Alipay.com Inc. Copyright (c) 2004-2019 All Rights Reserved.
+/*
+ * Copyright (c) 2019 ZOLOZ PTE.LTD.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package com.zoloz.api.sdk;
 
@@ -11,9 +29,10 @@ import java.io.InputStream;
 import java.util.Base64;
 
 /**
+ * ApiBaseTest
  *
- * @author chenzc
- * @version $Id: BaseTest.java, v 0.1 2019年11月26日 20:43 chenzc Exp $
+ * @Author: moxi
+ * @Date: 2019-12-11 21:13
  */
 public class ApiBaseTest {
 
@@ -35,13 +54,13 @@ public class ApiBaseTest {
         String hostUrl = "https://open-sea.zoloz.com";*/
 
         // initialize OpenApiClient
-        client= new OpenApiClient();  // 构造函数默认加签、加密
+        client= new OpenApiClient();  // construct with signature and encryption by default
         client.setHostUrl(hostUrl);
         client.setClientId(clientId);
         client.setMerchantPrivateKey(merchantPrivateKey);
         client.setOpenApiPublicKey(openApiPublicKey);
-        //client.setSigned(false);     // 可以设置不加签
-        //client.setEncrypted(false);  // 可以设置不加密
+        //client.setSigned(false);     // signature can be turned off
+        //client.setEncrypted(false);  // encryption can be turned off
     }
 
     protected String getBase64ImageContent(String imageUrl) {
