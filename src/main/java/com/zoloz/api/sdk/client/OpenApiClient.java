@@ -66,6 +66,12 @@ public class OpenApiClient {
         this.encrypted = true;
     }
 
+    /**
+     * invoke API gateway with the optional signature and encryption processes
+     * @param apiName the name of API
+     * @param request the request content in json string format
+     * @return the response content in json string format
+     */
     public String callOpenApi(String apiName, String request) {
 
         String encryptKey = null;

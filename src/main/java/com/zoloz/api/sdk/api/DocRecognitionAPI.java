@@ -43,6 +43,11 @@ public class DocRecognitionAPI {
         this.openApiClient = openApiClient;
     }
 
+    /**
+     * the recognize method of ID recognition API
+     * @param request the doc recognition request
+     * @return the doc recognition response
+     */
     public DocRecognitionResponse recognition(DocRecognitionRequest request) {
         String response = openApiClient.callOpenApi(API_NAME, JSON.toJSONString(request));
         return JSON.parseObject(response, DocRecognitionResponse.class);
