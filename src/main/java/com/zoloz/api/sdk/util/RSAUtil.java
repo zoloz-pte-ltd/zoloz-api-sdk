@@ -42,7 +42,7 @@ public class RSAUtil {
      * @param publicKey the RSA public key
      * @param content original content to be encrypted
      * @return the encrypted content in base64 format
-     * @throws Exception
+     * @throws Exception exception
      */
     public static String encrypt(String publicKey, byte[] content) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
@@ -55,7 +55,7 @@ public class RSAUtil {
      * @param privateKey the RSA private key
      * @param content content to be decrypted in base64 format
      * @return original content
-     * @throws Exception
+     * @throws Exception exception
      */
     public static byte[] decrypt(String privateKey, String content) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
@@ -67,7 +67,7 @@ public class RSAUtil {
      * construct public key
      * @param base64PublicKey public key in base64 format
      * @return the public key
-     * @throws Exception
+     * @throws Exception exception
      */
     private static PublicKey getPublicKey(String base64PublicKey) throws Exception {
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(base64PublicKey));
@@ -79,7 +79,7 @@ public class RSAUtil {
      * construct private key
      * @param base64PrivateKey private key in base64 format
      * @return the private key
-     * @throws Exception
+     * @throws Exception exception
      */
     private static PrivateKey getPrivateKey(String base64PrivateKey) throws Exception {
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(base64PrivateKey));

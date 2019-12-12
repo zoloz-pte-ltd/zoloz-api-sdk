@@ -43,7 +43,7 @@ public class GenSignUtil {
      * @param privateKey the RSA private key
      * @param content to be signed
      * @return the signature
-     * @throws Exception
+     * @throws Exception exception
      */
     public static String sign(String privateKey, String content) throws Exception {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
@@ -62,7 +62,7 @@ public class GenSignUtil {
      * @param content the request content
      * @param sign the signature to be verified
      * @return true or false for the verifying result
-     * @throws Exception
+     * @throws Exception exception
      */
     public static boolean verify(String publicKey, String content, String sign) throws Exception {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
