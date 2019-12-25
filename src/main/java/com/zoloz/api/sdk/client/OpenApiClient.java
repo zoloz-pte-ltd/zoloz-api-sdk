@@ -1,9 +1,34 @@
+/*
+ * Copyright (c) 2019 ZOLOZ PTE.LTD.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.zoloz.api.sdk.client;
 
-import com.zoloz.api.sdk.util.RSAUtil;
 import com.zoloz.api.sdk.util.AESUtil;
 import com.zoloz.api.sdk.util.GenSignUtil;
 import com.zoloz.api.sdk.util.OpenApiData;
+import com.zoloz.api.sdk.util.RSAUtil;
+import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,20 +38,16 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Created with IntelliJ IDEA.
- * User: Zhongyang MA
- * Date: 2019-11-18
- * Time: 20:34
+ * OpenApiClient
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2019-12-11 21:13
  */
 @Data
 public class OpenApiClient {
@@ -51,7 +72,6 @@ public class OpenApiClient {
         byte[] key = null;
         try {
             if (encrypted) {
-                // encrypt
                 // Generate aes key
                 key = AESUtil.generateKey(128);
                 // encrypt content
@@ -65,7 +85,7 @@ public class OpenApiClient {
         String resultContent = null;
         try {
             // 1. sign the signature
-            String reqTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date());
+            String reqTime = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ"));
             String signature = null;
             if (signed) {
                 signature = sign(merchantPrivateKey, apiName, clientId, reqTime, request);
@@ -81,7 +101,6 @@ public class OpenApiClient {
                     logger.info(k + "=" + data.getHeader().get(k).get(0));
                 }
             }
-            //logger.info(data.getContent());
 
             // 3. Check Signature
             if (data.getHeader().get("Signature") != null) {
@@ -104,7 +123,6 @@ public class OpenApiClient {
         } catch (Exception e) {
             logger.info("error: " + e);
         }
-        //logger.info(resultContent);
         return resultContent;
     }
 
@@ -125,9 +143,7 @@ public class OpenApiClient {
 
         try {
             URL realUrl = new URL(baseUrl);
-            // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
-            // 设置通用的请求属性
             if (encryptKey != null) {
                 conn.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
             } else {
@@ -141,23 +157,14 @@ public class OpenApiClient {
             if (encryptKey != null) {
                 conn.setRequestProperty("Encrypt", "algorithm=RSA_AES, symmetricKey=" + URLEncoder.encode(encryptKey, "UTF-8"));
             }
-
             for (String key : conn.getRequestProperties().keySet()) {
                 logger.info(key + "=" + conn.getRequestProperties().get(key).get(0));
             }
-
-            //logger.info(request);
-
-            // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            // 中文有乱码的需要将PrintWriter改为如下
             out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
-            // 发送请求参数
             out.write(request);
-            // flush输出流的缓冲
             out.flush();
-            // 定义BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             String line;
             while ((line = in.readLine()) != null) {
@@ -167,7 +174,7 @@ public class OpenApiClient {
             data.setHeader(conn.getHeaderFields());
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {  // 使用finally块来关闭输出流、输入流
+        } finally {
             try {
                 if (out != null) {
                     out.close();

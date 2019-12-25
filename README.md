@@ -1,2 +1,1 @@
-# zoloz-api-sdk
-ZOLOZ API SDK
+ZOLOZ SaaS API SDK
