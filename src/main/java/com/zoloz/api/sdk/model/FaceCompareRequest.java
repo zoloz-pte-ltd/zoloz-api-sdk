@@ -33,7 +33,7 @@ import lombok.Data;
 @Data
 public class FaceCompareRequest {
     /**
-     * business unique ID
+     * business tracing id
      */
     private String bizId;
 

@@ -66,7 +66,7 @@ public class FaceCompareAPITest extends ApiBaseTest {
 
         // prepare request body
         FaceCompareRequest request = new FaceCompareRequest();
-        request.setBizId("test-biz-id");
+        request.setBizId("test-biz-id");  // for tracing purpose, it is recommended to use a global unique id
         request.getFace1().setContent(getBase64ImageContent(face1Url));
         request.getFace1().setRect("112,234,455,89");
         request.getFace2().setContent(getBase64ImageContent(face2Url));

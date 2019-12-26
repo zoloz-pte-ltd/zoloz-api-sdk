@@ -41,7 +41,7 @@ public class DocRecognitionAPITest extends ApiBaseTest{
     @Test
     public void testPassportPicture(){
         DocRecognitionRequest request=new DocRecognitionRequest();
-        request.setBizId("test-biz-id");
+        request.setBizId("test-biz-id");  // for tracing purpose, it is recommended to use a global unique id
         request.setDocType("00000001003");
         request.setFrontPageImage(getBase64ImageContent(passport));
         DocRecognitionAPI docRecognitionAPI=new DocRecognitionAPI(getClient());

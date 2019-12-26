@@ -40,6 +40,7 @@ public class AESUtil {
      * @param key the AES key
      * @param content to be encrypted
      * @return encrypted content in base64 format
+     * @throws Exception exception
      */
     public static String encrypt(byte[] key, String content) throws Exception {
         SecretKeySpec spec = new SecretKeySpec(key, "AES");
@@ -54,6 +55,7 @@ public class AESUtil {
      * @param key the AES key
      * @param content to be decrypted
      * @return the original content
+     * @throws Exception exception
      */
     public static String decrypt(byte[] key, String content) throws Exception {
         SecretKeySpec spec = new SecretKeySpec(key, "AES");
@@ -68,7 +70,7 @@ public class AESUtil {
      * AES key generation
      * @param length key length
      * @return key in byte array
-     * @throws Exception
+     * @throws Exception exception
      */
     public static byte[] generateKey(int length) throws Exception {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");//密钥生成器
