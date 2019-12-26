@@ -46,7 +46,9 @@ public class FaceCompareAPI {
     /**
      * the compare method of facecompare API
      * @param request the face compare request
+     * @see FaceCompareRequest
      * @return the face compare response
+     * @see FaceCompareResponse
      */
     public FaceCompareResponse compare(FaceCompareRequest request) {
         String response = openApiClient.callOpenApi(API_NAME, JSON.toJSONString(request));

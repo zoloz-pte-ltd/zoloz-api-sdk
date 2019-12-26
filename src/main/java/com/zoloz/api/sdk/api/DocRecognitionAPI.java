@@ -46,7 +46,9 @@ public class DocRecognitionAPI {
     /**
      * the recognize method of ID recognition API
      * @param request the doc recognition request
+     * @see DocRecognitionRequest
      * @return the doc recognition response
+     * @see DocRecognitionResponse
      */
     public DocRecognitionResponse recognition(DocRecognitionRequest request) {
         String response = openApiClient.callOpenApi(API_NAME, JSON.toJSONString(request));
