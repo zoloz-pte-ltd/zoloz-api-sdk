@@ -26,7 +26,7 @@ public class FaceSearchAPI {
      * @return the face search response
      * @see FaceSearchResponse
      */
-    public FaceSearchResponse out(FaceSearchRequest request) {
+    public FaceSearchResponse search(FaceSearchRequest request) {
         String response = openApiClient.callOpenApi(API_NAME, JSON.toJSONString(request));
         return JSON.parseObject(response, FaceSearchResponse.class);
     }
