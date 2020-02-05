@@ -25,6 +25,7 @@ import com.zoloz.api.sdk.client.OpenApiClient;
 import lombok.Getter;
 import org.junit.Before;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Base64;
 
@@ -56,10 +57,10 @@ public class ApiBaseTest {
         //client.setEncrypted(false);  // encryption can be turned off
     }
 
-    protected String getBase64ImageContent(String imageUrl) {
+    protected static String getBase64ImageContent(String imagePath) {
         String base64string = null;
         try {
-            InputStream inputStream= this.getClass().getResourceAsStream(imageUrl);
+            FileInputStream inputStream = new FileInputStream(imagePath);
             ByteArrayOutputStream baos=readInputStream(inputStream);
             base64string = Base64.getEncoder().encodeToString(baos.toByteArray());
         } catch (Exception e) {
