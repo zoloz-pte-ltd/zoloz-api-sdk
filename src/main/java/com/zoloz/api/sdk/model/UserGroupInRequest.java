@@ -8,7 +8,7 @@ import lombok.Data;
  * @author yaomeng
  */
 @Data
-public class FaceGroupInRequest {
+public class UserGroupInRequest {
     // group ID，if null server will use "default"
     private String groupId;
     // business user ID

@@ -8,7 +8,7 @@ import lombok.Data;
  * @author yaomeng
  */
 @Data
-public class FaceGroupOutRequest {
+public class UserGroupOutRequest {
     // group ID，if null server will use "default"
     private String groupId;
     // business user ID

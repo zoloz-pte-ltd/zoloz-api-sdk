@@ -8,7 +8,7 @@ import lombok.Data;
  * @author yaomeng
  */
 @Data
-public class FaceGroupInResponse extends OpenApiCommonResult {
+public class UserGroupInResponse extends OpenApiCommonResult {
     /**
      * transaction id
      */

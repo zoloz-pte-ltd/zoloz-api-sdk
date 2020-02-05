@@ -8,7 +8,7 @@ import lombok.Data;
  * @author yaomeng
  */
 @Data
-public class FaceGroupOutResponse extends OpenApiCommonResult {
+public class UserGroupOutResponse extends OpenApiCommonResult {
     /**
      * transaction id
      */
