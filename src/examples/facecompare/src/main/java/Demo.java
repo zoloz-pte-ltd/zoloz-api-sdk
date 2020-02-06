@@ -45,12 +45,13 @@ public class Demo {
     public static void main(String[] args) {
 
         // initialize OpenApiClient
-        String clientId = "<Client ID aqcuired in step 2>";
-        String zolozPublicKey = "<ZOLOZ transaction public key acquired in step 2>";
-        String merchantPrivateKeyPath = "<absolute path of the pem file downloaded in step 2>";
+        String clientId = "<your client ID>";
+        String zolozPublicKey = "<ZOLOZ transaction public key>";
+        String merchantPrivateKeyPath = "<absolute path of your private key file>";
         String merchantPrivateKey = loadPrivateKey(merchantPrivateKeyPath);
 
-        OpenApiClient client = new OpenApiClient();  // construct with signature and encryption by default
+        // construct with signature and encryption by default
+        OpenApiClient client = new OpenApiClient();
         client.setHostUrl("https://sg-production-api.zoloz.com");
         client.setClientId(clientId);
         client.setMerchantPrivateKey(merchantPrivateKey);
