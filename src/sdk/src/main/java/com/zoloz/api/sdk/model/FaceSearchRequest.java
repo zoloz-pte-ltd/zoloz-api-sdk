@@ -35,8 +35,8 @@ public class FaceSearchRequest {
     private String groupId;
     // face type, Please use "image"
     private String faceType;
-    // face info
-    private FaceInfo face;
+    // face
+    private String face;
 
     /**
      * comparison score, similar search result should be greater than or equals to this comparison score

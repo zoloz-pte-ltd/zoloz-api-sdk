@@ -23,7 +23,6 @@
 package com.zoloz.api.sdk;
 
 import com.zoloz.api.sdk.api.FaceSearchAPI;
-import com.zoloz.api.sdk.model.FaceInfo;
 import com.zoloz.api.sdk.model.FaceSearchRequest;
 import com.zoloz.api.sdk.model.FaceSearchResponse;
 import org.junit.Test;
@@ -44,9 +43,7 @@ public class FaceSearchAPITest extends ApiBaseTest {
         FaceSearchRequest request = new FaceSearchRequest();
         request.setGroupId("default");
         request.setFaceType("image");
-        FaceInfo face = new FaceInfo();
-        face.setFaceContent(getBase64ImageContent(FACE_URL));
-        request.setFace(face);
+        request.setFace(getBase64ImageContent(FACE_URL));
         request.setScore("85");
         request.setTop(5);
 
