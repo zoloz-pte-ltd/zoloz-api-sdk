@@ -25,7 +25,6 @@ package com.zoloz.api.sdk;
 import com.zoloz.api.sdk.api.UserGroupInAPI;
 import com.zoloz.api.sdk.model.UserGroupInRequest;
 import com.zoloz.api.sdk.model.UserGroupInResponse;
-import com.zoloz.api.sdk.model.FaceInfo;
 import org.junit.Test;
 
 /**
@@ -45,9 +44,7 @@ public class UserGroupInAPITest extends ApiBaseTest {
         request.setGroupId("default");
         request.setUid("28302310022");
         request.setFaceType("image");
-        FaceInfo face = new FaceInfo();
-        face.setFaceContent(getBase64ImageContent(FACE_URL));
-        request.setFace(face);
+        request.setFace(getBase64ImageContent(FACE_URL));
         request.setExtInfo("{\"phone\":\"1234567890\"}");
 
         UserGroupInResponse response = userGroupInAPI.in(request);
