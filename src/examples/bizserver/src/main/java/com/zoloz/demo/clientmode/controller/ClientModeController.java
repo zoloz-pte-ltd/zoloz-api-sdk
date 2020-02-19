@@ -1,0 +1,113 @@
+/*
+ * Copyright (c) 2020 ZOLOZ PTE.LTD.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package com.zoloz.demo.clientmode.controller;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.zoloz.api.sdk.client.OpenApiClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * TODO: description
+ *
+ * @Author: Zhongyang MA
+ * @Date: 2020-01-02 15:38
+ */
+@RestController
+@RequestMapping("/webapi")
+public class ClientModeController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ClientModeController.class);
+
+    @Autowired
+    private OpenApiClient openApiClient;
+
+    @RequestMapping(value = "/realIdDemoService/initialize", method = RequestMethod.POST)
+    public JSONObject realIdInit(@RequestBody JSONObject request) {
+        logger.info("request=" + request);
+        request.put("metaInfo", "{\"zimVer\":\"1.0.0\",\"appVersion\":\"5\",\"bioMetaInfo\":\"3.46.0:2916352,0\",\"appName\":\"com.zoloz.icbcmacao\",\"deviceType\":\"ios\",\"osVersion\":\"iOS 12.3.1\",\"apdidToken\":\"ZLZAFB89497FD7245B5820B550E2E6CE401\",\"deviceModel\":\"iPhone11,2\"}");
+        String response = openApiClient.callOpenApi(
+                "v1.zoloz.realid.initialize",
+                JSON.toJSONString(request)
+        );
+        logger.info("response=" + response);
+        return JSON.parseObject(response);
+    }
+
+    @RequestMapping(value = "/realIdDemoService/checkresult", method = RequestMethod.POST)
+    public JSONObject realIdCheck(@RequestBody JSONObject request) {
+        return JSON.parseObject(
+                openApiClient.callOpenApi(
+                        "v1.zoloz.realid.checkresult",
+                        JSON.toJSONString(request)
+                )
+        );
+    }
+
+    @RequestMapping(value = "/faceCapture/initialize", method = RequestMethod.POST)
+    public JSONObject faceInit(@RequestBody JSONObject request) {
+        return JSON.parseObject(
+                openApiClient.callOpenApi(
+                        "v1.zoloz.facecapture.initialize",
+                        JSON.toJSONString(request)
+                )
+        );
+    }
+
+    @RequestMapping(value = "/faceCapture/checkresult", method = RequestMethod.POST)
+    public JSONObject faceCheck(@RequestBody JSONObject request) {
+        return JSON.parseObject(
+                openApiClient.callOpenApi(
+                        "v1.zoloz.facecapture.checkresult",
+                        JSON.toJSONString(request)
+                )
+        );
+    }
+
+    @RequestMapping(value = "/docRecognition/initialize", method = RequestMethod.POST)
+    public JSONObject docInit(@RequestBody JSONObject request) {
+        return JSON.parseObject(
+                openApiClient.callOpenApi(
+                        "v1.zoloz.idrecognition.initialize",
+                        JSON.toJSONString(request)
+                )
+        );
+    }
+
+    @RequestMapping(value = "/docRecognition/checkresult", method = RequestMethod.POST)
+    public JSONObject docCheck(@RequestBody JSONObject request) {
+        return JSON.parseObject(
+                openApiClient.callOpenApi(
+                        "v1.zoloz.idrecognition.checkresult",
+                        JSON.toJSONString(request)
+                )
+        );
+    }
+
+}
