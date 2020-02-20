@@ -52,7 +52,7 @@ public class ClientModeController {
     public JSONObject realIdInit(@RequestBody JSONObject request) {
         logger.info("request=" + request);
         request.put("bizId", "test-biz-id");
-        request.put("metaInfo", "{\"zimVer\":\"1.0.0\",\"appVersion\":\"5\",\"bioMetaInfo\":\"3.46.0:2916352,0\",\"appName\":\"com.zoloz.icbcmacao\",\"deviceType\":\"ios\",\"osVersion\":\"iOS 12.3.1\",\"apdidToken\":\"ZLZAFB89497FD7245B5820B550E2E6CE401\",\"deviceModel\":\"iPhone11,2\"}");
+        request.put("metaInfo", "{\"zimVer\":\"1.0.0\",\"appVersion\":\"5\",\"bioMetaInfo\":\"3.46.0:2916352,2\",\"appName\":\"com.zoloz.icbcmacao\",\"deviceType\":\"ios\",\"osVersion\":\"iOS 12.3.1\",\"apdidToken\":\"ZLZAFB89497FD7245B5820B550E2E6CE401\",\"deviceModel\":\"iPhone11,2\"}");
         request.put("userId", "test-user-id");
         request.put("flowType", "REALIDLITE_KYC");
         request.put("docType", "00000001003");
