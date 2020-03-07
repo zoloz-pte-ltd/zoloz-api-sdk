@@ -34,13 +34,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TODO: description
+ * client mode controller
  *
  * @Author: Zhongyang MA
  * @Date: 2020-01-02 15:38
  */
 @RestController
-@RequestMapping("/webapi")
+@RequestMapping("/api")
 public class ClientModeController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientModeController.class);
@@ -48,40 +48,60 @@ public class ClientModeController {
     @Autowired
     private OpenApiClient openApiClient;
 
-    @RequestMapping(value = "/realIdDemoService/initialize", method = RequestMethod.POST)
+    @RequestMapping(value = "/realid/initialize", method = RequestMethod.POST)
     public JSONObject realIdInit(@RequestBody JSONObject request) {
 
         logger.info("request=" + request);
 
-        String dummyTransactionId = String.valueOf(System.currentTimeMillis());
-        request.put("bizId", dummyTransactionId);
-        request.put("flowType", "REALIDLITE_KYC");
-        request.put("docType", "00000001003");
-        request.put("pages", "1");
+        String metaInfo = request.getString("metaInfo");
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String userId = "dummy_userid_" + System.currentTimeMillis();
 
-        request.put("metaInfo", request.getString("metaInfo"));
-        request.put("userId", request.getString("userId"));
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("flowType", "REALIDLITE_KYC");
+        apiReq.put("docType", "00000001003");
+        apiReq.put("pages", "1");
+        apiReq.put("metaInfo", metaInfo);
+        apiReq.put("userId", userId);
 
-        String response = openApiClient.callOpenApi(
+        String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.realid.initialize",
-                JSON.toJSONString(request)
+                JSON.toJSONString(apiReq)
         );
 
-        logger.info("response=" + response);
-        return JSON.parseObject(response);
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        logger.info("response=" + apiRespStr);
+
+        return response;
     }
 
-    @RequestMapping(value = "/realIdDemoService/checkresult", method = RequestMethod.POST)
+    @RequestMapping(value = "/realid/checkresult", method = RequestMethod.POST)
     public JSONObject realIdCheck(@RequestBody JSONObject request) {
-        return JSON.parseObject(
-                openApiClient.callOpenApi(
-                        "v1.zoloz.realid.checkresult",
-                        JSON.toJSONString(request)
-                )
+
+        logger.info("request=" + request);
+
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String transactionId = request.getString("transactionId");
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("transactionId", transactionId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.realid.checkresult",
+                JSON.toJSONString(apiReq)
         );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        return response;
     }
 
-    @RequestMapping(value = "/faceCapture/initialize", method = RequestMethod.POST)
+    @RequestMapping(value = "/facecapture/initialize", method = RequestMethod.POST)
     public JSONObject faceInit(@RequestBody JSONObject request) {
         return JSON.parseObject(
                 openApiClient.callOpenApi(
