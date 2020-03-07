@@ -20,9 +20,9 @@
  * SOFTWARE.
  */
 
-package com.zoloz.demo.citiflow;
+package com.zoloz.demo.webekyc;
 
-import com.zoloz.demo.citiflow.beanconfig.ApiConfig;
+import com.zoloz.demo.webekyc.beanconfig.ApiConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;

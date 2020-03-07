@@ -33,7 +33,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zoloz.demo</groupId>
-    <artifactId>citiflow-example</artifactId>
+    <artifactId>web-sdk-example</artifactId>
 
     <dependencies>
         <dependency>

@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package com.zoloz.demo.citiflow.beanconfig;
+package com.zoloz.demo.webekyc.beanconfig;
 
 import com.zoloz.api.sdk.client.OpenApiClient;
 import org.springframework.context.annotation.Bean;
