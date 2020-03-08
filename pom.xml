@@ -13,6 +13,7 @@
         <module>src/examples/facecompare</module>
         <module>src/examples/idrecognize</module>
         <module>src/examples/bizserver</module>
+        <module>src/examples/bizserver_websdk</module>
         <module>src/examples/web-ekyc-example</module>
     </modules>
 

@@ -235,44 +235,11 @@ public class RealIdController {
             }
         }
 
-        // idnetwork
-        boolean riskChecked = false;
-        {
-            if(shallContinue) {
-                JSONObject apiReq = new JSONObject();
-                apiReq.put("bizId", bizId);
-                apiReq.put("merchantUserId", context.getMerchantUserId());
-                apiReq.put("faceCaptureTransactionId", context.getFaceTxId());
-                apiReq.put("docRecgnizeTransactionId", context.getDocTxId());
-                apiReq.put("faceCompareTransactionId", context.getFaceCompareTxId());
-                apiReq.put("mobileNumber", "");
-                apiReq.put("deviceModel", "");
-                apiReq.put("deviceId", "");
-                apiReq.put("lbs", "");
-                apiReq.put("ip", "");
-
-                String apiRespStr = openApiClient.callOpenApi(
-                        "v1.zoloz.condrisk.check", JSON.toJSONString(apiReq));
-                logger.info("OpenAPI risk response=" + apiRespStr);
-                JSONObject apiResp = JSON.parseObject(apiRespStr);
-
-                if("S".equals(apiResp.getJSONObject("result").getString("resultStatus"))) {
-                    context.setRisk(false);
-                    riskChecked = true;
-                } else if("RISKY".equals(apiResp.getJSONObject("result").getString("resultCode"))){
-                    context.setRisk(true);
-                    riskChecked = true;
-                } else {
-                    context.setRisk(false);
-                }
-            }
-        }
-
         // prepare api response
         JSONObject response = new JSONObject();
         response.put("samePerson", context.samePerson);
         response.put("score", context.score);
-        response.put("success", riskChecked);
+        response.put("success", true);
         response.put("risk", context.risk);
         response.put("faceImg", context.faceImg);
         response.put("docImg", context.docImg);
