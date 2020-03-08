@@ -41,9 +41,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = {"/api", "/webapi"})
-public class ClientModeController {
+public class NativeClientModeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientModeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(NativeClientModeController.class);
 
     @Autowired
     private OpenApiClient openApiClient;

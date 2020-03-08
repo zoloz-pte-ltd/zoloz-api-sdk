@@ -24,6 +24,7 @@ package com.zoloz.demo.clientmode.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import lombok.SneakyThrows;
 import org.apache.commons.lang.NotImplementedException;
@@ -31,8 +32,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +44,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 
 /**
  * web sdk controller
@@ -48,18 +53,19 @@ import java.net.URLEncoder;
  * @Date: 2020-03-08 14:55
  */
 @Controller
-public class WebSdkController {
+public class H5ClientModeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSdkController.class);
+    private static final Logger logger = LoggerFactory.getLogger(H5ClientModeController.class);
 
     @Autowired
     private OpenApiClient openApiClient;
 
     @SneakyThrows({UnsupportedEncodingException.class, URISyntaxException.class})
     @GetMapping(value = "/doc")
-    public RedirectView doc(
+    public String doc(
             @RequestParam(name = "doc_type", required = false) String docType,
-            HttpServletRequest request
+            HttpServletRequest request,
+            Model model
     ) {
 
         String bizId = String.valueOf(System.currentTimeMillis());
@@ -84,7 +90,7 @@ public class WebSdkController {
         String transactionId = apiResp.getString("transactionId");
         String clientCfg = apiResp.getString("clientCfg");
 
-        if("S".equals(apiResp.getJSONObject("result").getString("resultStatus"))) {
+        if ("S".equals(apiResp.getJSONObject("result").getString("resultStatus"))) {
             URI requestUri = new URI(request.getRequestURL().toString());
             URI callbackUri = new URI(
                     requestUri.getScheme(),
@@ -106,35 +112,19 @@ public class WebSdkController {
             sb.append("callbackurl=");
             sb.append(URLEncoder.encode(callbackUri.toString(), "UTF-8"));
 
-            RedirectView response = new RedirectView();
-            response.setUrl(sb.toString());
+            return "redirect:" + sb.toString();
+        } else {
+            model.addAttribute("result", apiRespStr);
+            model.addAttribute("title", "doc initialization error");
 
-            return response;
+            return "result";
         }
-        else {
-            throw new NotImplementedException("");
-        }
-    }
-
-    @GetMapping(value = "/doc_result.html")
-    public String docResult(@RequestParam(name = "state") String state) {
-        String bizId = String.valueOf(System.currentTimeMillis());
-        String transactionId = state;
-
-        JSONObject apiReq = new JSONObject();
-        apiReq.put("bizId", bizId);
-        apiReq.put("transactionId", transactionId);
-
-        String apiRespStr = openApiClient.callOpenApi(
-                "v1.zoloz.idrecognition.checkresult", JSON.toJSONString(apiReq));
-
-        return apiRespStr;
     }
 
 
     @SneakyThrows({UnsupportedEncodingException.class, URISyntaxException.class})
     @GetMapping(value = "/face")
-    public RedirectView face(HttpServletRequest request) {
+    public String face(HttpServletRequest request, Model model) {
 
         String bizId = String.valueOf(System.currentTimeMillis());
 
@@ -152,7 +142,7 @@ public class WebSdkController {
         String transactionId = apiResp.getString("transactionId");
         String clientCfg = apiResp.getString("clientCfg");
 
-        if("S".equals(apiResp.getJSONObject("result").getString("resultStatus"))) {
+        if ("S".equals(apiResp.getJSONObject("result").getString("resultStatus"))) {
             URI requestUri = new URI(request.getRequestURL().toString());
             URI callbackUri = new URI(
                     requestUri.getScheme(),
@@ -174,18 +164,17 @@ public class WebSdkController {
             sb.append("callbackurl=");
             sb.append(URLEncoder.encode(callbackUri.toString(), "UTF-8"));
 
-            RedirectView response = new RedirectView();
-            response.setUrl(sb.toString());
+            return "redirect:" + sb.toString();
+        } else {
+            model.addAttribute("result", apiRespStr);
+            model.addAttribute("title", "doc initialization error");
 
-            return response;
-        }
-        else {
-            throw new NotImplementedException("");
+            return "result";
         }
     }
 
     @GetMapping(value = "/face_result.html")
-    public String faceResult(@RequestParam(name = "state") String state) {
+    public String faceResult(@RequestParam(name = "state") String state, Model model) {
         String bizId = String.valueOf(System.currentTimeMillis());
         String transactionId = state;
 
@@ -196,5 +185,46 @@ public class WebSdkController {
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.facecapture.checkresult", JSON.toJSONString(apiReq));
 
-        return apiRespStr;
-    }}
+        model.addAttribute("result", JSON.toJSONString(
+                JSON.parseObject(apiRespStr),
+                SerializerFeature.PrettyFormat
+        ));
+        model.addAttribute("title", "face capturing done.");
+
+        return "result";
+    }
+
+    @GetMapping(value = "/doc_result.html")
+    public String docResult(@RequestParam(name = "state") String state, Model model) {
+        String bizId = String.valueOf(System.currentTimeMillis());
+        String transactionId = state;
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", bizId);
+        apiReq.put("transactionId", transactionId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.idrecognition.checkresult", JSON.toJSONString(apiReq));
+
+        model.addAttribute("result", JSON.toJSONString(
+                JSON.parseObject(apiRespStr),
+                SerializerFeature.PrettyFormat
+        ));
+        model.addAttribute("title", "doc recognizing done.");
+
+        return "result";
+    }
+
+    @GetMapping(value = "/test.html")
+    public String test(Model model) {
+        model.addAttribute("result", JSON.toJSONString(
+                JSON.parseObject(
+                "{\"foo\": \"bar\", \"n\": 3, \"arr\": [\"a\", \"b\", \"c\"]}"
+                ),
+                SerializerFeature.PrettyFormat
+        ));
+        model.addAttribute("title", "test");
+
+        return "result";
+    }
+}
