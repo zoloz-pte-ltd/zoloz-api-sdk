@@ -130,4 +130,71 @@ public class WebSdkController {
 
         return apiRespStr;
     }
-}
+
+
+    @SneakyThrows({UnsupportedEncodingException.class, URISyntaxException.class})
+    @GetMapping(value = "/face")
+    public RedirectView face(HttpServletRequest request) {
+
+        String bizId = String.valueOf(System.currentTimeMillis());
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", bizId);
+        apiReq.put("metaInfo", "MOB_H5");
+        apiReq.put("merchantUserId", "fixed-test-id");
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.facecapture.initialize",
+                JSON.toJSONString(apiReq)
+        );
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        String transactionId = apiResp.getString("transactionId");
+        String clientCfg = apiResp.getString("clientCfg");
+
+        if("S".equals(apiResp.getJSONObject("result").getString("resultStatus"))) {
+            URI requestUri = new URI(request.getRequestURL().toString());
+            URI callbackUri = new URI(
+                    requestUri.getScheme(),
+                    null,
+                    requestUri.getHost(),
+                    requestUri.getPort(),
+                    "/face_result.html",
+                    null,
+                    null
+            );
+
+            StringBuilder sb = new StringBuilder("https://zasia.oss-cn-beijing.aliyuncs.com/dev/zoloz-saas-face-demo/index.html?");
+            sb.append("state=");
+            sb.append(URLEncoder.encode(transactionId, "UTF-8"));
+            sb.append("&");
+            sb.append("clientcfg=");
+            sb.append(URLEncoder.encode(clientCfg, "UTF-8"));
+            sb.append("&");
+            sb.append("callbackurl=");
+            sb.append(URLEncoder.encode(callbackUri.toString(), "UTF-8"));
+
+            RedirectView response = new RedirectView();
+            response.setUrl(sb.toString());
+
+            return response;
+        }
+        else {
+            throw new NotImplementedException("");
+        }
+    }
+
+    @GetMapping(value = "/face_result.html")
+    public String faceResult(@RequestParam(name = "state") String state) {
+        String bizId = String.valueOf(System.currentTimeMillis());
+        String transactionId = state;
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", bizId);
+        apiReq.put("transactionId", transactionId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.facecapture.checkresult", JSON.toJSONString(apiReq));
+
+        return apiRespStr;
+    }}
