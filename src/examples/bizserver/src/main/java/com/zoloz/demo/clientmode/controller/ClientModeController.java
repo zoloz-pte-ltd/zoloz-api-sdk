@@ -54,8 +54,6 @@ public class ClientModeController {
         logger.info("request=" + request);
 
         String metaInfo = request.getString("metaInfo");
-        //String metaInfo = "{\"zimVer\":\"1.0.0\",\"appVersion\":\"5\",\"bioMetaInfo\":\"3.46.0:2916352,2\",\"appName\":\"com.zoloz.icbcmacao\",\"deviceType\":\"ios\",\"osVersion\":\"iOS 12.3.1\",\"apdidToken\":\"ZLZAFB89497FD7245B5820B550E2E6CE401\",\"deviceModel\":\"iPhone11,2\"}";
-        //String metaInfo = "{\"zimVer\":\"1.0.0\",\"appVersion\":\"5\",\"bioMetaInfo\":\"3.46.0:2916352,2\",\"appName\":\"com.zoloz.icbcmacao\",\"deviceType\":\"android\",\"osVersion\":\"2.8\",\"apdidToken\":\"ZLZAFB89497FD7245B5820B550E2E6CE401\",\"deviceModel\":\"iPhone11,2\"}";
         String businessId = "dummy_bizid_" + System.currentTimeMillis();
         String userId = "dummy_userid_" + System.currentTimeMillis();
 
@@ -75,6 +73,9 @@ public class ClientModeController {
         JSONObject apiResp = JSON.parseObject(apiRespStr);
 
         JSONObject response = new JSONObject(apiResp);
+        response.put("rsaPubKey", openApiClient.getOpenApiPublicKey());
+        response.put("transactionId", apiResp.getString("transactionId"));
+        response.put("clientCfg", apiResp.getString("clientCfg"));
         logger.info("response=" + apiRespStr);
 
         return response;
