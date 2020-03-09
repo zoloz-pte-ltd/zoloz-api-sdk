@@ -27,7 +27,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import lombok.SneakyThrows;
-import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +34,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 
 /**
  * web sdk controller
@@ -206,24 +201,24 @@ public class H5ClientModeController {
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.idrecognition.checkresult", JSON.toJSONString(apiReq));
 
-        model.addAttribute("result", JSON.toJSONString(
-                JSON.parseObject(apiRespStr),
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+        String imageContent = apiResp.getJSONObject("extInfo").getString("imageContent");
+        if (imageContent != null) {
+            model.addAttribute("image", "data:image/jpg;base64," + imageContent);
+            apiResp.getJSONObject("extInfo").remove("imageContent");
+        }
+        model.addAttribute("title", "doc recognizing done.");
+        model.addAttribute("result", "\n" + JSON.toJSONString(
+                apiResp,
                 SerializerFeature.PrettyFormat
         ));
-        model.addAttribute("title", "doc recognizing done.");
 
         return "result";
     }
 
-    @GetMapping(value = "/test.html")
-    public String test(Model model) {
-        model.addAttribute("result", JSON.toJSONString(
-                JSON.parseObject(
-                "{\"foo\": \"bar\", \"n\": 3, \"arr\": [\"a\", \"b\", \"c\"]}"
-                ),
-                SerializerFeature.PrettyFormat
-        ));
-        model.addAttribute("title", "test");
+    @GetMapping(value = "/index.html")
+    public String index(Model model) {
+        model.addAttribute("title", "Welcome to WebSDK Demo");
 
         return "result";
     }
