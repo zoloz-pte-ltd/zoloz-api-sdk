@@ -162,7 +162,7 @@ public class H5ClientModeController {
             return "redirect:" + sb.toString();
         } else {
             model.addAttribute("result", apiRespStr);
-            model.addAttribute("title", "doc initialization error");
+            model.addAttribute("title", "face initialization error");
 
             return "result";
         }
@@ -180,11 +180,17 @@ public class H5ClientModeController {
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.facecapture.checkresult", JSON.toJSONString(apiReq));
 
-        model.addAttribute("result", JSON.toJSONString(
-                JSON.parseObject(apiRespStr),
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+        String imageContent = apiResp.getJSONObject("extInfo").getString("imageContent");
+        if (imageContent != null) {
+            model.addAttribute("image", "data:image/jpg;base64," + imageContent);
+            apiResp.getJSONObject("extInfo").remove("imageContent");
+        }
+        model.addAttribute("title", "face capturing done.");
+        model.addAttribute("result", "\n" + JSON.toJSONString(
+                apiResp,
                 SerializerFeature.PrettyFormat
         ));
-        model.addAttribute("title", "face capturing done.");
 
         return "result";
     }
