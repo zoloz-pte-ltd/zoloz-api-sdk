@@ -10,10 +10,19 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>src/sdk</module>
+
+        <!-- BEGIN servermode examples -->
         <module>src/examples/facecompare</module>
         <module>src/examples/idrecognize</module>
-        <module>src/examples/bizserver</module>
-        <module>src/examples/web-ekyc-example</module>
+        <!-- END servermode examples -->
+
+        <!-- BEGIN clientmode examples -->
+        <module>src/examples/clientmode-bizserver</module>
+        <!-- END clientmode examples -->
+
+        <!-- BEGIN examples of complicated combination -->
+        <module>src/examples/webekyc-demo</module>
+        <!-- END examples of complicated combination -->
     </modules>
 
     <properties>

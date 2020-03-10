@@ -32,7 +32,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.zoloz.api.example</groupId>
+    <groupId>com.zoloz.example</groupId>
     <artifactId>zoloz-facecompare-example</artifactId>
 
     <dependencies>
