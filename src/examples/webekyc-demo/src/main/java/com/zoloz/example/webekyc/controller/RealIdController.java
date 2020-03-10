@@ -146,7 +146,7 @@ public class RealIdController {
             response.put("success", false);
         }
 
-        logger.info("check response=" + response);
+        logger.info("check response: " + apiResp.getJSONObject("result"));
         return response;
     }
 
@@ -243,7 +243,6 @@ public class RealIdController {
         response.put("faceImg", context.faceImg);
         response.put("docImg", context.docImg);
 
-        logger.info("check final response=" + response);
         return response;
     }
 }
