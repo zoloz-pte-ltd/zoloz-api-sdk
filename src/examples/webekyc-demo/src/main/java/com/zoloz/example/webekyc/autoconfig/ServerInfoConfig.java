@@ -20,53 +20,36 @@
  * SOFTWARE.
  */
 
-package com.zoloz.example.webekyc.beanconfig;
+package com.zoloz.example.webekyc.autoconfig;
 
-import com.zoloz.api.sdk.client.OpenApiClient;
-import com.zoloz.example.util.KeyUtil;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
+import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
- * auto configuraiton
+ * server information auto configuraiton
  *
  * @Author: jushi
  * @Date: 2020-02-19 16:46
  */
 @Configuration
-public class ApiClientConfig {
+public class ServerInfoConfig implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
 
-    @Value("${host.url:https://sg-production-api.zoloz.com}")
-    private String hostUrl = "https://sg-production-api.zoloz.com";
+    private Logger logger = LoggerFactory.getLogger(ServerInfoConfig.class);
 
-    @Value("${client.id}")
-    private String clientId;
-
-    @Value("${merchant.privkey.path}")
-    private String merchantPrivKeyPath;
-
-    @Value("${zoloz.pubkey.path:}")
-    private String zolozPubKeyPath = null;
-
-    @Value("${zoloz.pubkey:}")
-    private String zolozPubKey = null;
-
-
-    @Bean
-    public OpenApiClient client() {
-
-        if (zolozPubKey == null || zolozPubKey.isEmpty()) {
-            zolozPubKey = KeyUtil.loadKeyContent(zolozPubKeyPath);
+    @Override
+    @SneakyThrows(UnknownHostException.class)
+    public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        int port = event.getEmbeddedServletContainer().getPort();
+        if (logger.isInfoEnabled()) {
+            logger.info(String.format("Server started on %s:%d", ip, port));
         }
-        String merchantPrivateKey = KeyUtil.loadKeyContent(merchantPrivKeyPath);
-
-        OpenApiClient client = new OpenApiClient();
-        client.setHostUrl(hostUrl);
-        client.setClientId(clientId);
-        client.setOpenApiPublicKey(zolozPubKey);
-        client.setMerchantPrivateKey(merchantPrivateKey);
-
-        return client;
     }
 }

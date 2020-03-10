@@ -20,23 +20,36 @@
  * SOFTWARE.
  */
 
-package com.zoloz.example.webekyc;
+package com.zoloz.example.clientmode.autoconfig;
 
-import com.zoloz.example.webekyc.autoconfig.ApiClientConfig;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
+import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Configuration;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
- * application entry
+ * server information auto configuraiton
  *
  * @Author: jushi
- * @Date: 2020-02-19 16:21
+ * @Date: 2020-02-19 16:46
  */
-@Import(ApiClientConfig.class)
-@SpringBootApplication
-public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class,args);
+@Configuration
+public class ServerInfoConfig implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
+
+    private Logger logger = LoggerFactory.getLogger(ServerInfoConfig.class);
+
+    @Override
+    @SneakyThrows(UnknownHostException.class)
+    public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        int port = event.getEmbeddedServletContainer().getPort();
+        if (logger.isInfoEnabled()) {
+            logger.info(String.format("Server started on %s:%d", ip, port));
+        }
     }
 }
