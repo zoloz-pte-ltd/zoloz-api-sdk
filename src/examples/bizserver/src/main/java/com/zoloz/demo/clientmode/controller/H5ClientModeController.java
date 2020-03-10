@@ -97,7 +97,7 @@ public class H5ClientModeController {
                     null
             );
 
-            StringBuilder sb = new StringBuilder("https://zasia.oss-cn-beijing.aliyuncs.com/dev/zoloz-saas-doc-demo/index.html?");
+            StringBuilder sb = new StringBuilder("https://zasia.oss-cn-beijing.aliyuncs.com/prod/zoloz-saas-doc-demo/index.html?");
             sb.append("state=");
             sb.append(URLEncoder.encode(transactionId, "UTF-8"));
             sb.append("&");
@@ -149,7 +149,7 @@ public class H5ClientModeController {
                     null
             );
 
-            StringBuilder sb = new StringBuilder("https://zasia.oss-cn-beijing.aliyuncs.com/dev/zoloz-saas-face-demo/index.html?");
+            StringBuilder sb = new StringBuilder("https://zasia.oss-cn-beijing.aliyuncs.com/prod/zoloz-saas-face-demo/index.html?");
             sb.append("state=");
             sb.append(URLEncoder.encode(transactionId, "UTF-8"));
             sb.append("&");
