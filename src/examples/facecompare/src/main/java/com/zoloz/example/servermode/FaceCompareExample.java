@@ -36,12 +36,12 @@ import java.io.IOException;
 import java.util.Base64;
 
 /**
- * FaceCompareDemo of Face Compare
+ * Example of Face Compare
  *
  * @Author: jushi
  * @Date: 2020-02-05 14:56
  */
-public class FaceCompareDemo {
+public class FaceCompareExample {
 
     public static void main(String[] args) {
 

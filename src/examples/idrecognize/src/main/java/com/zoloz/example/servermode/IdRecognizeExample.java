@@ -33,16 +33,14 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
- * Demo of ID Recognize
+ * Example of ID Recognize
  *
  * @Author: jushi
  * @Date: 2020-02-05 14:56
  */
-public class IdRecognizeDemo {
+public class IdRecognizeExample {
 
     public static void main(String[] args) {
 
