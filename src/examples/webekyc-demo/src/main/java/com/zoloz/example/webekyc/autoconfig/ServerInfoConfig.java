@@ -20,35 +20,36 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model;
+package com.zoloz.example.webekyc.autoconfig;
 
-import lombok.Data;
+import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Configuration;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
- * Create by yaomeng on 2020-02-05 12:54
+ * server information auto configuraiton
  *
- * @author yaomeng
+ * @Author: jushi
+ * @Date: 2020-02-19 16:46
  */
-@Data
-public class FaceSearchRequest {
-    // group ID，if null server will use "default"
-    private String groupId;
-    // face type, Please use "image"
-    private String faceType;
-    // face
-    private String face;
+@Configuration
+public class ServerInfoConfig implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
 
-    /**
-     * comparison score, similar search result should be greater than or equals to this comparison score
-     * "85"
-     */
-    private String score;
-    /**
-     * respond comparison result will be sorted by similarity score and ordered from top to buttom
-     * 5
-     */
-    private int top;
+    private Logger logger = LoggerFactory.getLogger(ServerInfoConfig.class);
 
-    // ext info, suggest json format
-    private String extInfo;
+    @Override
+    @SneakyThrows(UnknownHostException.class)
+    public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        int port = event.getEmbeddedServletContainer().getPort();
+        if (logger.isInfoEnabled()) {
+            logger.info(String.format("Server started on %s:%d", ip, port));
+        }
+    }
 }

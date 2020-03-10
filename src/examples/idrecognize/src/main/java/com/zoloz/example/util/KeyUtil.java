@@ -20,35 +20,41 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model;
+package com.zoloz.example.util;
 
-import lombok.Data;
+import lombok.SneakyThrows;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
- * Create by yaomeng on 2020-02-05 12:54
+ * key loading utility
  *
- * @author yaomeng
+ * @Author: jushi
+ * @Date: 2020-03-10 15:20
  */
-@Data
-public class FaceSearchRequest {
-    // group ID，if null server will use "default"
-    private String groupId;
-    // face type, Please use "image"
-    private String faceType;
-    // face
-    private String face;
+public class KeyUtil {
 
     /**
-     * comparison score, similar search result should be greater than or equals to this comparison score
-     * "85"
+     * load RSA key content from (pem or base64) file
+     *
+     * @param keyPath path of pem file
+     * @return base64 encoded content of the key
+     * @throws IOException
      */
-    private String score;
-    /**
-     * respond comparison result will be sorted by similarity score and ordered from top to buttom
-     * 5
-     */
-    private int top;
+    @SneakyThrows(IOException.class)
+    public static String loadKeyContent(String keyPath) {
 
-    // ext info, suggest json format
-    private String extInfo;
+        String content = FileUtils.readFileToString(new File(keyPath), "UTF-8");
+
+        String[] lines = content.split("\n");
+        String parsed = Stream.of(lines)
+                .filter(line -> !line.startsWith("--"))
+                .collect(Collectors.joining(""));
+
+        return parsed;
+    }
 }

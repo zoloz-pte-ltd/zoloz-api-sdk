@@ -37,8 +37,8 @@ public class UserGroupInRequest {
     private String uid;
     // face type, Please use "image"
     private String faceType;
-    // face info
-    private FaceInfo face;
+    // face
+    private String face;
     // ext info, suggest json format
     private String extInfo;
 }
