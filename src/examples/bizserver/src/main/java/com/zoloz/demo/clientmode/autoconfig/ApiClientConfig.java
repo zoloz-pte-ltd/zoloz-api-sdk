@@ -41,7 +41,7 @@ import java.util.stream.Stream;
  * @Date: 2020-02-19 16:46
  */
 @Configuration
-public class BizAutoConfig {
+public class ApiClientConfig {
 
     @Value("${host.url:https://sg-production-api.zoloz.com}")
     private String hostUrl = "https://sg-production-api.zoloz.com";
