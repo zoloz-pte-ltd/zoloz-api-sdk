@@ -22,7 +22,7 @@
 
 package com.zoloz.demo.webekyc;
 
-import com.zoloz.demo.webekyc.beanconfig.ApiConfig;
+import com.zoloz.demo.webekyc.beanconfig.ApiClientConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Import;
  * @Author: jushi
  * @Date: 2020-02-19 16:21
  */
-@Import(ApiConfig.class)
+@Import(ApiClientConfig.class)
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
