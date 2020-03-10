@@ -204,13 +204,14 @@ public class RealIdController {
             String apiRespStr = openApiClient.callOpenApi(
                     "v1.zoloz.facecapture.checkresult", JSON.toJSONString(apiReq));
             JSONObject apiResp = JSON.parseObject(apiRespStr);
-            String faceImage = apiResp.getJSONObject("extInfo").getString("imageContent");
 
-            context.setFaceImg(faceImage);
+            if("S".equals(apiResp.getJSONObject("result").getString("resultStatus"))) {
+                String faceImage = apiResp.getJSONObject("extInfo").getString("imageContent");
+                context.setFaceImg(faceImage);
+            }
         }
 
         // face compare
-        boolean shallContinue = true;
         {
             JSONObject apiReq = new JSONObject();
             apiReq.put("bizId", bizId);
@@ -230,8 +231,6 @@ public class RealIdController {
                 context.setSamePerson(apiResp.getBoolean("samePerson"));
                 context.setScore(apiResp.getDouble("score"));
                 context.setFaceCompareTxId(apiResp.getString("transactionId"));
-            } else {
-                shallContinue = false;
             }
         }
 
