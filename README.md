@@ -55,7 +55,7 @@ java \
 
 ##### 2. Inspect host information:
 
-Find "Server started on <ip>:<host>" pattern from the output of the business server, for example:
+Find "Server started on \<ip\>:\<host\>" pattern from the output of the business server, for example:
 
 ![console output snapshot](https://user-images.githubusercontent.com/58500810/76392242-1c630e80-63ac-11ea-8251-b45fb23f955e.png)
 
@@ -134,7 +134,7 @@ java \
 
 ##### 2. Inspect host information:
 
-Find "Server started on <ip>:<host>" pattern from the output of the business server, for example:
+Find "Server started on \<ip\>:\<host\>" pattern from the output of the business server, for example:
 
 ![console output snapshot](https://user-images.githubusercontent.com/58500810/76392242-1c630e80-63ac-11ea-8251-b45fb23f955e.png)
 
