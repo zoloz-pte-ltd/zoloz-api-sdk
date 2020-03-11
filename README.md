@@ -72,7 +72,7 @@ java \
 
 ##### 2. Inspect host information:
 
-Find "Server started on <ip>:<host>" pattern from the output of the business server, for example:
+Find "Server started on \<ip\>:\<host\>" pattern from the output of the business server, for example:
 
 ![server info example][1]
 
@@ -151,7 +151,7 @@ java \
 
 ##### 2. Inspect host information:
 
-Find "Server started on <ip>:<host>" pattern from the output of the business server, for example:
+Find "Server started on \<ip\>:\<host\>" pattern from the output of the business server, for example:
 
 ![server info example][1]
 
