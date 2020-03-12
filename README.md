@@ -24,6 +24,9 @@ Upload _src/sdk/target/zoloz-api-sdk-1.0-SNAPSHOT.jar_ to your central Maven rep
 
 ## Examples Usage
 ### FaceCompare Example
+#### Prequisite
+- JDK 1.8
+
 Execute following command:
 
 ```sh
@@ -36,6 +39,9 @@ java -jar src/examples/facecompare/target/zoloz-facecompare-example-1.0-SNAPSHOT
 ```
 
 ### IdRecognize Example
+#### Prequisite
+- JDK 1.8
+
 Execute following command:
 
 ```sh
