@@ -27,7 +27,7 @@ Upload _src/sdk/target/zoloz-api-sdk-1.0-SNAPSHOT.jar_ to your central Maven rep
 Execute following command:
 
 ```sh
-java -jar src/examples/idrecognize/target/zoloz-idrecognize-example-1.0-SNAPSHOT.jar \
+java -jar src/examples/facecompare/target/zoloz-facecompare-example-1.0-SNAPSHOT.jar \
   -c <client_id> \
   -p <zoloz_public_key_content> \
   -k <merchant_private_key_path> \
@@ -39,7 +39,7 @@ java -jar src/examples/idrecognize/target/zoloz-idrecognize-example-1.0-SNAPSHOT
 Execute following command:
 
 ```sh
-java -jar src/examples/facecompare/target/zoloz-facecompare-example-1.0-SNAPSHOT.jar \
+java -jar src/examples/idrecognize/target/zoloz-idrecognize-example-1.0-SNAPSHOT.jar \
   -c <client_id> \
   -p <zoloz_public_key_content> \
   -k <merchant_private_key_path> \
