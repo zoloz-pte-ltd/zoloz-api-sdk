@@ -29,6 +29,7 @@ import com.zoloz.api.sdk.model.FaceCompareResponse;
 
 import com.zoloz.example.util.KeyUtil;
 import lombok.SneakyThrows;
+import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -45,27 +46,57 @@ public class FaceCompareExample {
 
     public static void main(String[] args) {
 
+        // create Options object
+        Options options = new Options();
+        options.addOption("c", true, "The client id");
+        options.addOption("p", true, "The base64 content of the zoloz public key");
+        options.addOption("k", true, "The path of the merchant private key");
+        options.addOption("a", true, "The path of 1st face image to be compared");
+        options.addOption("b", true, "The path of 2nd face image to be compared");
+        options.addOption(new Option("e", true, "The endpoint of the zoloz service"){{
+            setRequired(false);
+        }});
+
+        CommandLine cmd = null;
+        try {
+            cmd = new DefaultParser().parse(options, args);
+        }
+        catch (ParseException ex) {
+            // automatically generate the help statement
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp( "facecompare " +
+                    "-c <client_id> " +
+                    "-p <zoloz_public_key_content> " +
+                    "-k <merchant_private_key_path> " +
+                    "-a <face1_image_path> " +
+                    "-b <face2_image_path> " +
+                    "[-e <zoloz_service_endpoint>]",
+                    options );
+            System.exit(-1);
+        }
+
         // initialize OpenApiClient
-        String clientId = "<your client ID>";
-        String zolozPublicKey = "<ZOLOZ transaction public key>";
-        String merchantPrivateKeyPath = "<absolute path of your private key file>";
+        String clientId = cmd.getOptionValue("c");
+        String zolozPublicKey = cmd.getOptionValue("p");
+        String merchantPrivateKeyPath = cmd.getOptionValue("k");
         String merchantPrivateKey = KeyUtil.loadKeyContent(merchantPrivateKeyPath);
+        String endpointUrl = cmd.getOptionValue("e", "https://sg-production-api.zoloz.com");
 
         // construct with signature and encryption by default
         OpenApiClient client = new OpenApiClient();
-        client.setHostUrl("https://sg-production-api.zoloz.com");
+        client.setHostUrl(endpointUrl);
         client.setClientId(clientId);
         client.setMerchantPrivateKey(merchantPrivateKey);
         client.setOpenApiPublicKey(zolozPublicKey);
-        //client.setSigned(false);     // signature (of response) validation can be turned off
+        client.setSigned(true);     // signature (of response) validation can be turned off
         //client.setEncrypted(false);  // encryption can be turned off
 
         // initialize FaceCompareApi
         FaceCompareAPI faceCompareApi = new FaceCompareAPI(client);
 
         // prepare api request
-        String face1ImgPath = "/path/to/face1.jpg";
-        String face2ImgPath = "/path/to/face2.jpg";
+        String face1ImgPath = cmd.getOptionValue("a");
+        String face2ImgPath = cmd.getOptionValue("b");
 
         FaceCompareRequest request = new FaceCompareRequest();
         request.setBizId("biz-id-12345");  // for tracing purpose, it is recommended to use a global unique id
