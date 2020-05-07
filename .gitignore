@@ -17,3 +17,5 @@ test.log*
 # OS files
 **/.DS_Store
 
+# script for local test
+.scripts
