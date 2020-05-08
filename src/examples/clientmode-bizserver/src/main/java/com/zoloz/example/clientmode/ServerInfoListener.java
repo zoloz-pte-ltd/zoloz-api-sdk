@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package com.zoloz.example.clientmode.autoconfig;
+package com.zoloz.example.clientmode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,15 +34,14 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
- * server information auto configuraiton
+ * server information listener
  *
  * @Author: jushi
  * @Date: 2020-02-19 16:46
  */
-@Configuration
-public class ServerInfoConfig implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
+public class ServerInfoListener implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
 
-    private Logger logger = LoggerFactory.getLogger(ServerInfoConfig.class);
+    private Logger logger = LoggerFactory.getLogger(ServerInfoListener.class);
 
     @Override
     public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
