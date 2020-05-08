@@ -28,6 +28,7 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerInitial
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -56,10 +57,13 @@ public class ServerInfoListener implements ApplicationListener<EmbeddedServletCo
                 Enumeration<InetAddress> addresses = ifc.getInetAddresses();
                 while (addresses.hasMoreElements()) {
 
-                    String ip = addresses.nextElement().getHostAddress();
+                    InetAddress address = addresses.nextElement();
+                    if (address instanceof Inet4Address) {
 
-                    if (logger.isInfoEnabled()) {
-                        logger.info(String.format("Server started on %s:%d", ip, port));
+                        String ip = address.getHostAddress();
+                        if (logger.isInfoEnabled()) {
+                            logger.info(String.format("Server started on %s:%d", ip, port));
+                        }
                     }
                 }
             }
