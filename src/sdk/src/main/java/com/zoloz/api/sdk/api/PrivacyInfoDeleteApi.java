@@ -27,6 +27,12 @@ import com.alibaba.fastjson.JSON;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.api.sdk.model.PrivacyInfoDeleteRequest;
 import com.zoloz.api.sdk.model.PrivacyInfoDeleteResponse;
+
+/**
+ * PrivacyInfoDeleteApi
+ * @author lzcc2003
+ * @date 2020年5月19日 下午11:45:26
+ */
 public class PrivacyInfoDeleteApi {
 
     private static final String API_NAME = "v1.zoloz.privacyinfo.delete";

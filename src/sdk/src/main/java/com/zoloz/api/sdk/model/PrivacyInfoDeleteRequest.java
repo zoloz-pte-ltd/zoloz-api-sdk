@@ -23,6 +23,11 @@
 package com.zoloz.api.sdk.model;
 
 import lombok.Data;
+
+/**
+ * @author lzcc2003
+ * @date 2020年5月19日 下午11:46:23
+ */
 @Data
 public class PrivacyInfoDeleteRequest {
 

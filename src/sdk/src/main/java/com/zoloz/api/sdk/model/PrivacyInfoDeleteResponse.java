@@ -24,6 +24,11 @@ package com.zoloz.api.sdk.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+/**
+ * @author lzcc2003
+ * @date 2020年5月19日 下午11:47:55
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PrivacyInfoDeleteResponse extends OpenApiCommonResult{
