@@ -27,26 +27,19 @@ import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.api.sdk.model.PrivacyInfoDeleteRequest;
 import com.zoloz.api.sdk.model.PrivacyInfoDeleteResponse;
 import com.zoloz.example.util.KeyUtil;
-
-/**
- * Example of PrivacyInfoDeleteApi
- *
- * @Author: jushi
- * @Date: 2020-02-05 14:56
- */
 public class PrivacyInfoDeleteExample {
 
     public static void main(String[] args) {
 
         // initialize OpenApiClient
-        String clientId = "<your client ID>";
-        String zolozPublicKey = "<ZOLOZ transaction public key>";
-        String merchantPrivateKeyPath = "<absolute path of your private key file>";
+        String clientId = "2188431467525717";
+        String zolozPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh4tncNKsWRONyMuptHG1FbXjq8MK06IONCMn+zyVJA+UpO8jaGqJcbot401+Gog7YZ50EjcHKopQCcBmo1lAc7qBHmY/EJRm/l4lQuFolJDxBbUWNtT/8SPORuAdFJ8hm8avKvZcJ85ZZVb6csW9DnmrGYKAguNLBsjWepEv+xjzKu2H01n3dKknYPI4eY6hEYhiKVwKZnq+WLf0n5TCUKYSUky/G2InP+u/IZMHaJKydpzFqrd6gUfbwdAFoND8e2OsoNgqxmoiE6MPT0W47wZ8V8mQdhDowNW/hIkvEbhm1fPlq4oB9Tkxid1RtzUPYkUsNpGz39JQmPbDpZteCwIDAQAB";
+        String merchantPrivateKeyPath = "/Users/lzcc2003/Downloads/merchant_private_key_dev.pem";
         String merchantPrivateKey = KeyUtil.loadKeyContent(merchantPrivateKeyPath);
 
         // construct with signature and encryption by default
         OpenApiClient client = new OpenApiClient();
-        client.setHostUrl("https://sg-production-api.zoloz.com");
+        client.setHostUrl("https://sg-dev-api.zoloz.net");
         client.setClientId(clientId);
         client.setMerchantPrivateKey(merchantPrivateKey);
         client.setOpenApiPublicKey(zolozPublicKey);
@@ -57,7 +50,7 @@ public class PrivacyInfoDeleteExample {
         PrivacyInfoDeleteApi deleteApi = new PrivacyInfoDeleteApi(client);
 
         PrivacyInfoDeleteRequest request = new PrivacyInfoDeleteRequest();
-        request.setTransactionId("G000000003FID20200518000000000003640905");  // set transactionId
+        request.setTransactionId("G000000001FRL20200517000000000021000895");  // set transactionId
 
         // call api
         PrivacyInfoDeleteResponse response = deleteApi.delete(request);
