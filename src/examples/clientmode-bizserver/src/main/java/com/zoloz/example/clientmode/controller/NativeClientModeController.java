@@ -24,6 +24,7 @@ package com.zoloz.example.clientmode.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
 import com.zoloz.api.sdk.client.OpenApiClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,4 +107,27 @@ public class NativeClientModeController {
         return response;
     }
 
+
+    @RequestMapping(value = "/privacyinfo/delete", method = RequestMethod.POST)
+    public JSONObject privacyInfoDelete(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String transactionId = request.getString("transactionId");
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("transactionId", transactionId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.privacyinfo.delete",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        return response;
+    }
 }
