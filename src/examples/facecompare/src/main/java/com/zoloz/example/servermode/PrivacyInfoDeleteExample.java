@@ -29,7 +29,7 @@ import com.zoloz.api.sdk.model.PrivacyInfoDeleteResponse;
 import com.zoloz.example.util.KeyUtil;
 
 /**
- * Example of Face Compare
+ * Example of PrivacyInfoDeleteApi
  *
  * @Author: jushi
  * @Date: 2020-02-05 14:56
@@ -53,7 +53,7 @@ public class PrivacyInfoDeleteExample {
         //client.setSigned(false);     // signature (of response) validation can be turned off
         //client.setEncrypted(false);  // encryption can be turned off
 
-        // initialize FaceCompareApi
+        // initialize PrivacyInfoDeleteApi
         PrivacyInfoDeleteApi deleteApi = new PrivacyInfoDeleteApi(client);
 
         PrivacyInfoDeleteRequest request = new PrivacyInfoDeleteRequest();
