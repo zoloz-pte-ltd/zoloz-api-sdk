@@ -27,14 +27,18 @@ import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.api.sdk.model.PrivacyInfoDeleteRequest;
 import com.zoloz.api.sdk.model.PrivacyInfoDeleteResponse;
 import com.zoloz.example.util.KeyUtil;
+
+/**
+ * PrivacyInfoDelete example
+ */
 public class PrivacyInfoDeleteExample {
 
     public static void main(String[] args) {
 
         // initialize OpenApiClient
-        String clientId = "2188431467525717";
-        String zolozPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh4tncNKsWRONyMuptHG1FbXjq8MK06IONCMn+zyVJA+UpO8jaGqJcbot401+Gog7YZ50EjcHKopQCcBmo1lAc7qBHmY/EJRm/l4lQuFolJDxBbUWNtT/8SPORuAdFJ8hm8avKvZcJ85ZZVb6csW9DnmrGYKAguNLBsjWepEv+xjzKu2H01n3dKknYPI4eY6hEYhiKVwKZnq+WLf0n5TCUKYSUky/G2InP+u/IZMHaJKydpzFqrd6gUfbwdAFoND8e2OsoNgqxmoiE6MPT0W47wZ8V8mQdhDowNW/hIkvEbhm1fPlq4oB9Tkxid1RtzUPYkUsNpGz39JQmPbDpZteCwIDAQAB";
-        String merchantPrivateKeyPath = "/Users/lzcc2003/Downloads/merchant_private_key_dev.pem";
+        String clientId = "<your client ID>";
+        String zolozPublicKey = "<ZOLOZ transaction public key>";
+        String merchantPrivateKeyPath = "<absolute path of your private key file>";
         String merchantPrivateKey = KeyUtil.loadKeyContent(merchantPrivateKeyPath);
 
         // construct with signature and encryption by default

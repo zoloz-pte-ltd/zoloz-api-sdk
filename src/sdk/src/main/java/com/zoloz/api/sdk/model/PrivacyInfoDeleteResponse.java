@@ -26,6 +26,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * PrivacyInfoDeleteResponse response
  * @author lzcc2003
  * @date 2020年5月19日 下午11:47:55
  */
