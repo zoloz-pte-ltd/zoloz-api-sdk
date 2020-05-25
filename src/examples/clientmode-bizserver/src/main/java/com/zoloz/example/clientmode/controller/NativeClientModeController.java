@@ -91,10 +91,12 @@ public class NativeClientModeController {
 
         String businessId = "dummy_bizid_" + System.currentTimeMillis();
         String transactionId = request.getString("transactionId");
+        String isReturnImage = request.getString("isReturnImage");
 
         JSONObject apiReq = new JSONObject();
         apiReq.put("bizId", businessId);
         apiReq.put("transactionId", transactionId);
+        apiReq.put("isReturnImage", isReturnImage);
 
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.realid.checkresult",
