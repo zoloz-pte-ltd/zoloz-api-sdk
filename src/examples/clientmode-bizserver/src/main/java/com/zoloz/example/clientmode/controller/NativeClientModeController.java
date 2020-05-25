@@ -63,6 +63,7 @@ public class NativeClientModeController {
         JSONObject apiReq = new JSONObject();
         apiReq.put("bizId", businessId);
         apiReq.put("flowType", "REALIDLITE_KYC");
+        //apiReq.put("docType", "08520000002");
         apiReq.put("docType", "00000001003");
         apiReq.put("pages", "1");
         apiReq.put("metaInfo", metaInfo);
@@ -91,10 +92,12 @@ public class NativeClientModeController {
 
         String businessId = "dummy_bizid_" + System.currentTimeMillis();
         String transactionId = request.getString("transactionId");
+        String isReturnImage = request.getString("isReturnImage");
 
         JSONObject apiReq = new JSONObject();
         apiReq.put("bizId", businessId);
         apiReq.put("transactionId", transactionId);
+        apiReq.put("isReturnImage", isReturnImage);
 
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.realid.checkresult",
