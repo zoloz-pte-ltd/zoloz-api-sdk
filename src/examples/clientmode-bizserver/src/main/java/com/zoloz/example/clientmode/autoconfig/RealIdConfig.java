@@ -22,34 +22,23 @@
 
 package com.zoloz.example.clientmode.autoconfig;
 
-import lombok.SneakyThrows;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
-import org.springframework.context.ApplicationListener;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 /**
- * server information auto configuraiton
+ * realid configuraiton
  *
  * @Author: jushi
- * @Date: 2020-02-19 16:46
+ * @Date: 2020-05-08 10:32
  */
 @Configuration
-public class ServerInfoConfig implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
+public class RealIdConfig {
 
-    private Logger logger = LoggerFactory.getLogger(ServerInfoConfig.class);
-
-    @Override
-    @SneakyThrows(UnknownHostException.class)
-    public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
-        String ip = InetAddress.getLocalHost().getHostAddress();
-        int port = event.getEmbeddedServletContainer().getPort();
-        if (logger.isInfoEnabled()) {
-            logger.info(String.format("Server started on %s:%d", ip, port));
-        }
-    }
+    /**
+     * document type, passport by default
+     */
+    @Getter
+    @Value("${realid.doctype:00000001003}")
+    private String docType = "00000001003";
 }

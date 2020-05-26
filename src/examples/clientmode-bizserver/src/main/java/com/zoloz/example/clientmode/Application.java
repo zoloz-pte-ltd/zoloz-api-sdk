@@ -23,6 +23,7 @@
 package com.zoloz.example.clientmode;
 
 import com.zoloz.example.clientmode.autoconfig.ApiClientConfig;
+import com.zoloz.example.clientmode.autoconfig.RealIdConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
@@ -33,7 +34,7 @@ import org.springframework.context.annotation.Import;
  * @Author: jushi
  * @Date: 2020-02-19 16:21
  */
-@Import(ApiClientConfig.class)
+@Import({ServerInfoListener.class, ApiClientConfig.class, RealIdConfig.class})
 @SpringBootApplication
 public class Application {
 

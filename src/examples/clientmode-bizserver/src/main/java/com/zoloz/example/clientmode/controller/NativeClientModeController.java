@@ -26,6 +26,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import com.zoloz.api.sdk.client.OpenApiClient;
+import com.zoloz.example.clientmode.autoconfig.RealIdConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,9 @@ public class NativeClientModeController {
     @Autowired
     private OpenApiClient openApiClient;
 
+    @Autowired
+    private RealIdConfig realIdConfig;
+
     @RequestMapping(value = {"/realid/initialize","/realIdDemoService/initialize"}, method = RequestMethod.POST)
     public JSONObject realIdInit(@RequestBody JSONObject request) {
 
@@ -63,7 +67,7 @@ public class NativeClientModeController {
         JSONObject apiReq = new JSONObject();
         apiReq.put("bizId", businessId);
         apiReq.put("flowType", "REALIDLITE_KYC");
-        apiReq.put("docType", "00000001003");
+        apiReq.put("docType", realIdConfig.getDocType());
         apiReq.put("pages", "1");
         apiReq.put("metaInfo", metaInfo);
         apiReq.put("userId", userId);
