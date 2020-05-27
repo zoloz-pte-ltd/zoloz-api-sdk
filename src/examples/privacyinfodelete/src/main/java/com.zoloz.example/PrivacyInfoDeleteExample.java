@@ -20,30 +20,68 @@
  * SOFTWARE.
  */
 
-package com.zoloz.example.servermode;
+package com.zoloz.example;
 
 import com.zoloz.api.sdk.api.PrivacyInfoDeleteApi;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.api.sdk.model.PrivacyInfoDeleteRequest;
 import com.zoloz.api.sdk.model.PrivacyInfoDeleteResponse;
 import com.zoloz.example.util.KeyUtil;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 /**
- * PrivacyInfoDelete example
+ * Example of Privacy Information Delete
+ *
+ * @Author: jushi
+ * @Date: 2020-05-27 19:05
  */
 public class PrivacyInfoDeleteExample {
 
     public static void main(String[] args) {
 
+
+        // create Options object
+        Options options = new Options();
+        options.addOption("c", true, "The client id");
+        options.addOption("p", true, "The base64 content of the zoloz public key");
+        options.addOption("k", true, "The path of the merchant private key");
+        options.addOption("t", true, "The transaction id");
+        options.addOption(new Option("e", true, "The endpoint of the zoloz service"){{
+            setRequired(false);
+        }});
+
+        CommandLine cmd = null;
+        try {
+            cmd = new DefaultParser().parse(options, args);
+        }
+        catch (ParseException ex) {
+            // automatically generate the help statement
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp( "facecompare " +
+                            "-c <client_id> " +
+                            "-p <zoloz_public_key_content> " +
+                            "-k <merchant_private_key_path> " +
+                            "-t <transaction_id> " +
+                            "[-e <zoloz_service_endpoint>]",
+                    options );
+            System.exit(-1);
+        }
+
         // initialize OpenApiClient
-        String clientId = "<your client ID>";
-        String zolozPublicKey = "<ZOLOZ transaction public key>";
-        String merchantPrivateKeyPath = "<absolute path of your private key file>";
+        String clientId = cmd.getOptionValue("c");
+        String zolozPublicKey = cmd.getOptionValue("p");
+        String merchantPrivateKeyPath = cmd.getOptionValue("k");
         String merchantPrivateKey = KeyUtil.loadKeyContent(merchantPrivateKeyPath);
+        String endpointUrl = cmd.getOptionValue("e", "https://sg-production-api.zoloz.com");
 
         // construct with signature and encryption by default
         OpenApiClient client = new OpenApiClient();
-        client.setHostUrl("https://sg-dev-api.zoloz.net");
+        client.setHostUrl(endpointUrl);
         client.setClientId(clientId);
         client.setMerchantPrivateKey(merchantPrivateKey);
         client.setOpenApiPublicKey(zolozPublicKey);
@@ -53,8 +91,11 @@ public class PrivacyInfoDeleteExample {
         // initialize PrivacyInfoDeleteApi
         PrivacyInfoDeleteApi deleteApi = new PrivacyInfoDeleteApi(client);
 
+        // get transaction id
+        String transactionId = cmd.getOptionValue("t");
+
         PrivacyInfoDeleteRequest request = new PrivacyInfoDeleteRequest();
-        request.setTransactionId("G000000001FRL20200517000000000021000895");  // set transactionId
+        request.setTransactionId(transactionId);
 
         // call api
         PrivacyInfoDeleteResponse response = deleteApi.delete(request);
