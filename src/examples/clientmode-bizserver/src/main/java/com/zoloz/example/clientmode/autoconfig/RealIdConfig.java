@@ -20,25 +20,25 @@
  * SOFTWARE.
  */
 
-package com.zoloz.example.clientmode;
+package com.zoloz.example.clientmode.autoconfig;
 
-import com.zoloz.example.clientmode.autoconfig.ApiClientConfig;
-import com.zoloz.example.clientmode.autoconfig.RealIdConfig;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * application entry
+ * realid configuraiton
  *
  * @Author: jushi
- * @Date: 2020-02-19 16:21
+ * @Date: 2020-05-08 10:32
  */
-@Import({ServerInfoListener.class, ApiClientConfig.class, RealIdConfig.class})
-@SpringBootApplication
-public class Application {
+@Configuration
+public class RealIdConfig {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class,args);
-    }
+    /**
+     * document type, passport by default
+     */
+    @Getter
+    @Value("${realid.doctype:00000001003}")
+    private String docType = "00000001003";
 }

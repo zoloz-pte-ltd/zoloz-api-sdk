@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * auto configuraiton
+ * api client configuraiton
  *
  * @Author: jushi
  * @Date: 2020-02-19 16:46
