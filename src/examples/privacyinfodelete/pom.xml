@@ -33,7 +33,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zoloz.example</groupId>
-    <artifactId>zoloz-idrecognize-example</artifactId>
+    <artifactId>zoloz-privacydelete-example</artifactId>
 
     <dependencies>
         <dependency>
