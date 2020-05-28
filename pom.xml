@@ -22,7 +22,7 @@
 
         <!-- BEGIN examples of complicated combination -->
         <module>src/examples/webekyc-demo</module>
-        <module>src/examples/privacydelete</module>
+        <module>src/examples/privacyinfodelete</module>
         <!-- END examples of complicated combination -->
     </modules>
 
