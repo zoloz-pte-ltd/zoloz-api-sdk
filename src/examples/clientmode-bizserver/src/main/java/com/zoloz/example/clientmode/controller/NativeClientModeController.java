@@ -22,11 +22,14 @@
 
 package com.zoloz.example.clientmode.controller;
 
+import javax.annotation.PostConstruct;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.example.clientmode.autoconfig.RealIdConfig;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +58,11 @@ public class NativeClientModeController {
     @Autowired
     private RealIdConfig realIdConfig;
 
+    @PostConstruct
+    public void init(){
+        logger.info("docType={},serviceLevel={}",realIdConfig.getDocType(),realIdConfig.getServiceLevel());
+    }
+
     @RequestMapping(value = {"/realid/initialize","/realIdDemoService/initialize"}, method = RequestMethod.POST)
     public JSONObject realIdInit(@RequestBody JSONObject request) {
 
@@ -71,6 +79,9 @@ public class NativeClientModeController {
         apiReq.put("pages", "1");
         apiReq.put("metaInfo", metaInfo);
         apiReq.put("userId", userId);
+        if(StringUtils.isNotBlank(realIdConfig.getServiceLevel())){
+            apiReq.put("serviceLevel",realIdConfig.getServiceLevel());
+        }
 
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.realid.initialize",

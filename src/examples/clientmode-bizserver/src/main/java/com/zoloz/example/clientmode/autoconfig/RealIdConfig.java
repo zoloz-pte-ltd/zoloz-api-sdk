@@ -41,4 +41,11 @@ public class RealIdConfig {
     @Getter
     @Value("${realid.doctype:00000001003}")
     private String docType = "00000001003";
+
+    /**
+     * serviceLevel
+     */
+    @Getter
+    @Value("${realid.serviceLevel}")
+    private String serviceLevel;
 }
