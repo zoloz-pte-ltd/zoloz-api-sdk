@@ -22,18 +22,23 @@
 
 package com.zoloz.example.servermode;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
+
 import com.zoloz.api.sdk.api.DocRecognitionAPI;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.api.sdk.model.DocRecognitionRequest;
 import com.zoloz.api.sdk.model.DocRecognitionResponse;
 import com.zoloz.example.util.KeyUtil;
 import lombok.SneakyThrows;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Base64;
 
 /**
  * Example of ID Recognize
@@ -107,7 +112,7 @@ public class IdRecognizeExample {
 
                 if (response.getSpoofResult() != null && !response.getSpoofResult().isEmpty()) {
                     System.out.println("Spoofing Detection:");
-                    response.getOcrResult().forEach((key, value) -> {
+                    response.getSpoofResult().forEach((key, value) -> {
                         System.out.println(String.format(" -%s: %s", key, value));
                     });
 
