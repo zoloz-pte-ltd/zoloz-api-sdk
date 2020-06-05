@@ -99,6 +99,38 @@ public class NativeClientModeController {
         return response;
     }
 
+
+    @RequestMapping(value = {"/facecapture/initialize"}, method = RequestMethod.POST)
+    public JSONObject facecaptureInit(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String metaInfo = request.getString("metaInfo");
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String userId = "dummy_userid_" + System.currentTimeMillis();
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("metaInfo", metaInfo);
+        apiReq.put("merchantUserId", userId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.facecapture.initialize",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        response.put("rsaPubKey", openApiClient.getOpenApiPublicKey());
+        response.put("transactionId", apiResp.getString("transactionId"));
+        response.put("clientCfg", apiResp.getString("clientCfg"));
+        logger.info("response=" + apiRespStr);
+
+        return response;
+    }
+
+
     @RequestMapping(value = "/realid/checkresult", method = RequestMethod.POST)
     public JSONObject realIdCheck(@RequestBody JSONObject request) {
 
