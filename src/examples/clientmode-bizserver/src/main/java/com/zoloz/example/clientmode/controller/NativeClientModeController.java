@@ -187,6 +187,54 @@ public class NativeClientModeController {
     }
 
 
+    @RequestMapping(value = "/facecapture/checkresult", method = RequestMethod.POST)
+    public JSONObject facecaptureCheck(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String transactionId = request.getString("transactionId");
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("transactionId", transactionId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.facecapture.checkresult",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        return response;
+    }
+
+
+    @RequestMapping(value = "/doc/checkresult", method = RequestMethod.POST)
+    public JSONObject docCheck(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String transactionId = request.getString("transactionId");
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("transactionId", transactionId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.idrecognition.checkresult",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        return response;
+    }
+
+
     @RequestMapping(value = "/privacyinfo/delete", method = RequestMethod.POST)
     public JSONObject privacyInfoDelete(@RequestBody JSONObject request) {
 
