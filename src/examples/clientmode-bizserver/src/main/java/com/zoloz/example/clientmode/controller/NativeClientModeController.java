@@ -131,6 +131,36 @@ public class NativeClientModeController {
     }
 
 
+    @RequestMapping(value = {"/doc/initialize"}, method = RequestMethod.POST)
+    public JSONObject docInit(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String metaInfo = request.getString("metaInfo");
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String userId = "dummy_userid_" + System.currentTimeMillis();
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("metaInfo", metaInfo);
+        apiReq.put("merchantUserId", userId);
+        apiReq.put("docType",realIdConfig.getDocType());
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.idrecognition.initialize",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        response.put("transactionId", apiResp.getString("transactionId"));
+        response.put("clientCfg", apiResp.getString("clientCfg"));
+        logger.info("response=" + apiRespStr);
+
+        return response;
+    }
+
+
     @RequestMapping(value = "/realid/checkresult", method = RequestMethod.POST)
     public JSONObject realIdCheck(@RequestBody JSONObject request) {
 
