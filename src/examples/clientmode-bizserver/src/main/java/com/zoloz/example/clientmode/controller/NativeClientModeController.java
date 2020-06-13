@@ -22,11 +22,14 @@
 
 package com.zoloz.example.clientmode.controller;
 
+import javax.annotation.PostConstruct;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.example.clientmode.autoconfig.RealIdConfig;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +58,11 @@ public class NativeClientModeController {
     @Autowired
     private RealIdConfig realIdConfig;
 
+    @PostConstruct
+    public void init(){
+        logger.info("docType={},serviceLevel={}",realIdConfig.getDocType(),realIdConfig.getServiceLevel());
+    }
+
     @RequestMapping(value = {"/realid/initialize","/realIdDemoService/initialize"}, method = RequestMethod.POST)
     public JSONObject realIdInit(@RequestBody JSONObject request) {
 
@@ -71,6 +79,9 @@ public class NativeClientModeController {
         apiReq.put("pages", "1");
         apiReq.put("metaInfo", metaInfo);
         apiReq.put("userId", userId);
+        if(StringUtils.isNotBlank(realIdConfig.getServiceLevel())){
+            apiReq.put("serviceLevel",realIdConfig.getServiceLevel());
+        }
 
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.realid.initialize",
@@ -88,6 +99,68 @@ public class NativeClientModeController {
         return response;
     }
 
+
+    @RequestMapping(value = {"/facecapture/initialize"}, method = RequestMethod.POST)
+    public JSONObject facecaptureInit(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String metaInfo = request.getString("metaInfo");
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String userId = "dummy_userid_" + System.currentTimeMillis();
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("metaInfo", metaInfo);
+        apiReq.put("merchantUserId", userId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.facecapture.initialize",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        response.put("rsaPubKey", openApiClient.getOpenApiPublicKey());
+        response.put("transactionId", apiResp.getString("transactionId"));
+        response.put("clientCfg", apiResp.getString("clientCfg"));
+        logger.info("response=" + apiRespStr);
+
+        return response;
+    }
+
+
+    @RequestMapping(value = {"/doc/initialize"}, method = RequestMethod.POST)
+    public JSONObject docInit(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String metaInfo = request.getString("metaInfo");
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String userId = "dummy_userid_" + System.currentTimeMillis();
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("metaInfo", metaInfo);
+        apiReq.put("merchantUserId", userId);
+        apiReq.put("docType",realIdConfig.getDocType());
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.idrecognition.initialize",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        response.put("transactionId", apiResp.getString("transactionId"));
+        response.put("clientCfg", apiResp.getString("clientCfg"));
+        logger.info("response=" + apiRespStr);
+
+        return response;
+    }
+
+
     @RequestMapping(value = "/realid/checkresult", method = RequestMethod.POST)
     public JSONObject realIdCheck(@RequestBody JSONObject request) {
 
@@ -104,6 +177,54 @@ public class NativeClientModeController {
 
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.realid.checkresult",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        return response;
+    }
+
+
+    @RequestMapping(value = "/facecapture/checkresult", method = RequestMethod.POST)
+    public JSONObject facecaptureCheck(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String transactionId = request.getString("transactionId");
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("transactionId", transactionId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.facecapture.checkresult",
+                JSON.toJSONString(apiReq)
+        );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        return response;
+    }
+
+
+    @RequestMapping(value = "/doc/checkresult", method = RequestMethod.POST)
+    public JSONObject docCheck(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+
+        String businessId = "dummy_bizid_" + System.currentTimeMillis();
+        String transactionId = request.getString("transactionId");
+
+        JSONObject apiReq = new JSONObject();
+        apiReq.put("bizId", businessId);
+        apiReq.put("transactionId", transactionId);
+
+        String apiRespStr = openApiClient.callOpenApi(
+                "v1.zoloz.idrecognition.checkresult",
                 JSON.toJSONString(apiReq)
         );
 
