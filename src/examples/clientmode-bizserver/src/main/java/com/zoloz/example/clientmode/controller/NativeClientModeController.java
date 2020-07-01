@@ -69,18 +69,28 @@ public class NativeClientModeController {
         logger.info("request=" + request);
 
         String metaInfo = request.getString("metaInfo");
+
+        String docType = request.getString("docType");
+        if (StringUtils.isBlank(docType)) {
+            docType = realIdConfig.getDocType();
+        }
+        String serviceLevel = request.getString("serviceLevel");
+        if (StringUtils.isBlank(serviceLevel)) {
+            serviceLevel = realIdConfig.getServiceLevel();
+        }
+
         String businessId = "dummy_bizid_" + System.currentTimeMillis();
         String userId = "dummy_userid_" + System.currentTimeMillis();
 
         JSONObject apiReq = new JSONObject();
         apiReq.put("bizId", businessId);
         apiReq.put("flowType", "REALIDLITE_KYC");
-        apiReq.put("docType", realIdConfig.getDocType());
+        apiReq.put("docType", docType);
         apiReq.put("pages", "1");
         apiReq.put("metaInfo", metaInfo);
         apiReq.put("userId", userId);
-        if(StringUtils.isNotBlank(realIdConfig.getServiceLevel())){
-            apiReq.put("serviceLevel",realIdConfig.getServiceLevel());
+        if(StringUtils.isNotBlank(serviceLevel)){
+            apiReq.put("serviceLevel",serviceLevel);
         }
 
         String apiRespStr = openApiClient.callOpenApi(
@@ -106,6 +116,7 @@ public class NativeClientModeController {
         logger.info("request=" + request);
 
         String metaInfo = request.getString("metaInfo");
+
         String businessId = "dummy_bizid_" + System.currentTimeMillis();
         String userId = "dummy_userid_" + System.currentTimeMillis();
 
@@ -137,6 +148,12 @@ public class NativeClientModeController {
         logger.info("request=" + request);
 
         String metaInfo = request.getString("metaInfo");
+
+        String docType = request.getString("docType");
+        if (StringUtils.isBlank(docType)) {
+            docType = realIdConfig.getDocType();
+        }
+
         String businessId = "dummy_bizid_" + System.currentTimeMillis();
         String userId = "dummy_userid_" + System.currentTimeMillis();
 
@@ -144,7 +161,7 @@ public class NativeClientModeController {
         apiReq.put("bizId", businessId);
         apiReq.put("metaInfo", metaInfo);
         apiReq.put("merchantUserId", userId);
-        apiReq.put("docType",realIdConfig.getDocType());
+        apiReq.put("docType", docType);
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.idrecognition.initialize",
                 JSON.toJSONString(apiReq)
