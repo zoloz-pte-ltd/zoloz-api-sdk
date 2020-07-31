@@ -11,10 +11,10 @@
     <modules>
         <module>src/sdk</module>
 
-        <!-- BEGIN servermode examples -->
+        <!-- BEGIN com.zoloz.example.servermode examples -->
         <module>src/examples/facecompare</module>
         <module>src/examples/idrecognize</module>
-        <!-- END servermode examples -->
+        <!-- END com.zoloz.example.servermode examples -->
 
         <!-- BEGIN clientmode examples -->
         <module>src/examples/clientmode-bizserver</module>
@@ -23,6 +23,7 @@
         <!-- BEGIN examples of complicated combination -->
         <module>src/examples/webekyc-demo</module>
         <module>src/examples/privacyinfodelete</module>
+        <module>src/examples/facesearch</module>
         <!-- END examples of complicated combination -->
     </modules>
 
