@@ -40,7 +40,10 @@ import java.util.List;
 
 /**
  * Example of Face Search
- *
+ * In this demo, users can add face images into a specific group.
+ * Then, users can search face images similar to an uploaded image.
+ * After that, the program will automatically remove searched face images from the specific group.
+ * Finally, the program will search the face image again in the group.
  * @author youcha
  * @date 2020/7/31 13:51
  */
@@ -96,32 +99,37 @@ public class FaceSearchExample {
         //client.setEncrypted(false);  // encryption can be turned off
 
         //userGroupIn
+        System.out.println("Add the face image in the specific group.");
         for(int i = 0; i < uploadImagePaths.length; i++){
             String uid = "test_userId_"+String.valueOf(i+1);
             String groupId_in = "default";
             String uploadImagePath = uploadImagePaths[i];
             String faceType = "image";
             userGroupIn(uid, groupId_in, uploadImagePath, faceType);
+            System.out.println("Successfully upload the image ( " + "uid: "+uid + ", group: "+groupId_in + ", facetype: "+faceType + " )");
         }
 
         //faceSearch
+        System.out.println("Search the face image in the specific group.");
         String faceType = "image";
         String groupId_search = "default";
         String score = "70";
         List<FaceSearchUserInfo>faceSearchUserInfoList = faceSearch(searchImagePath,faceType,groupId_search,score);
         for(int i = 0;i < faceSearchUserInfoList.size();i++){
-            logger.info("the uid of image searched: "+faceSearchUserInfoList.get(i).getUid());
+            System.out.println("the uid of searched image:  "+faceSearchUserInfoList.get(i).getUid());
+            System.out.println("the comparison score of searched image: "+faceSearchUserInfoList.get(i).getScore());
         }
 
         //faceSearch after userGroupOut
+        System.out.println("Remove searched face images");
         String groupId_out = "default";
         for(int i = 0;i < faceSearchUserInfoList.size();i++){
             String uid = faceSearchUserInfoList.get(i).getUid();
             userGroupOut(groupId_out, uid);
+            System.out.println("Successfully remove the face image("+"uid: "+uid+", group: "+groupId_out+")");
         }
         List<FaceSearchUserInfo>userInfoAfterOut = faceSearch(searchImagePath,faceType,groupId_search,score);
-        logger.info("the size of the uidList after out:"+userInfoAfterOut.size());
-
+        System.out.println("the size of the searched uidList after out:"+userInfoAfterOut.size());
     }
 
     /**
