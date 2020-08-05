@@ -11,10 +11,10 @@
     <modules>
         <module>src/sdk</module>
 
-        <!-- BEGIN com.zoloz.example.servermode examples -->
+        <!-- BEGIN servermode examples -->
         <module>src/examples/facecompare</module>
         <module>src/examples/idrecognize</module>
-        <!-- END com.zoloz.example.servermode examples -->
+        <!-- END servermode examples -->
 
         <!-- BEGIN clientmode examples -->
         <module>src/examples/clientmode-bizserver</module>
