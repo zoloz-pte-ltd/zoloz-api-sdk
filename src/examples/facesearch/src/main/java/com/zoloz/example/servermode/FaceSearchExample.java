@@ -72,7 +72,7 @@ public class FaceSearchExample {
         catch (ParseException ex) {
             // automatically generate the help statement
             HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp( "facecompare " +
+            formatter.printHelp( "facesearch " +
                             "-c <client_id> " +
                             "-p <zoloz_public_key_content> " +
                             "-k <merchant_private_key_path> " +
