@@ -23,6 +23,8 @@
         <!-- BEGIN examples of complicated combination -->
         <module>src/examples/webekyc-demo</module>
         <module>src/examples/privacyinfodelete</module>
+        <module>src/examples/facesearch</module>
+        <module>src/examples/ekyc_demo</module>
         <!-- END examples of complicated combination -->
     </modules>
 
