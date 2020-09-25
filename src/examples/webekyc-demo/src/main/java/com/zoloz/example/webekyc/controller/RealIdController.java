@@ -23,6 +23,7 @@
 package com.zoloz.example.webekyc.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import lombok.Data;
@@ -241,7 +242,8 @@ public class RealIdController {
         response.put("success", true);
         response.put("risk", context.risk);
         response.put("faceImg", context.faceImg);
-        response.put("docImg", context.docImg);
+        JSONArray ja = JSON.parseArray(context.docImg);
+        response.put("docImg", ja.getString(0));
 
         return response;
     }
