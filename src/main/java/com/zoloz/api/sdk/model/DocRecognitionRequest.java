@@ -26,8 +26,7 @@ import lombok.Data;
 /**
  * DocRecognitionRequest
  *
- * @Author: moxi
- * @Date: 2019-12-11 21:13
+ * @author: moxi
  */
 @Data
 public class DocRecognitionRequest {

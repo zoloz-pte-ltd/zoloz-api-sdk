@@ -29,8 +29,7 @@ import java.util.Map;
 /**
  * DocRecognitionResponse
  *
- * @Author: moxi
- * @Date: 2019-12-11 21:13
+ * @author: moxi
  */
 @Data
 public class DocRecognitionResponse extends OpenApiCommonResult{

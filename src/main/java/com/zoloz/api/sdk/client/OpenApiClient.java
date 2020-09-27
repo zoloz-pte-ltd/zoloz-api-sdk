@@ -46,8 +46,7 @@ import org.slf4j.LoggerFactory;
 /**
  * OpenApiClient
  *
- * @Author: Zhongyang MA
- * @Date: 2019-12-11 21:13
+ * @author: Zhongyang MA
  */
 @Data
 public class OpenApiClient {

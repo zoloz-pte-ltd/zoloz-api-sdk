@@ -29,8 +29,7 @@ import lombok.NonNull;
 /**
  * authentication test api
  *
- * @Author: jushi.zf
- * @Date: 2020-01-21 17:00
+ * @author: jushi.zf
  */
 public class AuthTestAPI {
 
@@ -44,6 +43,7 @@ public class AuthTestAPI {
 
     /**
      * test authentication
+     * @param <T> type parameter of the request and the response
      * @param request the authentication test request
      * @return the authentication test response
      */

@@ -31,7 +31,6 @@ import com.zoloz.api.sdk.model.PrivacyInfoDeleteResponse;
 /**
  * PrivacyInfoDeleteApi
  * @author lzcc2003
- * @date 2020年5月19日 下午11:45:26
  */
 public class PrivacyInfoDeleteApi {
 

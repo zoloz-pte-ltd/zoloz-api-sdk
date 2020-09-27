@@ -31,8 +31,7 @@ import java.util.Base64;
 /**
  * AESUtil
  *
- * @Author: Zhongyang MA
- * @Date: 2019-12-11 21:13
+ * @author: Zhongyang MA
  */
 public class AESUtil {
     /**
