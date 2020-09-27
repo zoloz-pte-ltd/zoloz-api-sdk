@@ -31,6 +31,11 @@
     <packaging>jar</packaging>
     <version>0.1.0</version>
 
+    <scm>
+        <url>https://github.com/zoloz-pte-ltd/zoloz-api-sdk</url>
+        <connection>scm:git:https://github.com/zoloz-pte-ltd/zoloz-api-sdk.git</connection>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>com.alibaba</groupId>
