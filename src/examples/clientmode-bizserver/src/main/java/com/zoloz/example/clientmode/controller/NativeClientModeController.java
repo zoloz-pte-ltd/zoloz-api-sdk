@@ -142,7 +142,7 @@ public class NativeClientModeController {
     }
 
 
-    @RequestMapping(value = {"/doc/initialize"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/idrecognition/initialize"}, method = RequestMethod.POST)
     public JSONObject docInit(@RequestBody JSONObject request) {
 
         logger.info("request=" + request);
@@ -156,12 +156,16 @@ public class NativeClientModeController {
 
         String businessId = "dummy_bizid_" + System.currentTimeMillis();
         String userId = "dummy_userid_" + System.currentTimeMillis();
+        if (docType == null) {
+            docType = realIdConfig.getDocType();
+        }
 
         JSONObject apiReq = new JSONObject();
         apiReq.put("bizId", businessId);
         apiReq.put("metaInfo", metaInfo);
         apiReq.put("merchantUserId", userId);
         apiReq.put("docType", docType);
+        apiReq.put("pages","1");
         String apiRespStr = openApiClient.callOpenApi(
                 "v1.zoloz.idrecognition.initialize",
                 JSON.toJSONString(apiReq)
@@ -228,7 +232,7 @@ public class NativeClientModeController {
     }
 
 
-    @RequestMapping(value = "/doc/checkresult", method = RequestMethod.POST)
+    @RequestMapping(value = "/idrecognition/checkresult", method = RequestMethod.POST)
     public JSONObject docCheck(@RequestBody JSONObject request) {
 
         logger.info("request=" + request);
