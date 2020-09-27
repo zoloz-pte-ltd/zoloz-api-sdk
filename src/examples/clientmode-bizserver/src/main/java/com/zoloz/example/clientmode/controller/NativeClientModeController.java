@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author: Zhongyang MA
  * @Date: 2020-01-02 15:38
  */
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 @RequestMapping(value = {"/api", "/webapi"})
 public class NativeClientModeController {
@@ -63,7 +63,6 @@ public class NativeClientModeController {
         logger.info("docType={},serviceLevel={}",realIdConfig.getDocType(),realIdConfig.getServiceLevel());
     }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(value = {"/realid/initialize","/realIdDemoService/initialize"}, method = RequestMethod.POST)
     public JSONObject realIdInit(@RequestBody JSONObject request) {
 
