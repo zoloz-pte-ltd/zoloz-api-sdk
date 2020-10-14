@@ -86,7 +86,7 @@ public class NativeClientModeController {
         apiReq.put("bizId", businessId);
         apiReq.put("flowType", "REALIDLITE_KYC");
         apiReq.put("docType", docType);
-        apiReq.put("pages", "1");
+        //apiReq.put("pages", "1");
         apiReq.put("metaInfo", metaInfo);
         apiReq.put("userId", userId);
         if(StringUtils.isNotBlank(serviceLevel)){

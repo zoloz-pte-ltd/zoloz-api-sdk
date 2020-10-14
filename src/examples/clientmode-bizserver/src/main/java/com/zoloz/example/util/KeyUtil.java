@@ -45,10 +45,18 @@ public class KeyUtil {
      * @return base64 encoded content of the key
      * @throws IOException
      */
-    @SneakyThrows(IOException.class)
-    public static String loadKeyContent(String keyPath) {
-
-        String content = FileUtils.readFileToString(new File(keyPath), "UTF-8");
+    public static String loadKeyContent(String keyPath) throws IOException {
+        File file = new File(keyPath);
+        String content;
+        try {
+            // read from absolute path
+            content = FileUtils.readFileToString(file, "UTF-8");
+        } catch (IOException e) {
+            // read from relative ressource path
+            ClassLoader classLoader = KeyUtil.class.getClassLoader();
+            file = new File(classLoader.getResource(keyPath).getFile());
+            content = FileUtils.readFileToString(file, "UTF-8");
+        }
 
         String[] lines = content.split("\n");
         String parsed = Stream.of(lines)

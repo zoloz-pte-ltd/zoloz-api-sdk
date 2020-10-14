@@ -59,6 +59,7 @@ public class ApiClientConfig {
     @Value("${zoloz.pubkey:}")
     private String zolozPubKey = null;
 
+    @SneakyThrows
     @Bean
     public OpenApiClient client() {
 

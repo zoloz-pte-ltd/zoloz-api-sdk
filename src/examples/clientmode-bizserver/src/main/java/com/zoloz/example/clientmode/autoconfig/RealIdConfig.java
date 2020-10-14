@@ -46,6 +46,6 @@ public class RealIdConfig {
      * serviceLevel
      */
     @Getter
-    @Value("${realid.serviceLevel}")
+    @Value("${realid.serviceLevel:REALID0001}")
     private String serviceLevel;
 }
