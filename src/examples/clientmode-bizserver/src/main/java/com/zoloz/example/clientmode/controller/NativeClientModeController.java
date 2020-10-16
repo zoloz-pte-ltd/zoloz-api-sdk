@@ -27,6 +27,7 @@ import javax.annotation.PostConstruct;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import com.zoloz.api.sdk.api.AuthTestAPI;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.example.clientmode.autoconfig.RealIdConfig;
 import org.apache.commons.lang.StringUtils;
@@ -272,6 +273,20 @@ public class NativeClientModeController {
                 "v1.zoloz.privacyinfo.delete",
                 JSON.toJSONString(apiReq)
         );
+
+        JSONObject apiResp = JSON.parseObject(apiRespStr);
+
+        JSONObject response = new JSONObject(apiResp);
+        return response;
+    }
+
+    @RequestMapping(value = "/authentication/test", method = RequestMethod.POST)
+    public JSONObject authenticationTest(@RequestBody JSONObject request) {
+
+        logger.info("request=" + request);
+        AuthTestAPI authTestAPI = new AuthTestAPI(openApiClient);
+
+       String apiRespStr= authTestAPI.echo(request.toJSONString());
 
         JSONObject apiResp = JSON.parseObject(apiRespStr);
 
