@@ -39,7 +39,7 @@
             <dependency>
                 <groupId>com.zoloz.api.sdk</groupId>
                 <artifactId>zoloz-api-sdk</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0.1.20201027</version>
             </dependency>
 
             <dependency>
