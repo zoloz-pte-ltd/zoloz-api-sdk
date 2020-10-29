@@ -15,7 +15,7 @@ import lombok.ToString;
  */
 @Data
 @ToString(callSuper = true)
-public class ConnectV2RegisterResponse extends OpenApiCommonResult {
+public class ConnectV2CheckRegisterResponse extends OpenApiCommonResult {
 
     /**
      * Additional register data

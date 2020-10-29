@@ -13,15 +13,11 @@ import lombok.Data;
  */
 
 @Data
-public class ConnectV2RegisterRequest {
+public class ConnectV2CheckRegisterRequest {
 
     /**
      * Unique ID that used to start Connect SDK in client side.
      */
     private String transactionId;
 
-    /**
-     * iifaa needed, remote face is optional
-     */
-    private String authData;
 }

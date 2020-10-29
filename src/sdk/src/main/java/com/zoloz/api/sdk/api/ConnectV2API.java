@@ -2,8 +2,6 @@ package com.zoloz.api.sdk.api;
 
 import com.alibaba.fastjson.JSON;
 import com.zoloz.api.sdk.client.OpenApiClient;
-import com.zoloz.api.sdk.model.ConnectCheckResultRequest;
-import com.zoloz.api.sdk.model.ConnectCheckResultResponse;
 import com.zoloz.api.sdk.model.connectv2.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +17,7 @@ public class ConnectV2API {
     private static final String API_NAME_IFAA_UPDATE     = "v2.zoloz.connect.ifaaupdate";
     private static final String API_NAME_INIT_REGISTER   = "v2.zoloz.connect.initregister";
     private static final String API_NAME_INIT_VERIFY     = "v2.zoloz.connect.initverify";
-    private static final String API_NAME_REGISTER        = "v2.zoloz.connect.register";
+    private static final String API_NAME_CHECK_REGISTER  = "v2.zoloz.connect.checkRegister";
 
     private OpenApiClient openApiClient;
 
@@ -49,9 +47,9 @@ public class ConnectV2API {
         return JSON.parseObject(response, ConnectV2InitializeRegisterResponse.class);
     }
 
-    public ConnectV2RegisterResponse register(ConnectV2RegisterRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_REGISTER, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2RegisterResponse.class);
+    public ConnectV2CheckRegisterResponse checkRegister(ConnectV2CheckRegisterRequest request) {
+        String response = openApiClient.callOpenApi(API_NAME_CHECK_REGISTER, JSON.toJSONString(request));
+        return JSON.parseObject(response, ConnectV2CheckRegisterResponse.class);
     }
 
     public ConnectV2CloseResponse close(ConnectV2CloseRequest request) {
