@@ -26,9 +26,9 @@ public class ConnectV2API {
         return JSON.parseObject(response, ConnectV2CheckAvailableResponse.class);
     }
 
-    public ConnectV2InitializeRegisterResponse initVerify(ConnectV2InitializeVerifyRequest request) {
+    public ConnectV2InitializeVerifyResponse initVerify(ConnectV2InitializeVerifyRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_INIT_VERIFY, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2InitializeRegisterResponse.class);
+        return JSON.parseObject(response, ConnectV2InitializeVerifyResponse.class);
     }
 
     public ConnectV2CheckVerifyResponse checkVerify(ConnectV2CheckVerifyRequest request) {
