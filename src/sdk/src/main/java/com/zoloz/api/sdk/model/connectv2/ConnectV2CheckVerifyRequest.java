@@ -8,6 +8,12 @@ import java.util.Map;
 public class ConnectV2CheckVerifyRequest {
 
     /**
+     * Uniquely generated, globally unique business ID, for tracing.
+     * e.g. Sequence ID from DB
+     */
+    private String bizId;
+
+    /**
      * unique ID that used to start ekyc SDK in client side.
      * Server side need to pass this to calling client for further processing
      */

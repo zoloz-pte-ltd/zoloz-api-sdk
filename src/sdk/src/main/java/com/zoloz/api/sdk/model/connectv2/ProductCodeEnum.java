@@ -5,22 +5,15 @@ package com.zoloz.api.sdk.model.connectv2;
 
 /**
  * @author the
- * @version : ProductName.java, v 0.1 2020年09月11日 2:52 下午 the Exp $
+ * @version : ConnectV2ProductCode.java, v 0.1 2020年11月19日 1:36 下午 the Exp $
  */
 public enum ProductCodeEnum {
-
     /**
-     * Device fingerprint authentication, original IFAA fingerprint authentication
+     * 2d 人脸
      */
-    FINGERID,
-
+    REMOTE_FACE,
     /**
-     * Device 3D facial authentication, original IFAA FaceId authentication
+     * 兼容之前核身客户端的定义，IIFAA产品
      */
-    FACEID,
-
-    /**
-     * Remote 2D facial authentication, original zoloz 2D face compare
-     */
-    REMOTE_FACE;
+    IIFAA_BIO
 }

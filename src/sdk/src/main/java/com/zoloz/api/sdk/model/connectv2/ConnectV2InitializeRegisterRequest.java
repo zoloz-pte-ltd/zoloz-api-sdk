@@ -5,6 +5,9 @@ package com.zoloz.api.sdk.model.connectv2;
 
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * request bean
  *
@@ -32,5 +35,21 @@ public class ConnectV2InitializeRegisterRequest {
      * Client environment data from client, including device model, language, OS type, etc,.
      */
     private String clientData;
+
+    /**
+     * Wireless config group name. This field is used for looking up wireless configs. Wireless config includes mobile gateway url, h5 pages
+     * url, etc. This field is required if there exists multiple environments and wireless config differs in each environment.
+     */
+    private String wirelessConfigGroup;
+
+    private Map<String, Object> productParams = new HashMap<>();
+
+    public static class ExtKeys {
+
+        public static final String SERVICE_LEVEL = "serviceLevel";
+
+        public static final String EKYC_USER = "ekycUser";
+
+    }
 
 }

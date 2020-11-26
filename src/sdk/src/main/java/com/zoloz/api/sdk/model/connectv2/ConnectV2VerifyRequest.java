@@ -12,16 +12,8 @@ public class ConnectV2VerifyRequest {
      */
     private String transactionId;
 
-    /**
-     * authentication data
-     */
     private String authData;
 
-    /**
-     * A flag indicates whether image data should be returned in the API. Default value is N.
-     * <p>
-     * "Y": yes "N": no
-     */
     private Map<String, String> extInfo;
 
 }

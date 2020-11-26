@@ -18,4 +18,19 @@ public class ConnectV2ProductInfo {
 
     // product parameters
     private Map<String, Object> productParams;
+
+    public static class ExtKeys {
+
+        /**
+         * serviceLevel
+         */
+        public static final String SERVICE_LEVEL = "serviceLevel";
+
+        /**
+         * Indicates if current user is eKYC-ed in ZOLOZ
+         */
+        public static final String EKYC_USER = "ekycUser";
+
+        public static final String OPERATION_MODE = "operationMode";
+    }
 }

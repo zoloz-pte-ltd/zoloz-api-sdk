@@ -26,4 +26,9 @@ public class ConnectV2CheckAvailableRequest {
      * unique business ID
      */
     private String bizId;
+
+    /**
+     * optional, if null, query all product
+     */
+    private String productCode;
 }
