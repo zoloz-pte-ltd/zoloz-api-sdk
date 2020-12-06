@@ -22,42 +22,22 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
-import java.util.Map;
-
 /**
- * ext register info
+ * Represents the product activation status in ZOLOZ
  *
  * @author the
  */
-@Data
-public class ExtRegisterInfo {
+public enum ProductActivationStatusEnum {
     /**
-     * Only available in iifaa product. a string of numbers and letters that identifies every individual smartphone or tablet in the world.
+     * The product status is locked
      */
-    private String deviceId;
-
+    LOCK,
     /**
-     * Only available in remote face product. image content of the register face.
+     * Registration status
      */
-    private String imageContent;
-
+    OPEN,
     /**
-     * Only available in remote face product. Attack detected
+     * Unregistered status
      */
-    private Boolean faceAttack;
-    /**
-     * Only available in remote face product. Face position
-     */
-    private Map     rect;
-    /**
-     * Only available in remote face product. Face Quality
-     */
-    private String  quality;
-    /**
-     * Only available in remote face product. Number of Retries
-     */
-    private int     retryCount;
-
+    CLOSE;
 }
