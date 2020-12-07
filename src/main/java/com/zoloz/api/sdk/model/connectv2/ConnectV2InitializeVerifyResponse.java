@@ -44,9 +44,5 @@ public class ConnectV2InitializeVerifyResponse extends OpenApiCommonResult {
      * Client config to be used by Zoloz SDK
      */
     private String clientCfg;
-
-    /**
-     * available authentication product
-     */
-    private List<List<String>> availableProducts;
+    
 }
