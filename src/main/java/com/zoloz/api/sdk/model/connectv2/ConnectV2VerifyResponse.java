@@ -23,14 +23,12 @@
 package com.zoloz.api.sdk.model.connectv2;
 
 import com.zoloz.api.sdk.model.OpenApiCommonResult;
-import lombok.Data;
 
 /**
  * result bean
  *
  * @author the
  */
-@Data
 public class ConnectV2VerifyResponse extends OpenApiCommonResult {
 
     /**
@@ -38,4 +36,21 @@ public class ConnectV2VerifyResponse extends OpenApiCommonResult {
      */
     private ProductResult validateResult;
 
+    /**
+     * Getter method for property <tt>validateResult</tt>.
+     *
+     * @return property value of validateResult
+     */
+    public ProductResult getValidateResult() {
+        return validateResult;
+    }
+
+    /**
+     * Setter method for property <tt>validateResult</tt>.
+     *
+     * @param validateResult value to be assigned to property validateResult
+     */
+    public void setValidateResult(ProductResult validateResult) {
+        this.validateResult = validateResult;
+    }
 }

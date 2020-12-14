@@ -22,8 +22,6 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 import java.util.List;
 
 /**
@@ -31,7 +29,6 @@ import java.util.List;
  *
  * @author the
  */
-@Data
 public class ConnectV2CheckAvailableRequest {
     /**
      * Merchant user id.
@@ -51,4 +48,76 @@ public class ConnectV2CheckAvailableRequest {
      * optional, if null, query all product
      */
     private List<ProductInfo> productInfos;
+
+    /**
+     * Getter method for property <tt>userId</tt>.
+     *
+     * @return property value of userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Setter method for property <tt>userId</tt>.
+     *
+     * @param userId value to be assigned to property userId
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Getter method for property <tt>clientData</tt>.
+     *
+     * @return property value of clientData
+     */
+    public String getClientData() {
+        return clientData;
+    }
+
+    /**
+     * Setter method for property <tt>clientData</tt>.
+     *
+     * @param clientData value to be assigned to property clientData
+     */
+    public void setClientData(String clientData) {
+        this.clientData = clientData;
+    }
+
+    /**
+     * Getter method for property <tt>bizId</tt>.
+     *
+     * @return property value of bizId
+     */
+    public String getBizId() {
+        return bizId;
+    }
+
+    /**
+     * Setter method for property <tt>bizId</tt>.
+     *
+     * @param bizId value to be assigned to property bizId
+     */
+    public void setBizId(String bizId) {
+        this.bizId = bizId;
+    }
+
+    /**
+     * Getter method for property <tt>productInfos</tt>.
+     *
+     * @return property value of productInfos
+     */
+    public List<ProductInfo> getProductInfos() {
+        return productInfos;
+    }
+
+    /**
+     * Setter method for property <tt>productInfos</tt>.
+     *
+     * @param productInfos value to be assigned to property productInfos
+     */
+    public void setProductInfos(List<ProductInfo> productInfos) {
+        this.productInfos = productInfos;
+    }
 }

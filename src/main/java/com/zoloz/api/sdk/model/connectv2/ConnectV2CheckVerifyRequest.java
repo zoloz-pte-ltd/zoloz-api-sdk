@@ -22,8 +22,6 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 import java.util.Map;
 
 /**
@@ -31,7 +29,6 @@ import java.util.Map;
  *
  * @author the
  */
-@Data
 public class ConnectV2CheckVerifyRequest {
 
     /**
@@ -49,4 +46,57 @@ public class ConnectV2CheckVerifyRequest {
      */
     private Map<String, String> extInfo;
 
+    /**
+     * Getter method for property <tt>bizId</tt>.
+     *
+     * @return property value of bizId
+     */
+    public String getBizId() {
+        return bizId;
+    }
+
+    /**
+     * Setter method for property <tt>bizId</tt>.
+     *
+     * @param bizId value to be assigned to property bizId
+     */
+    public void setBizId(String bizId) {
+        this.bizId = bizId;
+    }
+
+    /**
+     * Getter method for property <tt>transactionId</tt>.
+     *
+     * @return property value of transactionId
+     */
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    /**
+     * Setter method for property <tt>transactionId</tt>.
+     *
+     * @param transactionId value to be assigned to property transactionId
+     */
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * Getter method for property <tt>extInfo</tt>.
+     *
+     * @return property value of extInfo
+     */
+    public Map<String, String> getExtInfo() {
+        return extInfo;
+    }
+
+    /**
+     * Setter method for property <tt>extInfo</tt>.
+     *
+     * @param extInfo value to be assigned to property extInfo
+     */
+    public void setExtInfo(Map<String, String> extInfo) {
+        this.extInfo = extInfo;
+    }
 }

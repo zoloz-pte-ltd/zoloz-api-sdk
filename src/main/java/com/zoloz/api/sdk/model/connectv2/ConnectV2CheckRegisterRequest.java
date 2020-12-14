@@ -22,15 +22,12 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 /**
  * request bean
  *
  * @author the
  */
 
-@Data
 public class ConnectV2CheckRegisterRequest {
 
     /**
@@ -38,4 +35,21 @@ public class ConnectV2CheckRegisterRequest {
      */
     private String transactionId;
 
+    /**
+     * Getter method for property <tt>transactionId</tt>.
+     *
+     * @return property value of transactionId
+     */
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    /**
+     * Setter method for property <tt>transactionId</tt>.
+     *
+     * @param transactionId value to be assigned to property transactionId
+     */
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
 }

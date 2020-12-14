@@ -23,8 +23,6 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 import java.util.Map;
 
 /**
@@ -32,7 +30,6 @@ import java.util.Map;
  *
  * @author yaomeng
  */
-@Data
 public class ProductResult {
     /**
      * Product Code
@@ -58,4 +55,94 @@ public class ProductResult {
      * Additional validation information
      */
     private Map<String, Object> extInfo;
+
+    /**
+     * Getter method for property <tt>productCode</tt>.
+     *
+     * @return property value of productCode
+     */
+    public String getProductCode() {
+        return productCode;
+    }
+
+    /**
+     * Setter method for property <tt>productCode</tt>.
+     *
+     * @param productCode value to be assigned to property productCode
+     */
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    /**
+     * Getter method for property <tt>validateTimes</tt>.
+     *
+     * @return property value of validateTimes
+     */
+    public int getValidateTimes() {
+        return validateTimes;
+    }
+
+    /**
+     * Setter method for property <tt>validateTimes</tt>.
+     *
+     * @param validateTimes value to be assigned to property validateTimes
+     */
+    public void setValidateTimes(int validateTimes) {
+        this.validateTimes = validateTimes;
+    }
+
+    /**
+     * Getter method for property <tt>prodStatus</tt>.
+     *
+     * @return property value of prodStatus
+     */
+    public String getProdStatus() {
+        return prodStatus;
+    }
+
+    /**
+     * Setter method for property <tt>prodStatus</tt>.
+     *
+     * @param prodStatus value to be assigned to property prodStatus
+     */
+    public void setProdStatus(String prodStatus) {
+        this.prodStatus = prodStatus;
+    }
+
+    /**
+     * Getter method for property <tt>validateTime</tt>.
+     *
+     * @return property value of validateTime
+     */
+    public String getValidateTime() {
+        return validateTime;
+    }
+
+    /**
+     * Setter method for property <tt>validateTime</tt>.
+     *
+     * @param validateTime value to be assigned to property validateTime
+     */
+    public void setValidateTime(String validateTime) {
+        this.validateTime = validateTime;
+    }
+
+    /**
+     * Getter method for property <tt>extInfo</tt>.
+     *
+     * @return property value of extInfo
+     */
+    public Map<String, Object> getExtInfo() {
+        return extInfo;
+    }
+
+    /**
+     * Setter method for property <tt>extInfo</tt>.
+     *
+     * @param extInfo value to be assigned to property extInfo
+     */
+    public void setExtInfo(Map<String, Object> extInfo) {
+        this.extInfo = extInfo;
+    }
 }

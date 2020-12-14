@@ -22,8 +22,6 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +30,6 @@ import java.util.Map;
  *
  * @author the
  */
-@Data
 public class ProductStatus {
     /**
      * Product Code
@@ -48,6 +45,60 @@ public class ProductStatus {
      * Additional available information
      */
     private Map<String, Object> extInfo = new HashMap<>(10);
+
+    /**
+     * Getter method for property <tt>productCode</tt>.
+     *
+     * @return property value of productCode
+     */
+    public String getProductCode() {
+        return productCode;
+    }
+
+    /**
+     * Setter method for property <tt>productCode</tt>.
+     *
+     * @param productCode value to be assigned to property productCode
+     */
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    /**
+     * Getter method for property <tt>support</tt>.
+     *
+     * @return property value of support
+     */
+    public boolean isSupport() {
+        return support;
+    }
+
+    /**
+     * Setter method for property <tt>support</tt>.
+     *
+     * @param support value to be assigned to property support
+     */
+    public void setSupport(boolean support) {
+        this.support = support;
+    }
+
+    /**
+     * Getter method for property <tt>extInfo</tt>.
+     *
+     * @return property value of extInfo
+     */
+    public Map<String, Object> getExtInfo() {
+        return extInfo;
+    }
+
+    /**
+     * Setter method for property <tt>extInfo</tt>.
+     *
+     * @param extInfo value to be assigned to property extInfo
+     */
+    public void setExtInfo(Map<String, Object> extInfo) {
+        this.extInfo = extInfo;
+    }
 
     public static class ExtKeys {
         /**

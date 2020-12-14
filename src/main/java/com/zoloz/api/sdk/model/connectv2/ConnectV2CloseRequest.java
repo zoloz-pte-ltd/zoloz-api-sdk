@@ -22,14 +22,11 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 /**
  * request bean
  *
  * @author the
  */
-@Data
 public class ConnectV2CloseRequest {
     /**
      * unique business ID
@@ -51,4 +48,75 @@ public class ConnectV2CloseRequest {
      */
     private String userId;
 
+    /**
+     * Getter method for property <tt>bizId</tt>.
+     *
+     * @return property value of bizId
+     */
+    public String getBizId() {
+        return bizId;
+    }
+
+    /**
+     * Setter method for property <tt>bizId</tt>.
+     *
+     * @param bizId value to be assigned to property bizId
+     */
+    public void setBizId(String bizId) {
+        this.bizId = bizId;
+    }
+
+    /**
+     * Getter method for property <tt>clientData</tt>.
+     *
+     * @return property value of clientData
+     */
+    public String getClientData() {
+        return clientData;
+    }
+
+    /**
+     * Setter method for property <tt>clientData</tt>.
+     *
+     * @param clientData value to be assigned to property clientData
+     */
+    public void setClientData(String clientData) {
+        this.clientData = clientData;
+    }
+
+    /**
+     * Getter method for property <tt>productCode</tt>.
+     *
+     * @return property value of productCode
+     */
+    public String getProductCode() {
+        return productCode;
+    }
+
+    /**
+     * Setter method for property <tt>productCode</tt>.
+     *
+     * @param productCode value to be assigned to property productCode
+     */
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    /**
+     * Getter method for property <tt>userId</tt>.
+     *
+     * @return property value of userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Setter method for property <tt>userId</tt>.
+     *
+     * @param userId value to be assigned to property userId
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

@@ -23,8 +23,6 @@
 package com.zoloz.api.sdk.model.connectv2;
 
 import com.zoloz.api.sdk.model.OpenApiCommonResult;
-import lombok.Data;
-import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,14 +32,30 @@ import java.util.Map;
  *
  * @author the
  */
-@Data
-@ToString(callSuper = true)
 public class ConnectV2CheckRegisterResponse extends OpenApiCommonResult {
 
     /**
      * Additional register data
      */
     private Map<String, Object> extRegisterInfo = new HashMap<>(10);
+
+    /**
+     * Getter method for property <tt>extRegisterInfo</tt>.
+     *
+     * @return property value of extRegisterInfo
+     */
+    public Map<String, Object> getExtRegisterInfo() {
+        return extRegisterInfo;
+    }
+
+    /**
+     * Setter method for property <tt>extRegisterInfo</tt>.
+     *
+     * @param extRegisterInfo value to be assigned to property extRegisterInfo
+     */
+    public void setExtRegisterInfo(Map<String, Object> extRegisterInfo) {
+        this.extRegisterInfo = extRegisterInfo;
+    }
 
     public static class ExtKeys {
 

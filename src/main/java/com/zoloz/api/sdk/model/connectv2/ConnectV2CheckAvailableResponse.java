@@ -23,8 +23,6 @@
 package com.zoloz.api.sdk.model.connectv2;
 
 import com.zoloz.api.sdk.model.OpenApiCommonResult;
-import lombok.Data;
-import lombok.ToString;
 
 import java.util.List;
 
@@ -33,11 +31,28 @@ import java.util.List;
  *
  * @author the
  */
-@Data
-@ToString(callSuper = true)
 public class ConnectV2CheckAvailableResponse extends OpenApiCommonResult {
     /**
      * Product Status
      */
     private List<ProductStatus> productStatus;
+
+    /**
+     * Getter method for property <tt>productStatus</tt>.
+     *
+     * @return property value of productStatus
+     */
+    public List<ProductStatus> getProductStatus() {
+        return productStatus;
+    }
+
+    /**
+     * Setter method for property <tt>productStatus</tt>.
+     *
+     * @param productStatus value to be assigned to property productStatus
+     */
+    public void setProductStatus(List<ProductStatus> productStatus) {
+        this.productStatus = productStatus;
+    }
+
 }

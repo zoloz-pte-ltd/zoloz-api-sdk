@@ -22,14 +22,11 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 /**
  * request bean
  *
  * @author the
  */
-@Data
 public class ConnectV2InitializeRegisterRequest {
     /**
      * Merchant user id
@@ -57,4 +54,93 @@ public class ConnectV2InitializeRegisterRequest {
      */
     private String wirelessConfigGroup;
 
+    /**
+     * Getter method for property <tt>userId</tt>.
+     *
+     * @return property value of userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Setter method for property <tt>userId</tt>.
+     *
+     * @param userId value to be assigned to property userId
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Getter method for property <tt>productInfo</tt>.
+     *
+     * @return property value of productInfo
+     */
+    public ProductInfo getProductInfo() {
+        return productInfo;
+    }
+
+    /**
+     * Setter method for property <tt>productInfo</tt>.
+     *
+     * @param productInfo value to be assigned to property productInfo
+     */
+    public void setProductInfo(ProductInfo productInfo) {
+        this.productInfo = productInfo;
+    }
+
+    /**
+     * Getter method for property <tt>bizId</tt>.
+     *
+     * @return property value of bizId
+     */
+    public String getBizId() {
+        return bizId;
+    }
+
+    /**
+     * Setter method for property <tt>bizId</tt>.
+     *
+     * @param bizId value to be assigned to property bizId
+     */
+    public void setBizId(String bizId) {
+        this.bizId = bizId;
+    }
+
+    /**
+     * Getter method for property <tt>clientData</tt>.
+     *
+     * @return property value of clientData
+     */
+    public String getClientData() {
+        return clientData;
+    }
+
+    /**
+     * Setter method for property <tt>clientData</tt>.
+     *
+     * @param clientData value to be assigned to property clientData
+     */
+    public void setClientData(String clientData) {
+        this.clientData = clientData;
+    }
+
+    /**
+     * Getter method for property <tt>wirelessConfigGroup</tt>.
+     *
+     * @return property value of wirelessConfigGroup
+     */
+    public String getWirelessConfigGroup() {
+        return wirelessConfigGroup;
+    }
+
+    /**
+     * Setter method for property <tt>wirelessConfigGroup</tt>.
+     *
+     * @param wirelessConfigGroup value to be assigned to property wirelessConfigGroup
+     */
+    public void setWirelessConfigGroup(String wirelessConfigGroup) {
+        this.wirelessConfigGroup = wirelessConfigGroup;
+    }
 }

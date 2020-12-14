@@ -23,16 +23,12 @@
 package com.zoloz.api.sdk.model.connectv2;
 
 import com.zoloz.api.sdk.model.OpenApiCommonResult;
-import lombok.Data;
-import lombok.ToString;
 
 /**
  * result bean
  *
  * @author the
  */
-@Data
-@ToString(callSuper = true)
 public class ConnectV2InitializeRegisterResponse extends OpenApiCommonResult {
     /**
      * Unique ID that used to start Connect SDK in client side.
@@ -43,4 +39,40 @@ public class ConnectV2InitializeRegisterResponse extends OpenApiCommonResult {
      * Client config to be used by Zoloz SDK.
      */
     private String clientCfg;
+
+    /**
+     * Getter method for property <tt>transactionId</tt>.
+     *
+     * @return property value of transactionId
+     */
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    /**
+     * Setter method for property <tt>transactionId</tt>.
+     *
+     * @param transactionId value to be assigned to property transactionId
+     */
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * Getter method for property <tt>clientCfg</tt>.
+     *
+     * @return property value of clientCfg
+     */
+    public String getClientCfg() {
+        return clientCfg;
+    }
+
+    /**
+     * Setter method for property <tt>clientCfg</tt>.
+     *
+     * @param clientCfg value to be assigned to property clientCfg
+     */
+    public void setClientCfg(String clientCfg) {
+        this.clientCfg = clientCfg;
+    }
 }

@@ -22,8 +22,6 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 import java.util.List;
 
 /**
@@ -31,7 +29,6 @@ import java.util.List;
  *
  * @author the
  */
-@Data
 public class ConnectV2InitializeVerifyRequest {
 
     /**
@@ -66,4 +63,112 @@ public class ConnectV2InitializeVerifyRequest {
      * url, etc. This field is required if there exists multiple environments and wireless config differs in each environment.
      */
     private String wirelessConfigGroup;
+
+    /**
+     * Getter method for property <tt>bizId</tt>.
+     *
+     * @return property value of bizId
+     */
+    public String getBizId() {
+        return bizId;
+    }
+
+    /**
+     * Setter method for property <tt>bizId</tt>.
+     *
+     * @param bizId value to be assigned to property bizId
+     */
+    public void setBizId(String bizId) {
+        this.bizId = bizId;
+    }
+
+    /**
+     * Getter method for property <tt>clientData</tt>.
+     *
+     * @return property value of clientData
+     */
+    public String getClientData() {
+        return clientData;
+    }
+
+    /**
+     * Setter method for property <tt>clientData</tt>.
+     *
+     * @param clientData value to be assigned to property clientData
+     */
+    public void setClientData(String clientData) {
+        this.clientData = clientData;
+    }
+
+    /**
+     * Getter method for property <tt>userId</tt>.
+     *
+     * @return property value of userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Setter method for property <tt>userId</tt>.
+     *
+     * @param userId value to be assigned to property userId
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Getter method for property <tt>sceneCode</tt>.
+     *
+     * @return property value of sceneCode
+     */
+    public String getSceneCode() {
+        return sceneCode;
+    }
+
+    /**
+     * Setter method for property <tt>sceneCode</tt>.
+     *
+     * @param sceneCode value to be assigned to property sceneCode
+     */
+    public void setSceneCode(String sceneCode) {
+        this.sceneCode = sceneCode;
+    }
+
+    /**
+     * Getter method for property <tt>validateFlows</tt>.
+     *
+     * @return property value of validateFlows
+     */
+    public List<List<ProductInfo>> getValidateFlows() {
+        return validateFlows;
+    }
+
+    /**
+     * Setter method for property <tt>validateFlows</tt>.
+     *
+     * @param validateFlows value to be assigned to property validateFlows
+     */
+    public void setValidateFlows(List<List<ProductInfo>> validateFlows) {
+        this.validateFlows = validateFlows;
+    }
+
+    /**
+     * Getter method for property <tt>wirelessConfigGroup</tt>.
+     *
+     * @return property value of wirelessConfigGroup
+     */
+    public String getWirelessConfigGroup() {
+        return wirelessConfigGroup;
+    }
+
+    /**
+     * Setter method for property <tt>wirelessConfigGroup</tt>.
+     *
+     * @param wirelessConfigGroup value to be assigned to property wirelessConfigGroup
+     */
+    public void setWirelessConfigGroup(String wirelessConfigGroup) {
+        this.wirelessConfigGroup = wirelessConfigGroup;
+    }
 }

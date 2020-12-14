@@ -22,14 +22,11 @@
 
 package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
-
 /**
  * request bean
  *
  * @author the
  */
-@Data
 public class ConnectV2FaceEnrollRequest {
     /**
      * unique business ID
@@ -45,4 +42,58 @@ public class ConnectV2FaceEnrollRequest {
      * Image content using base64 encode
      */
     private String base64ImageContent;
+
+    /**
+     * Getter method for property <tt>bizId</tt>.
+     *
+     * @return property value of bizId
+     */
+    public String getBizId() {
+        return bizId;
+    }
+
+    /**
+     * Setter method for property <tt>bizId</tt>.
+     *
+     * @param bizId value to be assigned to property bizId
+     */
+    public void setBizId(String bizId) {
+        this.bizId = bizId;
+    }
+
+    /**
+     * Getter method for property <tt>userId</tt>.
+     *
+     * @return property value of userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Setter method for property <tt>userId</tt>.
+     *
+     * @param userId value to be assigned to property userId
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Getter method for property <tt>base64ImageContent</tt>.
+     *
+     * @return property value of base64ImageContent
+     */
+    public String getBase64ImageContent() {
+        return base64ImageContent;
+    }
+
+    /**
+     * Setter method for property <tt>base64ImageContent</tt>.
+     *
+     * @param base64ImageContent value to be assigned to property base64ImageContent
+     */
+    public void setBase64ImageContent(String base64ImageContent) {
+        this.base64ImageContent = base64ImageContent;
+    }
 }

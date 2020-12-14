@@ -23,7 +23,6 @@
 package com.zoloz.api.sdk.model.connectv2;
 
 import com.zoloz.api.sdk.model.OpenApiCommonResult;
-import lombok.Data;
 
 import java.util.List;
 
@@ -32,7 +31,6 @@ import java.util.List;
  *
  * @author the
  */
-@Data
 public class ConnectV2CheckVerifyResponse extends OpenApiCommonResult {
 
     /**
@@ -45,4 +43,39 @@ public class ConnectV2CheckVerifyResponse extends OpenApiCommonResult {
      */
     private List<List<ProductResult>> validateResult;
 
+    /**
+     * Getter method for property <tt>verifyStatus</tt>.
+     *
+     * @return property value of verifyStatus
+     */
+    public String getVerifyStatus() {
+        return verifyStatus;
+    }
+
+    /**
+     * Setter method for property <tt>verifyStatus</tt>.
+     *
+     * @param verifyStatus value to be assigned to property verifyStatus
+     */
+    public void setVerifyStatus(String verifyStatus) {
+        this.verifyStatus = verifyStatus;
+    }
+
+    /**
+     * Getter method for property <tt>validateResult</tt>.
+     *
+     * @return property value of validateResult
+     */
+    public List<List<ProductResult>> getValidateResult() {
+        return validateResult;
+    }
+
+    /**
+     * Setter method for property <tt>validateResult</tt>.
+     *
+     * @param validateResult value to be assigned to property validateResult
+     */
+    public void setValidateResult(List<List<ProductResult>> validateResult) {
+        this.validateResult = validateResult;
+    }
 }
