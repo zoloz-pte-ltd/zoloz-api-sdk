@@ -35,6 +35,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.fastjson.parser.ParserConfig;
+
 import com.zoloz.api.sdk.util.AESUtil;
 import com.zoloz.api.sdk.util.GenSignUtil;
 import com.zoloz.api.sdk.util.OpenApiData;
@@ -46,21 +48,31 @@ import org.slf4j.LoggerFactory;
 /**
  * OpenApiClient
  *
- * @author: Zhongyang MA
+ * @author Zhongyang MA
  */
 @Data
 public class OpenApiClient {
     private static final Logger logger = LoggerFactory.getLogger(OpenApiClient.class);
 
     private String hostUrl;
+
     private String clientId;
+
     private String merchantPrivateKey;
+
     private String openApiPublicKey;
+
     private boolean signed;
+
     private boolean encrypted;
 
-    // default constructor with signature and encryption
+    /**
+     * default constructor with signature and encryption
+     */
     public OpenApiClient() {
+        ParserConfig parserConfig = ParserConfig.getGlobalInstance();
+        parserConfig.setSafeMode(true);
+
         this.signed = true;
         this.encrypted = true;
     }
@@ -85,7 +97,7 @@ public class OpenApiClient {
                 encryptKey = RSAUtil.encrypt(openApiPublicKey, key);
             }
         } catch (Exception e) {
-            logger.info("error: " + e);
+            logger.error("encrypt key fail.", e);
         }
         String resultContent = null;
         try {
@@ -97,22 +109,30 @@ public class OpenApiClient {
             }
             // 2. Send data and receive response
             String url = hostUrl + "/api/" + apiName.replaceAll("\\.", "/");
-            logger.info("API URL = " + url);
+            if (logger.isInfoEnabled()) {
+                logger.info("API URL = " + url);
+            }
             OpenApiData data = post(url, encryptKey, clientId, reqTime, signature, request);
             for (String k : data.getHeader().keySet()) {
-                if (k == null) {
-                    logger.info(data.getHeader().get(k).get(0));
-                } else {
-                    logger.info(k + "=" + data.getHeader().get(k).get(0));
+                if (logger.isInfoEnabled()) {
+                    if (k == null) {
+                        logger.info(data.getHeader().get(k).get(0));
+                    } else {
+                        logger.info(k + "=" + data.getHeader().get(k).get(0));
+                    }
                 }
             }
 
             // 3. Check Signature
             if (data.getHeader().get("Signature") != null) {
                 Map<String, String> responseSign = splitEncryptOrSignature(data.getHeader().get("Signature").get(0));
-                String toSignContent = buildResponseSignatureContent(apiName, clientId, data.getHeader().get("Response-Time").get(0), data.getContent());
-                boolean checkSignResult = GenSignUtil.verify(openApiPublicKey, toSignContent, URLDecoder.decode(responseSign.get("signature"), "UTF-8"));
-                logger.info("check response signature " + checkSignResult);
+                String toSignContent = buildResponseSignatureContent(apiName, clientId, data.getHeader().get("Response-Time").get(0),
+                        data.getContent());
+                boolean checkSignResult = GenSignUtil.verify(openApiPublicKey, toSignContent,
+                        URLDecoder.decode(responseSign.get("signature"), "UTF-8"));
+                if (logger.isInfoEnabled()) {
+                    logger.info("check response signature " + checkSignResult);
+                }
             }
 
             resultContent = data.getContent();
@@ -126,7 +146,7 @@ public class OpenApiClient {
                 }
             }
         } catch (Exception e) {
-            logger.info("error: " + e);
+            logger.error("failed to get response.", e);
         }
         return resultContent;
     }
@@ -162,8 +182,10 @@ public class OpenApiClient {
             if (encryptKey != null) {
                 conn.setRequestProperty("Encrypt", "algorithm=RSA_AES, symmetricKey=" + URLEncoder.encode(encryptKey, "UTF-8"));
             }
-            for (String key : conn.getRequestProperties().keySet()) {
-                logger.info(key + "=" + conn.getRequestProperties().get(key).get(0));
+            if (logger.isInfoEnabled()) {
+                for (String key : conn.getRequestProperties().keySet()) {
+                    logger.info(key + "=" + conn.getRequestProperties().get(key).get(0));
+                }
             }
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -178,7 +200,7 @@ public class OpenApiClient {
             data.setContent(result.toString());
             data.setHeader(conn.getHeaderFields());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("failed to do request:{}.", request, e);
         } finally {
             try {
                 if (out != null) {
@@ -188,7 +210,7 @@ public class OpenApiClient {
                     in.close();
                 }
             } catch (IOException ex) {
-                ex.printStackTrace();
+                logger.error("close io fail.", ex);
             }
         }
         return data;
