@@ -57,6 +57,9 @@ public class ConnectV2API {
     /**
      * Represents an entry point for checking whether each biometric authentication of Zoloz can be used, including checking whether the
      * operating system version support, whether hardware support, and whether the authentication template has been registered.
+     *
+     * @param request request bean
+     * @return result bean
      */
     public ConnectV2CheckAvailableResponse checkAvailable(ConnectV2CheckAvailableRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_CHECK_AVAILABLE, JSON.toJSONString(request));
@@ -65,6 +68,9 @@ public class ConnectV2API {
 
     /**
      * Enroll API is used for enroll one face image related to one user for subsequent usage of connect.
+     *
+     * @param request request bean
+     * @return result bean
      */
     public ConnectV2FaceEnrollResponse faceEnroll(ConnectV2FaceEnrollRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_FACE_ENROLL, JSON.toJSONString(request));
@@ -75,6 +81,9 @@ public class ConnectV2API {
      * Initial Verify API  is the first API you need to call from your server side, when a user starts the authentication process. It will
      * initialize an authentication process in Zoloz with a unique transaction ID, which shall be used in all the subsequent interactions
      * with Zoloz for the same application.
+     *
+     * @param request request bean
+     * @return result bean
      */
     public ConnectV2InitializeVerifyResponse initVerify(ConnectV2InitializeVerifyRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_INIT_VERIFY, JSON.toJSONString(request));
@@ -84,12 +93,22 @@ public class ConnectV2API {
     /**
      * Verify API is designed for your server side to verify the request. Check Verify API will send back to your sever side with
      * authentication status suggested by Zoloz and other corresponding results.
+     *
+     * @param request request bean
+     * @return result bean
      */
     public ConnectV2VerifyResponse verify(ConnectV2VerifyRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_VERIFY, JSON.toJSONString(request));
         return JSON.parseObject(response, ConnectV2VerifyResponse.class);
     }
 
+    /**
+     * This is for your server side to retrieve the verification result no matter the verification process is completed successfully or
+     * not.
+     *
+     * @param request request bean
+     * @return result bean
+     */
     public ConnectV2CheckVerifyResponse checkVerify(ConnectV2CheckVerifyRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_CHECK_VERIFY, JSON.toJSONString(request));
         return JSON.parseObject(response, ConnectV2CheckVerifyResponse.class);
@@ -99,6 +118,9 @@ public class ConnectV2API {
      * This API changes the template of a specific user-registered ifaa product stored in persistent storage. This API just changes the
      * user-registered biometric authentication information to bear a new template in the persistent storage so it can be used for biometric
      * authentication.
+     *
+     * @param request request bean
+     * @return result bean
      */
     public ConnectV2UpdateIFAAResponse ifaaUpdate(ConnectV2UpdateIFAARequest request) {
         String response = openApiClient.callOpenApi(API_NAME_IFAA_UPDATE, JSON.toJSONString(request));
@@ -108,6 +130,9 @@ public class ConnectV2API {
     /**
      * Step 1 for biometric authentication registration. This API generates and returns a unique transaction ID and client sdk configuration
      * to the caller. This data is needed to evoke client registration.
+     *
+     * @param request request bean
+     * @return result bean
      */
     public ConnectV2InitializeRegisterResponse initRegister(ConnectV2InitializeRegisterRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_INIT_REGISTER, JSON.toJSONString(request));
@@ -117,6 +142,9 @@ public class ConnectV2API {
     /**
      * Step 2 for biometric authentication registration. After receiving the response from the client,  this API allows the caller to
      * confirm registration via transactionId.
+     *
+     * @param request request bean
+     * @return result bean
      */
     public ConnectV2CheckRegisterResponse checkRegister(ConnectV2CheckRegisterRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_CHECK_REGISTER, JSON.toJSONString(request));
@@ -125,6 +153,9 @@ public class ConnectV2API {
 
     /**
      * The process of de-registering an already-registered biometric authentication.
+     *
+     * @param request request bean
+     * @return result bean
      */
     public ConnectV2CloseResponse close(ConnectV2CloseRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_CLOSE, JSON.toJSONString(request));
