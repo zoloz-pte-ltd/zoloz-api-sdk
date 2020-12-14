@@ -26,6 +26,9 @@ import com.zoloz.api.sdk.model.OpenApiCommonResult;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * result bean
  *
@@ -39,5 +42,9 @@ public class ConnectV2CloseResponse extends OpenApiCommonResult {
     /**
      * Additional close data
      */
-    private ExtCloseInfo extCloseInfo;
+    private Map<String, Object> extCloseInfo = new HashMap<>(10);
+
+    public static class ExtKeys {
+        public static final String DEVICE_ID = "deviceId";
+    }
 }

@@ -37,7 +37,7 @@ public class ProductStatus {
     /**
      * Product Code
      */
-    private ProductCodeEnum productCode;
+    private String productCode;
 
     /**
      * Whether the device supports
@@ -45,14 +45,9 @@ public class ProductStatus {
     private boolean support;
 
     /**
-     * Additional Product Parameters
-     */
-    private ProductActivationStatusEnum status;
-
-    /**
      * Additional available information
      */
-    private Map<String, Object> extAvailabilityInfo = new HashMap<>(10);
+    private Map<String, Object> extInfo = new HashMap<>(10);
 
     public static class ExtKeys {
         /**
@@ -60,5 +55,10 @@ public class ProductStatus {
          * world.
          */
         public static final String DEVICE_ID = "deviceId";
+
+        /**
+         * Only available in iifaa product.
+         */
+        public static final String SPECIFIC_PRODUCT = "specificProduct";
     }
 }

@@ -36,9 +36,9 @@ import java.util.List;
 public class ConnectV2CheckVerifyResponse extends OpenApiCommonResult {
 
     /**
-     * verification result
+     * verification result. Value can be INITIAL, PROCESSING, SUCCESS, FAIL, EXPIRED
      */
-    private VerifyStatusEnum verifyStatus;
+    private String verifyStatus;
 
     /**
      * each product verify result

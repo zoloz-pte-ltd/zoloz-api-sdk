@@ -35,13 +35,17 @@ import java.util.Map;
 @Data
 public class ProductResult {
     /**
+     * Product Code
+     */
+    private String productCode;
+
+    /**
      * Number of verifications performed
      */
-
     private int validateTimes;
 
     /**
-     * Product verification result
+     * Product verification result. value can list: INITIAL, PASS, PROCESS, FAIL
      */
     private String prodStatus;
 
