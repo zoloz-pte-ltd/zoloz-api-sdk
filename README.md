@@ -1,4 +1,4 @@
-# ZOLOZ API SDK
+# ZOLOZ API SDK IN JAVA
 ## Background
 This repository provide a SDK to help the customer to integrate ZOLOZ SaaS API with ease.
 
