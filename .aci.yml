@@ -1,7 +1,62 @@
+only:
+  triggerType:
+    - pullRequest
+    - push
+  triggerBranch:
+    prTargetBranch:
+      - ^master$
+    pushOriginalBranch:
+      - ^master$
+
 onlyExecuteLastPipeline: true
 
 stages:
+  - Check
   - Release
+
+STC:
+  stage: Check
+  plugin: STC
+  pluginConfig:
+    checkPoints: alipay
+  checkRule:
+    - stc = 0
+  allowFailure: false
+
+PMD:
+  stage: Check
+  plugin: PMD
+  pluginConfig:
+    encoding: UTF-8
+    excludes:
+      - "**/test/**"
+    enableAdditional: true
+  checkRule:
+    - pmd1 = 0 && pmd2 = 0
+  allowFailure: true
+
+Build:
+  stage: Check
+  steps:
+    - plugin: clone
+    - plugin: cache
+      inputs:
+        type: restore
+        key: maven-repo-{{ checksum 'pom.xml' }}
+    - plugin: shell
+      inputs:
+        image: reg.docker.alibaba-inc.com/antb/sofaboot-build:1.0.0
+        command: |
+          export PATH=$PATH:/opt/taobao/java/bin:/opt/taobao/maven/bin
+          java -version
+          mvn -version
+          cd $WORKSPACE
+          mvn -U -Dmaven.test.skip=true -Dfile.encoding=UTF8 -Dmaven.repo.local=.mvn_repo package
+    - plugin: cache
+      inputs:
+        type: upload
+        key: maven-repo-{{ checksum 'pom.xml' }}
+        paths: .mvn_repo
 
 Release to Github:
   stage: Release
@@ -26,6 +81,37 @@ Release to Github:
           set +x
           git push --force github master
           set -x
+  pluginConfig:
+    approvalButtonName: '确认'
+    approvers:
+      - jushi.zf
+      - jingwei.yang
+      - lan.qi
+  only:
+    triggerType:
+      - push
+    triggerBranch:
+      pushOriginalBranch:
+        - ^master$
+
+deploy to sonatype:
+  stage: Release
+  steps:
+    - plugin: clone
+    - plugin: shell
+      inputs:
+        image: reg.docker.alibaba-inc.com/antb/sofaboot-build:1.0.0
+        command: |
+          export PATH=$PATH:/opt/taobao/java/bin:/opt/taobao/maven/bin
+          java -version
+          mvn -version
+          cd $WORKSPACE
+          gpg --import zoloz.pgp
+          gpg --list-keys
+          gpg --version
+          gpg --list-secret
+          export $(tty)
+          mvn -Dfile.encoding=UTF8 -Dsonatype.password="${ACI_VAR_sonatype_password}" -Dgpg.passphrase=${ACI_VAR_gpg_passphrase} -s deploy_settings.xml clean deploy
   pluginConfig:
     approvalButtonName: '确认'
     approvers:
