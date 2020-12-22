@@ -81,12 +81,6 @@ Release to Github:
           git add .
           git commit -m "$TITLE"
           git push origin
-  pluginConfig:
-    approvalButtonName: '确认'
-    approvers:
-      - jushi.zf
-      - jingwei.yang
-      - lan.qi
   only:
     triggerType:
       - push
@@ -112,12 +106,6 @@ deploy to sonatype:
           gpg --list-secret
           export $(tty)
           mvn -Dfile.encoding=UTF8 -Dsonatype.password="${ACI_VAR_sonatype_password}" -Dgpg.passphrase=${ACI_VAR_gpg_passphrase} -s deploy_settings.xml clean deploy
-  pluginConfig:
-    approvalButtonName: '确认'
-    approvers:
-      - jushi.zf
-      - jingwei.yang
-      - lan.qi
   only:
     triggerType:
       - push

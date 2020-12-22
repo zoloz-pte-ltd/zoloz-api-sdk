@@ -6,11 +6,10 @@ https://github.com/zoloz-pte-ltd/zoloz-api-sdk
 流水线会在合并master后触发，会自动同步最新的仓库中的代码以及对应的git history.
 因此开源仓库的任何代码同步到开源仓库的master都**必须通过流水线同步，不允许手动同步**
 
-流水线的触发需要矩诗，鸿书，蘭琪确认。
-
 另外同时也有push_to_gitlab和deploy_to_sonatype两个手动触发的aci，方便特殊情况下自助发布用，例如发布一个release版本等。
 
 开源发布会去掉 aci文件，maven settings文件, pgp秘钥文件 以及这个内部readme
+如果只是修改这些文件同步会失败，但是不影响，忽略就好。
 
 流水线详情请自行阅读aci代码
 
