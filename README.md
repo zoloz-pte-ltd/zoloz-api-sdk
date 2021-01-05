@@ -14,12 +14,12 @@ mvn package
 
 ## Usage
 get the sdk dependency version in pom.xml file.
-Upload _target/zoloz-api-sdk-a.b.c(-SNAPSHOT).jar_ to your central Maven repository, or simply install into your local Maven repository, and then introduce the library into your project by adding following dependency in the POM file of your project:
+Upload _target/zoloz-api-sdk-0.1.0.jar_ to your central Maven repository, or simply install into your local Maven repository, and then introduce the library into your project by adding following dependency in the POM file of your project:
 ```xml
 <dependency>
     <groupId>com.zoloz.api.sdk</groupId>
     <artifactId>zoloz-api-sdk</artifactId>
-    <version>a.b.c(-SNAPSHOT)</verison>
+    <version>0.1.0</verison>
 </dependency>
 ```
 

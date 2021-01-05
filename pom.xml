@@ -29,7 +29,7 @@
     <groupId>com.zoloz.api.sdk</groupId>
     <artifactId>zoloz-api-sdk</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.1.0</version>
 
     <name>ZOLOZ SaaS API SDK</name>
     <description>This SDK is provided for ZOLOZ's SaaS customer, to make it easier to integrate ZOLOZ SaaS APIs.</description>
