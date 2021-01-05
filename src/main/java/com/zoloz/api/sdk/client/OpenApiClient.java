@@ -141,7 +141,7 @@ public class OpenApiClient {
                 if (data.getHeader().get("Encrypt") != null) {
                     Map<String, String> encrypt = splitEncryptOrSignature(data.getHeader().get("Encrypt").get(0));
                     if (encrypt != null && encrypt.get("symmetricKey") != null) {
-                        resultContent = AESUtil.decrypt(encrypt.get("symmetricKey").getBytes(), resultContent);
+                        resultContent = AESUtil.decrypt(key, resultContent);
                     }
                 }
             }
