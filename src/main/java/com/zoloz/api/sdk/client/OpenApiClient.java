@@ -30,6 +30,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -141,7 +142,9 @@ public class OpenApiClient {
                 if (data.getHeader().get("Encrypt") != null) {
                     Map<String, String> encrypt = splitEncryptOrSignature(data.getHeader().get("Encrypt").get(0));
                     if (encrypt != null && encrypt.get("symmetricKey") != null) {
-                        resultContent = AESUtil.decrypt(encrypt.get("symmetricKey").getBytes(), resultContent);
+                        byte[] decryptedAESKey = RSAUtil.decrypt(merchantPrivateKey,
+                                URLDecoder.decode(encrypt.get("symmetricKey"), StandardCharsets.UTF_8.name()));
+                        resultContent = AESUtil.decrypt(decryptedAESKey, resultContent);
                     }
                 }
             }
@@ -177,10 +180,12 @@ public class OpenApiClient {
             conn.setRequestProperty("Client-Id", clientId);
             conn.setRequestProperty("Request-Time", reqTime);
             if (signature != null) {
-                conn.setRequestProperty("Signature", "algorithm=RSA256, signature=" + URLEncoder.encode(signature, "UTF-8"));
+                conn.setRequestProperty("Signature",
+                        "algorithm=RSA256, signature=" + URLEncoder.encode(signature, StandardCharsets.UTF_8.name()));
             }
             if (encryptKey != null) {
-                conn.setRequestProperty("Encrypt", "algorithm=RSA_AES, symmetricKey=" + URLEncoder.encode(encryptKey, "UTF-8"));
+                conn.setRequestProperty("Encrypt",
+                        "algorithm=RSA_AES, symmetricKey=" + URLEncoder.encode(encryptKey, StandardCharsets.UTF_8.name()));
             }
             if (logger.isInfoEnabled()) {
                 for (String key : conn.getRequestProperties().keySet()) {
@@ -189,10 +194,10 @@ public class OpenApiClient {
             }
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+            out = new OutputStreamWriter(conn.getOutputStream(), StandardCharsets.UTF_8.name());
             out.write(request);
             out.flush();
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8.name()));
             String line;
             while ((line = in.readLine()) != null) {
                 result.append(line);
