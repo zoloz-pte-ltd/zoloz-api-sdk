@@ -117,7 +117,7 @@ deployAliPayTestRepo:
   stage: Release
   plugin: ANT-BUILD
   pluginConfig:
-    image: reg.docker.alibaba-inc.com/antb/sofaboot-build:1.0.0
+    image: reg.docker.alibaba-inc.com/antb/jarbuild:0.0.1
     script:
       - |
         export PATH=$PATH:/opt/taobao/java/bin:/opt/taobao/maven/bin
