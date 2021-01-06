@@ -145,6 +145,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- remove this plugin if you install fail in local -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -165,6 +166,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- remove this plugin if you install fail in local -->
         </plugins>
     </build>
 </project>
