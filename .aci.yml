@@ -113,6 +113,21 @@ deploy to sonatype:
       pushOriginalBranch:
         - ^master$
 
+deployAliPayTestRepo:
+  stage: Release
+  plugin: ANT-BUILD
+  pluginConfig:
+    image: reg.docker.alibaba-inc.com/antb/jarbuild:0.0.1
+    script:
+      - |
+        mvn  deploy -DskipTests -DskipTests=true  -s /opt/taobao/maven_settings/settings-release.xml -DaltDeploymentRepository=maven-release::default::http://mvn.test.alipay.net/artifactory/content/repositories/maven-snapshot/
+  only:
+    triggerType:
+      - push
+    triggerBranch:
+      pushOriginalBranch:
+        - ^master$
+
 notifications:
   "开源代码发布成功":
     acting:
