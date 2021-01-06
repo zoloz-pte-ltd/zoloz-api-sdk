@@ -117,9 +117,18 @@ deployAliPayTestRepo:
   stage: Release
   plugin: ANT-BUILD
   pluginConfig:
-    image: reg.docker.alibaba-inc.com/antb/jarbuild:0.0.1
+    image: reg.docker.alibaba-inc.com/antb/sofaboot-build:1.0.0
     script:
       - |
+        export PATH=$PATH:/opt/taobao/java/bin:/opt/taobao/maven/bin
+        java -version
+        mvn -version
+        cd $WORKSPACE
+        gpg --import zoloz.pgp
+        gpg --list-keys
+        gpg --version
+        gpg --list-secret
+        export $(tty)
         mvn  deploy -DskipTests -DskipTests=true  -s /opt/taobao/maven_settings/settings-release.xml -DaltDeploymentRepository=maven-release::default::http://mvn.test.alipay.net/artifactory/content/repositories/maven-snapshot/
   only:
     triggerType:
