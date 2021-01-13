@@ -23,9 +23,10 @@
 package com.zoloz.api.sdk.api;
 
 import com.alibaba.fastjson.JSON;
+
+import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.api.sdk.model.DocRecognitionRequest;
 import com.zoloz.api.sdk.model.DocRecognitionResponse;
-import com.zoloz.api.sdk.client.OpenApiClient;
 
 /**
  * DocRecognitionAPI
