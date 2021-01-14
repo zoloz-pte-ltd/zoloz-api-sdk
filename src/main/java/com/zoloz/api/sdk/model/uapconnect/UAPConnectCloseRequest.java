@@ -20,45 +20,29 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
-import com.zoloz.api.sdk.model.OpenApiCommonResult;
+import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * result bean
- *
- * @author the
- * @version : CloseResult.java, v 0.1 2020年09月11日 2:26 下午 the Exp $
- */
-public class ConnectV2CloseResponse extends OpenApiCommonResult {
+@Data
+public class UAPConnectCloseRequest {
+    /**
+     * unique business ID
+     */
+    private String bizId;
 
     /**
-     * Additional close data
+     * Client environment data from client, including device model, language, OS type, etc,.
      */
-    private Map<String, Object> extCloseInfo = new HashMap<>(10);
+    private String clientData;
 
     /**
-     * Getter method for property <tt>extCloseInfo</tt>.
-     *
-     * @return property value of extCloseInfo
+     * ready to close product name
      */
-    public Map<String, Object> getExtCloseInfo() {
-        return extCloseInfo;
-    }
+    private String productCode;
 
     /**
-     * Setter method for property <tt>extCloseInfo</tt>.
-     *
-     * @param extCloseInfo value to be assigned to property extCloseInfo
+     * merchant user id
      */
-    public void setExtCloseInfo(Map<String, Object> extCloseInfo) {
-        this.extCloseInfo = extCloseInfo;
-    }
-
-    public static class ExtKeys {
-        public static final String DEVICE_ID = "deviceId";
-    }
+    private String userId;
 }

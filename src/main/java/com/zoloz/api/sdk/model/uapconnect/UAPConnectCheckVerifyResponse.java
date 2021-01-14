@@ -20,18 +20,15 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
-
-import com.zoloz.api.sdk.model.OpenApiCommonResult;
+package com.zoloz.api.sdk.model.uapconnect;
 
 import java.util.List;
 
-/**
- * result bean
- *
- * @author the
- */
-public class ConnectV2CheckVerifyResponse extends OpenApiCommonResult {
+import com.zoloz.api.sdk.model.OpenApiCommonResult;
+import lombok.Data;
+
+@Data
+public class UAPConnectCheckVerifyResponse extends OpenApiCommonResult {
 
     /**
      * verification result. Value can be INITIAL, PROCESSING, SUCCESS, FAIL, EXPIRED
@@ -42,40 +39,4 @@ public class ConnectV2CheckVerifyResponse extends OpenApiCommonResult {
      * each product verify result
      */
     private List<List<ProductResult>> validateResult;
-
-    /**
-     * Getter method for property <tt>verifyStatus</tt>.
-     *
-     * @return property value of verifyStatus
-     */
-    public String getVerifyStatus() {
-        return verifyStatus;
-    }
-
-    /**
-     * Setter method for property <tt>verifyStatus</tt>.
-     *
-     * @param verifyStatus value to be assigned to property verifyStatus
-     */
-    public void setVerifyStatus(String verifyStatus) {
-        this.verifyStatus = verifyStatus;
-    }
-
-    /**
-     * Getter method for property <tt>validateResult</tt>.
-     *
-     * @return property value of validateResult
-     */
-    public List<List<ProductResult>> getValidateResult() {
-        return validateResult;
-    }
-
-    /**
-     * Setter method for property <tt>validateResult</tt>.
-     *
-     * @param validateResult value to be assigned to property validateResult
-     */
-    public void setValidateResult(List<List<ProductResult>> validateResult) {
-        this.validateResult = validateResult;
-    }
 }

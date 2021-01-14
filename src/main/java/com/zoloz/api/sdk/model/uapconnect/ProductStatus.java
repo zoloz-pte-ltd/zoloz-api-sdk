@@ -20,66 +20,66 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
- * request bean
+ * product status
  *
  * @author the
  */
-public class ConnectV2VerifyRequest {
-
+public class ProductStatus {
     /**
-     * unique ID that used to start ekyc SDK in client side. Server side need to pass this to calling client for further processing
+     * Product Code
      */
-    private String transactionId;
+    private String productCode;
 
     /**
-     * client auth data
+     * Whether the device supports
      */
-    private String authData;
+    private boolean support;
 
     /**
-     * ext info
+     * Additional available information
      */
-    private Map<String, String> extInfo;
+    private Map<String, Object> extInfo = new HashMap<>(10);
 
     /**
-     * Getter method for property <tt>transactionId</tt>.
+     * Getter method for property <tt>productCode</tt>.
      *
-     * @return property value of transactionId
+     * @return property value of productCode
      */
-    public String getTransactionId() {
-        return transactionId;
+    public String getProductCode() {
+        return productCode;
     }
 
     /**
-     * Setter method for property <tt>transactionId</tt>.
+     * Setter method for property <tt>productCode</tt>.
      *
-     * @param transactionId value to be assigned to property transactionId
+     * @param productCode value to be assigned to property productCode
      */
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     /**
-     * Getter method for property <tt>authData</tt>.
+     * Getter method for property <tt>support</tt>.
      *
-     * @return property value of authData
+     * @return property value of support
      */
-    public String getAuthData() {
-        return authData;
+    public boolean isSupport() {
+        return support;
     }
 
     /**
-     * Setter method for property <tt>authData</tt>.
+     * Setter method for property <tt>support</tt>.
      *
-     * @param authData value to be assigned to property authData
+     * @param support value to be assigned to property support
      */
-    public void setAuthData(String authData) {
-        this.authData = authData;
+    public void setSupport(boolean support) {
+        this.support = support;
     }
 
     /**
@@ -87,7 +87,7 @@ public class ConnectV2VerifyRequest {
      *
      * @return property value of extInfo
      */
-    public Map<String, String> getExtInfo() {
+    public Map<String, Object> getExtInfo() {
         return extInfo;
     }
 
@@ -96,7 +96,20 @@ public class ConnectV2VerifyRequest {
      *
      * @param extInfo value to be assigned to property extInfo
      */
-    public void setExtInfo(Map<String, String> extInfo) {
+    public void setExtInfo(Map<String, Object> extInfo) {
         this.extInfo = extInfo;
+    }
+
+    public static class ExtKeys {
+        /**
+         * Only available in iifaa product. a string of numbers and letters that identifies every individual smartphone or tablet in the
+         * world.
+         */
+        public static final String DEVICE_ID = "deviceId";
+
+        /**
+         * Only available in iifaa product.
+         */
+        public static final String SPECIFIC_PRODUCT = "specificProduct";
     }
 }

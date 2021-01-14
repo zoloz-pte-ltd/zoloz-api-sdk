@@ -20,15 +20,18 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
+
+import java.util.List;
 
 import com.zoloz.api.sdk.model.OpenApiCommonResult;
+import lombok.Data;
 
-/**
- * result bean
- *
- * @author the
- */
-public class ConnectV2UpdateIFAAResponse extends OpenApiCommonResult {
+@Data
+public class UAPConnectCheckAvailableResponse extends OpenApiCommonResult {
+    /**
+     * Product Status
+     */
+    private List<ProductStatus> productStatus;
 
 }

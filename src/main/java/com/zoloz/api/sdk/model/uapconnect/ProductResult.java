@@ -20,31 +20,41 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
 
-import java.util.HashMap;
+package com.zoloz.api.sdk.model.uapconnect;
+
 import java.util.Map;
 
 /**
- * product status
+ * product result bean
  *
- * @author the
+ * @author yaomeng
  */
-public class ProductStatus {
+public class ProductResult {
     /**
      * Product Code
      */
     private String productCode;
 
     /**
-     * Whether the device supports
+     * Number of verifications performed
      */
-    private boolean support;
+    private int validateTimes;
 
     /**
-     * Additional available information
+     * Product verification result. value can list: INITIAL, PASS, PROCESS, FAIL
      */
-    private Map<String, Object> extInfo = new HashMap<>(10);
+    private String prodStatus;
+
+    /**
+     * Validation time
+     */
+    private String validateTime;
+
+    /**
+     * Additional validation information
+     */
+    private Map<String, Object> extInfo;
 
     /**
      * Getter method for property <tt>productCode</tt>.
@@ -65,21 +75,57 @@ public class ProductStatus {
     }
 
     /**
-     * Getter method for property <tt>support</tt>.
+     * Getter method for property <tt>validateTimes</tt>.
      *
-     * @return property value of support
+     * @return property value of validateTimes
      */
-    public boolean isSupport() {
-        return support;
+    public int getValidateTimes() {
+        return validateTimes;
     }
 
     /**
-     * Setter method for property <tt>support</tt>.
+     * Setter method for property <tt>validateTimes</tt>.
      *
-     * @param support value to be assigned to property support
+     * @param validateTimes value to be assigned to property validateTimes
      */
-    public void setSupport(boolean support) {
-        this.support = support;
+    public void setValidateTimes(int validateTimes) {
+        this.validateTimes = validateTimes;
+    }
+
+    /**
+     * Getter method for property <tt>prodStatus</tt>.
+     *
+     * @return property value of prodStatus
+     */
+    public String getProdStatus() {
+        return prodStatus;
+    }
+
+    /**
+     * Setter method for property <tt>prodStatus</tt>.
+     *
+     * @param prodStatus value to be assigned to property prodStatus
+     */
+    public void setProdStatus(String prodStatus) {
+        this.prodStatus = prodStatus;
+    }
+
+    /**
+     * Getter method for property <tt>validateTime</tt>.
+     *
+     * @return property value of validateTime
+     */
+    public String getValidateTime() {
+        return validateTime;
+    }
+
+    /**
+     * Setter method for property <tt>validateTime</tt>.
+     *
+     * @param validateTime value to be assigned to property validateTime
+     */
+    public void setValidateTime(String validateTime) {
+        this.validateTime = validateTime;
     }
 
     /**
@@ -98,18 +144,5 @@ public class ProductStatus {
      */
     public void setExtInfo(Map<String, Object> extInfo) {
         this.extInfo = extInfo;
-    }
-
-    public static class ExtKeys {
-        /**
-         * Only available in iifaa product. a string of numbers and letters that identifies every individual smartphone or tablet in the
-         * world.
-         */
-        public static final String DEVICE_ID = "deviceId";
-
-        /**
-         * Only available in iifaa product.
-         */
-        public static final String SPECIFIC_PRODUCT = "specificProduct";
     }
 }

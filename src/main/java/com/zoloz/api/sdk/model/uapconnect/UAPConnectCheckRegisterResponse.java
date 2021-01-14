@@ -20,36 +20,30 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
-/**
- * request bean
- *
- * @author the
- */
+import java.util.HashMap;
+import java.util.Map;
 
-public class ConnectV2CheckRegisterRequest {
+import com.zoloz.api.sdk.model.OpenApiCommonResult;
+import lombok.Data;
 
-    /**
-     * Unique ID that used to start Connect SDK in client side.
-     */
-    private String transactionId;
+@Data
+public class UAPConnectCheckRegisterResponse extends OpenApiCommonResult {
 
     /**
-     * Getter method for property <tt>transactionId</tt>.
-     *
-     * @return property value of transactionId
+     * Additional register data
      */
-    public String getTransactionId() {
-        return transactionId;
-    }
+    private Map<String, Object> extRegisterInfo = new HashMap<>(10);
 
-    /**
-     * Setter method for property <tt>transactionId</tt>.
-     *
-     * @param transactionId value to be assigned to property transactionId
-     */
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public static class ExtKeys {
+
+        public static final String IMAGE_CONTENT = "imageContent";
+        public static final String FACE_ATTACK   = "faceAttack";
+        public static final String RECT          = "rect";
+        public static final String QUALITY       = "quality";
+        public static final String RETRY_COUNT   = "retryCount";
+
+        public static final String DEVICE_ID = "deviceId";
     }
 }

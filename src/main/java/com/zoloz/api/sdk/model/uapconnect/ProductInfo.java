@@ -20,15 +20,13 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
 import java.util.Map;
 
-/**
- * product info bean
- *
- * @author yaomeng
- */
+import lombok.Data;
+
+@Data
 public class ProductInfo {
     /**
      * Value could be:
@@ -43,42 +41,6 @@ public class ProductInfo {
      * extra product params
      */
     private Map<String, Object> productParams;
-
-    /**
-     * Getter method for property <tt>productCode</tt>.
-     *
-     * @return property value of productCode
-     */
-    public String getProductCode() {
-        return productCode;
-    }
-
-    /**
-     * Setter method for property <tt>productCode</tt>.
-     *
-     * @param productCode value to be assigned to property productCode
-     */
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
-
-    /**
-     * Getter method for property <tt>productParams</tt>.
-     *
-     * @return property value of productParams
-     */
-    public Map<String, Object> getProductParams() {
-        return productParams;
-    }
-
-    /**
-     * Setter method for property <tt>productParams</tt>.
-     *
-     * @param productParams value to be assigned to property productParams
-     */
-    public void setProductParams(Map<String, Object> productParams) {
-        this.productParams = productParams;
-    }
 
     public static class ExtKeys {
 

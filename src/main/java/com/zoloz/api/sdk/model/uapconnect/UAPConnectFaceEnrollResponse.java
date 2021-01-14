@@ -20,37 +20,17 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
 import com.zoloz.api.sdk.model.OpenApiCommonResult;
+import lombok.Data;
 
-/**
- * result bean
- *
- * @author the
- */
-public class ConnectV2FaceEnrollResponse extends OpenApiCommonResult {
+@Data
+public class UAPConnectFaceEnrollResponse extends OpenApiCommonResult {
     /**
      * Unique ID that used to start Connect SDK in client side. Server side need to pass this to calling client for further processing. It
      * will be provided when error is not on client side. For example, invalid arugment won't have transactionId.
      */
     private String transactionId;
 
-    /**
-     * Getter method for property <tt>transactionId</tt>.
-     *
-     * @return property value of transactionId
-     */
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    /**
-     * Setter method for property <tt>transactionId</tt>.
-     *
-     * @param transactionId value to be assigned to property transactionId
-     */
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
 }

@@ -24,12 +24,12 @@ package com.zoloz.api.sdk.api;
 
 import com.alibaba.fastjson.JSON;
 import com.zoloz.api.sdk.client.OpenApiClient;
-import com.zoloz.api.sdk.model.connectv2.*;
+import com.zoloz.api.sdk.model.uapconnect.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * <h1>ConnectV2API</h1>
+ * <h1>UAPConnectAPI</h1>
  * <p>
  * Biometrics continue to overtake passwords and other obsolete means of authentication. Mobile app authentication, enabled by Zoloz's
  * connect 2.0 platform, builds on the prevalence of high-quality biometric sensors in mobile devices to deliver fast, secure ways for your
@@ -40,7 +40,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class ConnectV2API {
+public class UAPConnectAPI {
 
     private static final String API_NAME_CHECK_AVAILABLE = "v1.zoloz.uapconnect.checkavailable";
     private static final String API_NAME_VERIFY          = "v1.zoloz.uapconnect.verify";
@@ -61,9 +61,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2CheckAvailableResponse checkAvailable(ConnectV2CheckAvailableRequest request) {
+    public UAPConnectCheckAvailableResponse checkAvailable(UAPConnectCheckAvailableRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_CHECK_AVAILABLE, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2CheckAvailableResponse.class);
+        return JSON.parseObject(response, UAPConnectCheckAvailableResponse.class);
     }
 
     /**
@@ -72,9 +72,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2FaceEnrollResponse faceEnroll(ConnectV2FaceEnrollRequest request) {
+    public UAPConnectFaceEnrollResponse faceEnroll(UAPConnectFaceEnrollRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_FACE_ENROLL, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2FaceEnrollResponse.class);
+        return JSON.parseObject(response, UAPConnectFaceEnrollResponse.class);
     }
 
     /**
@@ -85,9 +85,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2InitializeVerifyResponse initVerify(ConnectV2InitializeVerifyRequest request) {
+    public UAPConnectInitializeVerifyResponse initVerify(UAPConnectInitializeVerifyRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_INIT_VERIFY, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2InitializeVerifyResponse.class);
+        return JSON.parseObject(response, UAPConnectInitializeVerifyResponse.class);
     }
 
     /**
@@ -97,9 +97,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2VerifyResponse verify(ConnectV2VerifyRequest request) {
+    public UAPConnectVerifyResponse verify(UAPConnectVerifyRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_VERIFY, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2VerifyResponse.class);
+        return JSON.parseObject(response, UAPConnectVerifyResponse.class);
     }
 
     /**
@@ -109,9 +109,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2CheckVerifyResponse checkVerify(ConnectV2CheckVerifyRequest request) {
+    public UAPConnectCheckVerifyResponse checkVerify(UAPConnectCheckVerifyRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_CHECK_VERIFY, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2CheckVerifyResponse.class);
+        return JSON.parseObject(response, UAPConnectCheckVerifyResponse.class);
     }
 
     /**
@@ -122,9 +122,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2UpdateIFAAResponse ifaaUpdate(ConnectV2UpdateIFAARequest request) {
+    public UAPConnectUpdateIFAAResponse ifaaUpdate(UAPConnectUpdateIFAARequest request) {
         String response = openApiClient.callOpenApi(API_NAME_IFAA_UPDATE, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2UpdateIFAAResponse.class);
+        return JSON.parseObject(response, UAPConnectUpdateIFAAResponse.class);
     }
 
     /**
@@ -134,9 +134,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2InitializeRegisterResponse initRegister(ConnectV2InitializeRegisterRequest request) {
+    public UAPConnectInitializeRegisterResponse initRegister(UAPConnectInitializeRegisterRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_INIT_REGISTER, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2InitializeRegisterResponse.class);
+        return JSON.parseObject(response, UAPConnectInitializeRegisterResponse.class);
     }
 
     /**
@@ -146,9 +146,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2CheckRegisterResponse checkRegister(ConnectV2CheckRegisterRequest request) {
+    public UAPConnectCheckRegisterResponse checkRegister(UAPConnectCheckRegisterRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_CHECK_REGISTER, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2CheckRegisterResponse.class);
+        return JSON.parseObject(response, UAPConnectCheckRegisterResponse.class);
     }
 
     /**
@@ -157,9 +157,9 @@ public class ConnectV2API {
      * @param request request bean
      * @return result bean
      */
-    public ConnectV2CloseResponse close(ConnectV2CloseRequest request) {
+    public UAPConnectCloseResponse close(UAPConnectCloseRequest request) {
         String response = openApiClient.callOpenApi(API_NAME_CLOSE, JSON.toJSONString(request));
-        return JSON.parseObject(response, ConnectV2CloseResponse.class);
+        return JSON.parseObject(response, UAPConnectCloseResponse.class);
     }
 
 }

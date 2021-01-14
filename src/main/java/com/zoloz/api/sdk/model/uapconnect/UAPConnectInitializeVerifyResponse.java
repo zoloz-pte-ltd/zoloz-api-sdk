@@ -20,39 +20,21 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
 import com.zoloz.api.sdk.model.OpenApiCommonResult;
+import lombok.Data;
 
-import java.util.List;
-
-/**
- * result bean
- *
- * @author the
- */
-public class ConnectV2CheckAvailableResponse extends OpenApiCommonResult {
-    /**
-     * Product Status
-     */
-    private List<ProductStatus> productStatus;
+@Data
+public class UAPConnectInitializeVerifyResponse extends OpenApiCommonResult {
 
     /**
-     * Getter method for property <tt>productStatus</tt>.
-     *
-     * @return property value of productStatus
+     * Unique ID of the connect application. It will be provided when result.resultStatus is S
      */
-    public List<ProductStatus> getProductStatus() {
-        return productStatus;
-    }
+    private String transactionId;
 
     /**
-     * Setter method for property <tt>productStatus</tt>.
-     *
-     * @param productStatus value to be assigned to property productStatus
+     * Client config to be used by Zoloz SDK
      */
-    public void setProductStatus(List<ProductStatus> productStatus) {
-        this.productStatus = productStatus;
-    }
-
+    private String clientCfg;
 }

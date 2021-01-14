@@ -20,14 +20,12 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
-/**
- * request bean
- *
- * @author the
- */
-public class ConnectV2UpdateIFAARequest {
+import lombok.Data;
+
+@Data
+public class UAPConnectUpdateIFAARequest {
     /**
      * Merchant user id. Must be the same as enrolled information. Either userId or certInfo, one of them must be in the request.
      */
@@ -38,40 +36,4 @@ public class ConnectV2UpdateIFAARequest {
      * will be provided when error is not on client side. For example, invalid arugment won't have transactionId.
      */
     private String transactionId;
-
-    /**
-     * Getter method for property <tt>userId</tt>.
-     *
-     * @return property value of userId
-     */
-    public String getUserId() {
-        return userId;
-    }
-
-    /**
-     * Setter method for property <tt>userId</tt>.
-     *
-     * @param userId value to be assigned to property userId
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    /**
-     * Getter method for property <tt>transactionId</tt>.
-     *
-     * @return property value of transactionId
-     */
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    /**
-     * Setter method for property <tt>transactionId</tt>.
-     *
-     * @param transactionId value to be assigned to property transactionId
-     */
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
 }

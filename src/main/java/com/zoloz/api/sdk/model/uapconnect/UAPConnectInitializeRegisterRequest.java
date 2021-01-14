@@ -20,37 +20,35 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
-import com.zoloz.api.sdk.model.OpenApiCommonResult;
+import lombok.Data;
 
-/**
- * result bean
- *
- * @author the
- */
-public class ConnectV2VerifyResponse extends OpenApiCommonResult {
+@Data
+public class UAPConnectInitializeRegisterRequest {
+    /**
+     * Merchant user id
+     */
+    private String userId;
 
     /**
-     * validate result
+     * ready to register product name
      */
-    private ProductResult validateResult;
+    private ProductInfo productInfo;
 
     /**
-     * Getter method for property <tt>validateResult</tt>.
-     *
-     * @return property value of validateResult
+     * unique business ID
      */
-    public ProductResult getValidateResult() {
-        return validateResult;
-    }
+    private String bizId;
 
     /**
-     * Setter method for property <tt>validateResult</tt>.
-     *
-     * @param validateResult value to be assigned to property validateResult
+     * Client environment data from client, including device model, language, OS type, etc,.
      */
-    public void setValidateResult(ProductResult validateResult) {
-        this.validateResult = validateResult;
-    }
+    private String clientData;
+
+    /**
+     * Wireless config group name. This field is used for looking up wireless configs. Wireless config includes mobile gateway url, h5 pages
+     * url, etc. This field is required if there exists multiple environments and wireless config differs in each environment.
+     */
+    private String wirelessConfigGroup;
 }

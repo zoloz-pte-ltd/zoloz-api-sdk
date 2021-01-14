@@ -20,20 +20,27 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.model.connectv2;
+package com.zoloz.api.sdk.model.uapconnect;
 
-/**
- * product enumeration
- *
- * @author the
- */
-public enum ProductCodeEnum {
+import java.util.Map;
+
+import lombok.Data;
+
+@Data
+public class UAPConnectCheckVerifyRequest {
+
     /**
-     * Remote 2D facial authentication
+     * Uniquely generated, globally unique business ID, for tracing. e.g. Sequence ID from DB
      */
-    REMOTE_FACE,
+    private String bizId;
+
     /**
-     * Device fingerprint authentication and Device 3D facial authentication
+     * unique ID that used to start ekyc SDK in client side. Server side need to pass this to calling client for further processing
      */
-    IIFAA_BIO
+    private String transactionId;
+
+    /**
+     * extra infos
+     */
+    private Map<String, String> extInfo;
 }
