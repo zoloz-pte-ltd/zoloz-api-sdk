@@ -23,8 +23,26 @@
 package com.zoloz.api.sdk.api;
 
 import com.alibaba.fastjson.JSON;
+
 import com.zoloz.api.sdk.client.OpenApiClient;
-import com.zoloz.api.sdk.model.uapconnect.*;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectCheckAvailableRequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectCheckAvailableResponse;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectCheckRegisterRequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectCheckRegisterResponse;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectCheckVerifyRequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectCheckVerifyResponse;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectCloseRequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectCloseResponse;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectFaceEnrollRequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectFaceEnrollResponse;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectInitializeRegisterRequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectInitializeRegisterResponse;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectInitializeVerifyRequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectInitializeVerifyResponse;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectUpdateIFAARequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectUpdateIFAAResponse;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectVerifyRequest;
+import com.zoloz.api.sdk.model.uapconnect.UAPConnectVerifyResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

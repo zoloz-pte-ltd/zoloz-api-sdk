@@ -67,6 +67,8 @@ public class OpenApiClient {
 
     private boolean encrypted;
 
+    private boolean isLoadTest;
+
     /**
      * default constructor with signature and encryption
      */
@@ -154,7 +156,6 @@ public class OpenApiClient {
         return resultContent;
     }
 
-
     private String sign(String merchantPrivateKey, String api, String clientId, String reqTime, String request) throws Exception {
         StringBuffer sb = new StringBuffer(request.length() + 256);
         sb.append("POST ").append("/api/").append(api.replaceAll("\\.", "/")).append("\n");
@@ -179,6 +180,9 @@ public class OpenApiClient {
             }
             conn.setRequestProperty("Client-Id", clientId);
             conn.setRequestProperty("Request-Time", reqTime);
+            if (isLoadTest) {
+                conn.setRequestProperty("loadTestMode", "true");
+            }
             if (signature != null) {
                 conn.setRequestProperty("Signature",
                         "algorithm=RSA256, signature=" + URLEncoder.encode(signature, StandardCharsets.UTF_8.name()));

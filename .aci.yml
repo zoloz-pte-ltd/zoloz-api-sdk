@@ -21,7 +21,7 @@ STC:
     checkPoints: alipay
   checkRule:
     - stc = 0
-  allowFailure: false
+  allowFailure: true
 
 PMD:
   stage: Check
