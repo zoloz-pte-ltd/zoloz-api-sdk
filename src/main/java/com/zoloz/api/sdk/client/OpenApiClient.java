@@ -93,7 +93,7 @@ public class OpenApiClient {
         try {
             if (encrypted) {
                 // Generate aes key
-                key = AESUtil.generateKey(128);
+                key = AESUtil.generateKey(256);
                 // encrypt content
                 request = AESUtil.encrypt(key, request);
                 // encrypt aes key
