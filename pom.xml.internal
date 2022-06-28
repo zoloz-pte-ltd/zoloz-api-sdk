@@ -26,10 +26,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- For internal repo use only, alwaus use '-SNAPSHOT'-->
     <groupId>com.zoloz.api.sdk</groupId>
     <artifactId>zoloz-api-sdk</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.1</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <name>ZOLOZ SaaS API SDK</name>
     <description>This SDK is provided for ZOLOZ's SaaS customer, to make it easier to integrate ZOLOZ SaaS APIs.</description>
