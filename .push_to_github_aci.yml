@@ -41,11 +41,11 @@ Release to Github:
         - ^master$
 
 notifications:
-  "开源代码发布成功":
+  "开源代码发布成功通知":
     acting:
       - Release to Github
     channels:
-      - https://oapi.dingtalk.com/robot/send?access_token=93789a7deb3dadc51a993b97fd5088d00d13ff86660a91d13d637dc39d18b761
+      - https://oapi.dingtalk.com/robot/send?access_token=29caca4b9a9d30bd250ed8b724e2a1f87a94bd07490cae4d87181312652cae2d
     level: JOB
     template: JOB ${ACI_JOB_NAME} SUCCESS [ ${ACI_COMMIT_REF_NAME}-${ACI_COMMIT_SHA}-${ACI_COMMIT_TITLE} ] ACI Pipeline详情：${ACI_PIPELINE_URL}
     type: DINGTALK
@@ -55,13 +55,13 @@ notifications:
       - 蘭琪
       - +65-98636803
 
-  "开源代码发布失败":
+  "开源代码发布失败通知":
     acting:
       - Check
       - Build
       - Release to Github
     channels:
-      - https://oapi.dingtalk.com/robot/send?access_token=93789a7deb3dadc51a993b97fd5088d00d13ff86660a91d13d637dc39d18b761
+      - https://oapi.dingtalk.com/robot/send?access_token=29caca4b9a9d30bd250ed8b724e2a1f87a94bd07490cae4d87181312652cae2d
     level: JOB
     template: JOB ${ACI_JOB_NAME} FAIL [ ${ACI_COMMIT_REF_NAME}-${ACI_COMMIT_SHA}-${ACI_COMMIT_TITLE} ] ACI Pipeline 运行失败，看看你干了什么好事！Pipeline详情：${ACI_PIPELINE_URL}
     type: DINGTALK
