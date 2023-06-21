@@ -68,6 +68,8 @@ public class OpenApiClient {
     private boolean encrypted;
 
     private boolean isLoadTest;
+    
+    private Integer aesLength = 256;
 
     /**
      * default constructor with signature and encryption
@@ -93,7 +95,7 @@ public class OpenApiClient {
         try {
             if (encrypted) {
                 // Generate aes key
-                key = AESUtil.generateKey(256);
+                key = AESUtil.generateKey(aesLength);
                 // encrypt content
                 request = AESUtil.encrypt(key, request);
                 // encrypt aes key
