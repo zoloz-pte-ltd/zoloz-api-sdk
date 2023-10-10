@@ -161,7 +161,7 @@ public class OpenApiClient {
         byte[] key = null;
         if (encrypted) {
             // Generate aes key
-            key = AESUtil.generateKey(256);
+            key = AESUtil.generateKey(aesLength);
             // encrypt content
             request = AESUtil.encrypt(key, request);
             // encrypt aes key
