@@ -89,7 +89,6 @@ public class OpenApiClient {
      * @return the response content in json string format
      */
     public String callOpenApi(String apiName, String request) {
-
         String encryptKey = null;
         byte[] key = null;
         try {
@@ -128,7 +127,6 @@ public class OpenApiClient {
      */
     public String callOpenApi(String apiName, String request, Map<String, String> headers) {
         String encryptKey = null;
-        byte[] key = null;
         try {
             encryptKey = encrypt(request);
         } catch (Exception e) {
