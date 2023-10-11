@@ -90,7 +90,6 @@ public class OpenApiClient {
      */
     public String callOpenApi(String apiName, String request) {
         String encryptKey = null;
-        byte[] key = null;
         try {
             encryptKey = encrypt(request);
         } catch (Exception e) {
