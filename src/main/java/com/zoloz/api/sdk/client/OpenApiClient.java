@@ -90,8 +90,16 @@ public class OpenApiClient {
      */
     public String callOpenApi(String apiName, String request) {
         String encryptKey = null;
+        byte[] key = null;
         try {
-            encryptKey = encrypt(request);
+            if (encrypted) {
+                // Generate aes key
+                key = AESUtil.generateKey(aesLength);
+                // encrypt content
+                request = AESUtil.encrypt(key, request);
+                // encrypt aes key
+                encryptKey = RSAUtil.encrypt(openApiPublicKey, key);
+            }
         } catch (Exception e) {
             logger.error("encrypt key fail.", e);
         }
@@ -126,8 +134,16 @@ public class OpenApiClient {
      */
     public String callOpenApi(String apiName, String request, Map<String, String> headers) {
         String encryptKey = null;
+        byte[] key = null;
         try {
-            encryptKey = encrypt(request);
+            if (encrypted) {
+                // Generate aes key
+                key = AESUtil.generateKey(aesLength);
+                // encrypt content
+                request = AESUtil.encrypt(key, request);
+                // encrypt aes key
+                encryptKey = RSAUtil.encrypt(openApiPublicKey, key);
+            }
         } catch (Exception e) {
             logger.error("encrypt key fail.", e);
         }
@@ -150,20 +166,6 @@ public class OpenApiClient {
             logger.error("failed to get response.", e);
         }
         return resultContent;
-    }
-
-    private String encrypt(String request) throws Exception {
-        String encryptKey = null;
-        byte[] key = null;
-        if (encrypted) {
-            // Generate aes key
-            key = AESUtil.generateKey(aesLength);
-            // encrypt content
-            request = AESUtil.encrypt(key, request);
-            // encrypt aes key
-            encryptKey = RSAUtil.encrypt(openApiPublicKey, key);
-        }
-        return encryptKey;
     }
 
     private String afterPost(String apiName, OpenApiData data) throws Exception {
