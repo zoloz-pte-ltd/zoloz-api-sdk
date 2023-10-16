@@ -1,0 +1,29 @@
+onlyExecuteLastPipeline: true
+
+stages:
+  - Deploy
+
+deploy to sonatype:
+  stage: Deploy
+  steps:
+    - plugin: clone
+    - plugin: shell
+      inputs:
+        image: reg.docker.alibaba-inc.com/antb/sofaboot-build:1.0.0
+        command: |
+          export PATH=$PATH:/opt/taobao/java/bin:/opt/taobao/maven/bin
+          java -version
+          mvn -version
+          cd $WORKSPACE
+          gpg --import zoloz.pgp
+          gpg --list-keys
+          gpg --version
+          gpg --list-secret
+          export $(tty)
+          mvn -Dfile.encoding=UTF8 -Dsonatype.password="${ACI_VAR_sonatype_password}" -Dgpg.passphrase=${ACI_VAR_gpg_passphrase} -s deploy_settings.xml clean deploy
+  pluginConfig:
+    approvalButtonName: '确认'
+    approvers:
+      - jushi.zf
+      - jingwei.yang
+      - lan.qi
