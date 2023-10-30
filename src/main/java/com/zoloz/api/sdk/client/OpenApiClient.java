@@ -36,8 +36,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alibaba.fastjson.parser.ParserConfig;
-
 import com.zoloz.api.sdk.util.AESUtil;
 import com.zoloz.api.sdk.util.GenSignUtil;
 import com.zoloz.api.sdk.util.OpenApiData;
@@ -75,9 +73,6 @@ public class OpenApiClient {
      * default constructor with signature and encryption
      */
     public OpenApiClient() {
-        ParserConfig parserConfig = ParserConfig.getGlobalInstance();
-        parserConfig.setSafeMode(true);
-
         this.signed = true;
         this.encrypted = true;
     }

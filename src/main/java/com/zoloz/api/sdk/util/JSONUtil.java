@@ -1,6 +1,7 @@
 package com.zoloz.api.sdk.util;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.ParserConfig;
 
 /**
  * JSON serialization/deserialization utility
@@ -8,6 +9,14 @@ import com.alibaba.fastjson.JSON;
  * @author Zhang Fang
  */
 public class JSONUtil {
+
+    /**
+     * parser configuration for openapi serialization
+     */
+    private static ParserConfig parserConfig = new ParserConfig() {{
+        setSafeMode(true);
+    }};
+
     /**
      * convert jave object to JSON string
      * @param object java object
@@ -25,6 +34,6 @@ public class JSONUtil {
      * @return java object
      */
     public static <T> T parseObject(String str, Class<T> clazz) {
-        return JSON.parseObject(str, clazz);
+        return JSON.parseObject(str, clazz, parserConfig);
     }
 }
