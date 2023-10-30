@@ -22,8 +22,7 @@
 
 package com.zoloz.api.sdk.api;
 
-import com.alibaba.fastjson.JSON;
-
+import com.zoloz.api.sdk.util.JSONUtil;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import lombok.NonNull;
 
@@ -49,9 +48,9 @@ public class AuthTestAPI {
      * @return the authentication test response
      */
     public <T> T echo(@NonNull T request) {
-        String response = openApiClient.callOpenApi(API_NAME, JSON.toJSONString(request));
+        String response = openApiClient.callOpenApi(API_NAME, JSONUtil.toJSONString(request));
 
-        return (T)JSON.parseObject(response, request.getClass());
+        return (T)JSONUtil.parseObject(response, request.getClass());
     }
 
 }

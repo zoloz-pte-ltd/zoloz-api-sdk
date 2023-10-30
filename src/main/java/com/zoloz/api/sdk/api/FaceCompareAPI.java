@@ -22,8 +22,7 @@
 
 package com.zoloz.api.sdk.api;
 
-import com.alibaba.fastjson.JSON;
-
+import com.zoloz.api.sdk.util.JSONUtil;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.api.sdk.model.FaceCompareRequest;
 import com.zoloz.api.sdk.model.FaceCompareResponse;
@@ -51,8 +50,8 @@ public class FaceCompareAPI {
      * @see FaceCompareResponse
      */
     public FaceCompareResponse compare(FaceCompareRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME, JSON.toJSONString(request));
-        return JSON.parseObject(response, FaceCompareResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, FaceCompareResponse.class);
     }
 
 }
