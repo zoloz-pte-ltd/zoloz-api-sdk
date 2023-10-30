@@ -29,7 +29,7 @@
     <groupId>com.zoloz.api.sdk</groupId>
     <artifactId>zoloz-api-sdk</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 
     <name>ZOLOZ SaaS API SDK</name>
     <description>This SDK is provided for ZOLOZ's SaaS customer, to make it easier to integrate ZOLOZ SaaS APIs.</description>
@@ -86,6 +86,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.9.9</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

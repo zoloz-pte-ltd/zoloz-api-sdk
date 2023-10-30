@@ -22,8 +22,7 @@
 
 package com.zoloz.api.sdk.api;
 
-import com.alibaba.fastjson.JSON;
-
+import com.zoloz.api.sdk.util.JSONUtil;
 import com.zoloz.api.sdk.client.OpenApiClient;
 import com.zoloz.api.sdk.model.uapconnect.UAPConnectCheckAvailableRequest;
 import com.zoloz.api.sdk.model.uapconnect.UAPConnectCheckAvailableResponse;
@@ -80,8 +79,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectCheckAvailableResponse checkAvailable(UAPConnectCheckAvailableRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_CHECK_AVAILABLE, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectCheckAvailableResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_CHECK_AVAILABLE, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectCheckAvailableResponse.class);
     }
 
     /**
@@ -91,8 +90,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectFaceEnrollResponse faceEnroll(UAPConnectFaceEnrollRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_FACE_ENROLL, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectFaceEnrollResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_FACE_ENROLL, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectFaceEnrollResponse.class);
     }
 
     /**
@@ -104,8 +103,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectInitializeVerifyResponse initVerify(UAPConnectInitializeVerifyRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_INIT_VERIFY, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectInitializeVerifyResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_INIT_VERIFY, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectInitializeVerifyResponse.class);
     }
 
     /**
@@ -116,8 +115,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectVerifyResponse verify(UAPConnectVerifyRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_VERIFY, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectVerifyResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_VERIFY, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectVerifyResponse.class);
     }
 
     /**
@@ -128,8 +127,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectCheckVerifyResponse checkVerify(UAPConnectCheckVerifyRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_CHECK_VERIFY, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectCheckVerifyResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_CHECK_VERIFY, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectCheckVerifyResponse.class);
     }
 
     /**
@@ -141,8 +140,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectUpdateIFAAResponse ifaaUpdate(UAPConnectUpdateIFAARequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_IFAA_UPDATE, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectUpdateIFAAResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_IFAA_UPDATE, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectUpdateIFAAResponse.class);
     }
 
     /**
@@ -153,8 +152,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectInitializeRegisterResponse initRegister(UAPConnectInitializeRegisterRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_INIT_REGISTER, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectInitializeRegisterResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_INIT_REGISTER, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectInitializeRegisterResponse.class);
     }
 
     /**
@@ -165,8 +164,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectCheckRegisterResponse checkRegister(UAPConnectCheckRegisterRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_CHECK_REGISTER, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectCheckRegisterResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_CHECK_REGISTER, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectCheckRegisterResponse.class);
     }
 
     /**
@@ -176,8 +175,8 @@ public class UAPConnectAPI {
      * @return result bean
      */
     public UAPConnectCloseResponse close(UAPConnectCloseRequest request) {
-        String response = openApiClient.callOpenApi(API_NAME_CLOSE, JSON.toJSONString(request));
-        return JSON.parseObject(response, UAPConnectCloseResponse.class);
+        String response = openApiClient.callOpenApi(API_NAME_CLOSE, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, UAPConnectCloseResponse.class);
     }
 
 }
