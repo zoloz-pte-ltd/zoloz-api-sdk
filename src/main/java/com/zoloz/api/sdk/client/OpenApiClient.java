@@ -53,6 +53,26 @@ import org.slf4j.LoggerFactory;
 public class OpenApiClient {
     private static final Logger logger = LoggerFactory.getLogger(OpenApiClient.class);
 
+    /**
+     * default HTTP connection timeout in milliseconds
+     */
+    private static final Integer DEFAULT_CONN_TIMEOUT = 10000;
+
+    /**
+     * default HTTP read timeout in milliseconds
+     */
+    private static final Integer DEFAULT_READ_TIMEOUT = 10000;
+
+    /**
+     * HTTP connection timeout in milliseconds
+     */
+    private Integer connTimeout = DEFAULT_CONN_TIMEOUT;
+
+    /**
+     * HTTP read timeout in milliseconds
+     */
+    private Integer readTimeout = DEFAULT_READ_TIMEOUT;
+
     private String hostUrl;
 
     private String clientId;
@@ -218,6 +238,10 @@ public class OpenApiClient {
         try {
             URL realUrl = new URL(baseUrl);
             URLConnection conn = realUrl.openConnection();
+
+            conn.setConnectTimeout(connTimeout);
+            conn.setReadTimeout(readTimeout);
+
             if (encryptKey != null) {
                 conn.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
             } else {
