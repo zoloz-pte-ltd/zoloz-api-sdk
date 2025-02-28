@@ -229,7 +229,7 @@ public class OpenApiClient {
         return GenSignUtil.sign(merchantPrivateKey, str);
     }
 
-    private OpenApiData post(String baseUrl, String encryptKey, String clientId, String reqTime, String signature, String request, Map<String,String> headers) {
+    private OpenApiData post(String baseUrl, String encryptKey, String clientId, String reqTime, String signature, String request, Map<String,String> headers) throws IOException {
         OpenApiData data = new OpenApiData();
         OutputStreamWriter out = null;
         BufferedReader in = null;
@@ -283,8 +283,9 @@ public class OpenApiClient {
             }
             data.setContent(result.toString());
             data.setHeader(conn.getHeaderFields());
-        } catch (Exception e) {
-            logger.error("failed to do request:{}.", request, e);
+        } catch (IOException e) {
+            logger.error("failed to do request:{}.", request);
+            throw e;
         } finally {
             try {
                 if (out != null) {
