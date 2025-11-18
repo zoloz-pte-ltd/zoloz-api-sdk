@@ -66,6 +66,10 @@ public class RealDocAsyncFraudCheckResultResponse extends OpenApiCommonResult {
     @Data
     public static class TamperInfo {
         /**
+         * Page number
+         */
+        private Integer page;
+        /**
          * Content
          */
         private String content;
@@ -74,7 +78,7 @@ public class RealDocAsyncFraudCheckResultResponse extends OpenApiCommonResult {
          * Location coordinates [x1, y1, x2, y2]
          * Represents the bounding box of the tampered content
          */
-        private int[] location;
+        private Double[] location;
 
         /**
          * Explanation
