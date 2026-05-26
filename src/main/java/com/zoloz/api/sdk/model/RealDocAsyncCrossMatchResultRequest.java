@@ -25,13 +25,13 @@ package com.zoloz.api.sdk.model;
 import lombok.Data;
 
 /**
- * RealDocAsyncParseResultRequest
- * RealDoc async document extraction result request for REALDOC_DOCUMENT_EXTRACTION.
+ * RealDocAsyncCrossMatchResultRequest
+ * RealDoc async cross match result request.
  *
- * @author yirong
+ * @author realdoc-biz team
  */
 @Data
-public class RealDocAsyncParseResultRequest {
+public class RealDocAsyncCrossMatchResultRequest {
 
     /**
      * Business ID

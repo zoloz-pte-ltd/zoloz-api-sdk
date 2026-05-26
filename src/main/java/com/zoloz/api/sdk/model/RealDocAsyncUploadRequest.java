@@ -24,6 +24,8 @@ package com.zoloz.api.sdk.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * RealDocAsyncUploadRequest
  * Real Document Async Upload Request
@@ -39,7 +41,15 @@ public class RealDocAsyncUploadRequest {
     private String bizId;
 
     /**
-     * Product type
+     * Product type for the async RealDoc task.
+     * Supported values:
+     * REALDOC_FORGERY_DETECTION: document forgery detection.
+     * REALDOC_DOCUMENT_EXTRACTION: document information extraction.
+     * REALDOC_DOCUMENT_INSIGHT: document insight analysis.
+     * REALDOC_CROSS_MATCHING: cross matching for two documents. The documents field is required.
+     * REALDOC_DOCUMENT_PARSING: document parsing with markdown output.
+     *
+     * @see RealDocProductType
      */
     private String productType;
 
@@ -63,6 +73,11 @@ public class RealDocAsyncUploadRequest {
      */
     private String fileUrl;
 
+    /**
+     * Documents used by cross matching
+     */
+    private List<RealDocDocument> documents;
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -72,7 +87,7 @@ public class RealDocAsyncUploadRequest {
         sb.append(",schemaId=").append(schemaId);
         sb.append(",fileContentLength=").append(fileContent == null ? 0 : fileContent.length());
         sb.append(",fileUrl=").append(fileUrl);
+        sb.append(",documents=").append(documents);
         return sb.toString();
     }
 }
-

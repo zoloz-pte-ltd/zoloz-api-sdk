@@ -22,13 +22,13 @@
 
 package com.zoloz.api.sdk.model;
 
-import java.util.Map;
-
 import lombok.Data;
+
+import java.util.Map;
 
 /**
  * RealDocAsyncParseResultResponse
- * Real Document Async Parse Result Response
+ * RealDoc async document extraction result response for REALDOC_DOCUMENT_EXTRACTION.
  *
  * @author yirong
  */
@@ -55,4 +55,3 @@ public class RealDocAsyncParseResultResponse extends OpenApiCommonResult {
         return sb.toString();
     }
 }
-

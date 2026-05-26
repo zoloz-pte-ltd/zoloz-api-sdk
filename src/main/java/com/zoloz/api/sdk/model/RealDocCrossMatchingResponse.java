@@ -24,34 +24,73 @@ package com.zoloz.api.sdk.model;
 
 import lombok.Data;
 
-import java.util.Map;
+import java.util.List;
 
 /**
- * RealDocParseResponse
- * Legacy sync RealDoc document extraction response for v1.zoloz.realdoc.parse.
- * This is used for REALDOC_DOCUMENT_EXTRACTION, not REALDOC_DOCUMENT_PARSING markdown parsing.
+ * RealDocCrossMatchingResponse
+ * RealDoc Cross Matching Response.
  *
- * @author yirong
+ * @author realdoc-biz team
  */
 @Data
-public class RealDocParseResponse extends OpenApiCommonResult {
-
-    /**
-     * Response data
-     */
-    private Map<String, Object> data;
+public class RealDocCrossMatchingResponse extends OpenApiCommonResult {
 
     /**
      * Transaction ID
      */
     private String transactionId;
 
+    /**
+     * Overall match result, for example True, False, or None.
+     */
+    private String overallMatchResult;
+
+    /**
+     * Overall match score, range 0-100.
+     */
+    private Double overallMatchScore;
+
+    /**
+     * Executive summary.
+     */
+    private String executiveSummary;
+
+    /**
+     * Matching details.
+     */
+    private List<MatchInfo> matchingInfo;
+
+    @Data
+    public static class MatchInfo {
+        /**
+         * Matching field name.
+         */
+        private String field;
+
+        /**
+         * First value.
+         */
+        private String value1;
+
+        /**
+         * Second value.
+         */
+        private String value2;
+
+        /**
+         * Explanation.
+         */
+        private String explanation;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("data=").append(data);
-        sb.append(",transactionId=").append(transactionId);
-        // 添加父类的toString内容
+        sb.append("transactionId=").append(transactionId);
+        sb.append(",overallMatchResult=").append(overallMatchResult);
+        sb.append(",overallMatchScore=").append(overallMatchScore);
+        sb.append(",executiveSummary=").append(executiveSummary);
+        sb.append(",matchingInfo=").append(matchingInfo);
         sb.append(",").append(super.toString());
         return sb.toString();
     }

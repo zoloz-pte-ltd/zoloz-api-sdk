@@ -26,7 +26,8 @@ import lombok.Data;
 
 /**
  * RealDocParseRequest
- * Real Person Document Parsing Request
+ * Legacy sync RealDoc document extraction request for v1.zoloz.realdoc.parse.
+ * This is used for REALDOC_DOCUMENT_EXTRACTION, not REALDOC_DOCUMENT_PARSING markdown parsing.
  *
  * @author yirong
  */
@@ -61,7 +62,7 @@ public class RealDocParseRequest {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(",fileType=").append(fileType);
+        sb.append("fileType=").append(fileType);
         sb.append(",schemaId=").append(schemaId);
         sb.append(",fileContentLength=").append(fileContent == null ? 0 : fileContent.length());
         sb.append(",fileUrl=").append(fileUrl);

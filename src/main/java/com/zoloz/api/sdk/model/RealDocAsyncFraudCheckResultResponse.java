@@ -22,9 +22,9 @@
 
 package com.zoloz.api.sdk.model;
 
-import java.util.List;
-
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * RealDocAsyncFraudCheckResultResponse
@@ -97,4 +97,3 @@ public class RealDocAsyncFraudCheckResultResponse extends OpenApiCommonResult {
         return sb.toString();
     }
 }
-

@@ -90,6 +90,7 @@ public class TwoWayAuthProtocol implements IApigwProtocol {
      * @param openApiPublicKey provider public key
      * @param encrypt whether to encrypt request/response body
      * @param validateSign whether to verify signature of the response
+     * @param aesLength the length of randomly generated AES key
      */
     public TwoWayAuthProtocol(
             String clientId,

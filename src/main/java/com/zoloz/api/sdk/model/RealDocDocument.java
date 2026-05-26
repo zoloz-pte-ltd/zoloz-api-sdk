@@ -25,29 +25,26 @@ package com.zoloz.api.sdk.model;
 import lombok.Data;
 
 /**
- * RealDocAsyncParseResultRequest
- * RealDoc async document extraction result request for REALDOC_DOCUMENT_EXTRACTION.
+ * RealDocDocument
+ * Document payload used by RealDoc cross matching.
  *
- * @author yirong
+ * @author realdoc-biz team
  */
 @Data
-public class RealDocAsyncParseResultRequest {
+public class RealDocDocument {
 
     /**
-     * Business ID
+     * File type (pdf, jpg, png, etc.)
      */
-    private String bizId;
+    private String fileType;
 
     /**
-     * Transaction ID returned from upload interface
+     * File content (Base64 encoded).
      */
-    private String transactionId;
+    private String fileContent;
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("bizId=").append(bizId);
-        sb.append(",transactionId=").append(transactionId);
-        return sb.toString();
-    }
+    /**
+     * File URL address.
+     */
+    private String fileUrl;
 }

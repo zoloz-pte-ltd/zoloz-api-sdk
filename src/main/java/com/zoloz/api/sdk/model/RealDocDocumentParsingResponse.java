@@ -24,30 +24,33 @@ package com.zoloz.api.sdk.model;
 
 import lombok.Data;
 
+import java.util.Map;
+
 /**
- * RealDocAsyncParseResultRequest
- * RealDoc async document extraction result request for REALDOC_DOCUMENT_EXTRACTION.
+ * RealDocDocumentParsingResponse
+ * RealDoc document markdown parsing response for REALDOC_DOCUMENT_PARSING.
  *
- * @author yirong
+ * @author realdoc-biz team
  */
 @Data
-public class RealDocAsyncParseResultRequest {
+public class RealDocDocumentParsingResponse extends OpenApiCommonResult {
 
     /**
-     * Business ID
-     */
-    private String bizId;
-
-    /**
-     * Transaction ID returned from upload interface
+     * Transaction ID
      */
     private String transactionId;
+
+    /**
+     * Extracted information
+     */
+    private Map<String, Object> data;
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("bizId=").append(bizId);
-        sb.append(",transactionId=").append(transactionId);
+        sb.append("transactionId=").append(transactionId);
+        sb.append(",data=").append(data);
+        sb.append(",").append(super.toString());
         return sb.toString();
     }
 }

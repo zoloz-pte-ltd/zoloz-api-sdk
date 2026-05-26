@@ -24,30 +24,80 @@ package com.zoloz.api.sdk.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
- * RealDocAsyncParseResultRequest
- * RealDoc async document extraction result request for REALDOC_DOCUMENT_EXTRACTION.
+ * RealDocDocumentInsightResponse
+ * RealDoc Document Insight Response.
  *
- * @author yirong
+ * @author realdoc-biz team
  */
 @Data
-public class RealDocAsyncParseResultRequest {
+public class RealDocDocumentInsightResponse extends OpenApiCommonResult {
 
     /**
-     * Business ID
-     */
-    private String bizId;
-
-    /**
-     * Transaction ID returned from upload interface
+     * Transaction ID
      */
     private String transactionId;
+
+    /**
+     * Insight result summary
+     */
+    private Summary summary;
+
+    /**
+     * Tamper information
+     */
+    private List<TamperInfo> tamperInfo;
+
+    @Data
+    public static class Summary {
+        /**
+         * Overall risk score (0-100)
+         */
+        private Double overallRiskScore;
+
+        /**
+         * Executive summary of results
+         */
+        private String executiveSummary;
+
+        /**
+         * Insight detail
+         */
+        private String insightInfo;
+    }
+
+    @Data
+    public static class TamperInfo {
+        /**
+         * Page number
+         */
+        private Integer page;
+
+        /**
+         * Content
+         */
+        private String content;
+
+        /**
+         * Location coordinates [x1, y1, x2, y2]
+         */
+        private Double[] location;
+
+        /**
+         * Explanation
+         */
+        private String explanation;
+    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("bizId=").append(bizId);
-        sb.append(",transactionId=").append(transactionId);
+        sb.append("transactionId=").append(transactionId);
+        sb.append(",summary=").append(summary);
+        sb.append(",tamperInfo=").append(tamperInfo);
+        sb.append(",").append(super.toString());
         return sb.toString();
     }
 }
