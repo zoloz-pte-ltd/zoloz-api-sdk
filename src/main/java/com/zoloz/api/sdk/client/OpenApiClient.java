@@ -26,28 +26,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import com.zoloz.api.sdk.util.AESUtil;
-import com.zoloz.api.sdk.util.GenSignUtil;
-import com.zoloz.api.sdk.util.OpenApiData;
-import com.zoloz.api.sdk.util.RSAUtil;
+import com.zoloz.api.sdk.client.protocol.AKSKProtocol;
+import com.zoloz.api.sdk.client.exception.ApigwParseException;
+import com.zoloz.api.sdk.client.protocol.IApigwProtocol;
+import com.zoloz.api.sdk.client.protocol.TwoWayAuthProtocol;
+import com.zoloz.api.sdk.client.model.OpenApiContext;
 import lombok.Data;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * OpenApiClient
+ * OpenAPI client
  *
- * @author Zhongyang MA
+ * @author Zhang Fang
  */
 @Data
 public class OpenApiClient {
@@ -73,21 +73,75 @@ public class OpenApiClient {
      */
     private Integer readTimeout = DEFAULT_READ_TIMEOUT;
 
+    /**
+     * host url
+     * mandatory
+     */
     private String hostUrl;
 
+    /**
+     * client Id
+     * mandatory
+     */
     private String clientId;
 
+
+    /**
+     * load test or not
+     */
+    private boolean isLoadTest;
+
+    /**
+     * whether throw exception on failure or simply return null
+     */
+    private boolean throwOnFailure = false;
+
+    /**
+     * protocol name
+     * candidate values: 2way / aksk
+     */
+    private String protoName = "2way";
+    /**
+     * merchant private key
+     * mandatory for 2way auth protocol
+     */
     private String merchantPrivateKey;
 
+    /**
+     * provider public key
+     * mandatory for 2way auth protocol
+     */
     private String openApiPublicKey;
 
-    private boolean signed;
+    /**
+     * verify response signature or not
+     * optional
+     */
+    private boolean signed = true;
 
+    /**
+     * encrypt request/response body or not
+     * optional for 2way auth protocol
+     */
     private boolean encrypted;
 
-    private boolean isLoadTest;
-    
+    /**
+     * length AES encryption key
+     * optional for 2way auth protocol
+     */
     private Integer aesLength = 256;
+
+    /**
+     * access key
+     * mandatory for aksk protocol
+     */
+    private String accessKey;
+
+    /**
+     * access secret
+     * mandatory for aksk protocol
+     */
+    private String secretKey;
 
     /**
      * default constructor with signature and encryption
@@ -96,176 +150,180 @@ public class OpenApiClient {
         this.signed = true;
         this.encrypted = true;
     }
-
-    /**
+    
+   /**
+     * overload the callOpenApi method
      * invoke API gateway with the optional signature and encryption processes
      * @param apiName the name of API
      * @param request the request content in json string format
      * @return the response content in json string format
      */
     public String callOpenApi(String apiName, String request) {
-        String encryptKey = null;
-        byte[] key = null;
-        try {
-            if (encrypted) {
-                // Generate aes key
-                key = AESUtil.generateKey(aesLength);
-                // encrypt content
-                request = AESUtil.encrypt(key, request);
-                // encrypt aes key
-                encryptKey = RSAUtil.encrypt(openApiPublicKey, key);
-            }
-        } catch (Exception e) {
-            logger.error("encrypt key fail.", e);
-        }
-        String resultContent = null;
-        try {
-            // 1. sign the signature
-            String reqTime = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ"));
-            String signature = null;
-            if (signed) {
-                signature = sign(merchantPrivateKey, apiName, clientId, reqTime, request);
-            }
-            // 2. Send data and receive response
-            String url = hostUrl + "/api/" + apiName.replaceAll("\\.", "/");
-            if (logger.isInfoEnabled()) {
-                logger.info("API URL = " + url);
-            }
-            OpenApiData data = post(url, encryptKey, clientId, reqTime, signature, request, new HashMap<>());
-            resultContent = afterPost(apiName, data);
-        } catch (Exception e) {
-            logger.error("failed to get response.", e);
-        }
-        return resultContent;
+        return callOpenApi(apiName, request, null);
     }
 
     /**
-     * overload the callOpenApi method
      * invoke API gateway with the optional signature and encryption processes
      * @param apiName the name of API
      * @param request the request content in json string format
      * @param headers the map of header properties
      * @return the response content in json string format
      */
+    @SneakyThrows({ApigwParseException.class, IOException.class})
     public String callOpenApi(String apiName, String request, Map<String, String> headers) {
-        String encryptKey = null;
-        byte[] key = null;
+        // 1. choose protocol
+        IApigwProtocol protocol = createProtocol();
+
+        // 2. initialize context
+        OpenApiContext context = initContext(apiName, headers);
+        if (logger.isInfoEnabled()) {
+            logger.info("context initialized.");
+        }
+
+        // 3. build request
+        protocol.buildRequest(context, request);
+        if (logger.isInfoEnabled()) {
+            logger.info("request built.");
+        }
+
+        // 4. post data
         try {
-            if (encrypted) {
-                // Generate aes key
-                key = AESUtil.generateKey(aesLength);
-                // encrypt content
-                request = AESUtil.encrypt(key, request);
-                // encrypt aes key
-                encryptKey = RSAUtil.encrypt(openApiPublicKey, key);
-            }
-        } catch (Exception e) {
-            logger.error("encrypt key fail.", e);
+            postData(context);
         }
-        String resultContent = null;
+        catch (IOException ex) {
+            if (logger.isErrorEnabled()) {
+                logger.error("response signature validation failed");
+            }
+
+            if (throwOnFailure) {
+                throw ex;
+            }
+            else {
+                return null;
+            }
+        }
+        if (logger.isInfoEnabled()) {
+            logger.info("data posted.");
+        }
+
+        // 5. parse response
         try {
-            // 1. sign the signature
-            String reqTime = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ"));
-            String signature = null;
-            if (signed) {
-                signature = sign(merchantPrivateKey, apiName, clientId, reqTime, request);
-            }
-            // 2. Send data and receive response
-            String url = hostUrl + "/api/" + apiName.replaceAll("\\.", "/");
-            if (logger.isInfoEnabled()) {
-                logger.info("API URL = " + url);
-            }
-            OpenApiData data = post(url, encryptKey, clientId, reqTime, signature, request, headers);
-            resultContent = afterPost(apiName, data);
-        } catch (Exception e) {
-            logger.error("failed to get response.", e);
+            String result = protocol.parseResponse(context);
+            return result;
         }
-        return resultContent;
+        catch (ApigwParseException ex) {
+            if (logger.isErrorEnabled()) {
+                logger.error("response signature validation failed");
+            }
+
+            if (throwOnFailure) {
+                throw ex;
+            }
+            else {
+                return null;
+            }
+        }
     }
 
-    private String afterPost(String apiName, OpenApiData data) throws Exception {
-        String resultContent = null;
-        for (String k : data.getHeader().keySet()) {
-            if (logger.isInfoEnabled()) {
-                if (k == null) {
-                    logger.info(data.getHeader().get(k).get(0));
-                } else {
-                    logger.info(k + "=" + data.getHeader().get(k).get(0));
-                }
+    /**
+     * Create protocol instance based on current configuration
+     * @return protocol instance
+     */
+    protected IApigwProtocol createProtocol() {
+        if (protoName.equals("2way")) {
+            if (logger.isInfoEnabled()){
+                logger.info("use 2way auth protocol");
             }
+            return new TwoWayAuthProtocol(
+                    clientId,
+                    merchantPrivateKey,
+                    openApiPublicKey,
+                    encrypted,
+                    signed,
+                    aesLength
+            );
         }
-        // 3. Check Signature
-        if (data.getHeader().get("Signature") != null) {
-            Map<String, String> responseSign = splitEncryptOrSignature(data.getHeader().get("Signature").get(0));
-            String toSignContent = buildResponseSignatureContent(apiName, clientId, data.getHeader().get("Response-Time").get(0),
-                    data.getContent());
-            boolean checkSignResult = GenSignUtil.verify(openApiPublicKey, toSignContent,
-                    URLDecoder.decode(responseSign.get("signature"), "UTF-8"));
-            if (logger.isInfoEnabled()) {
-                logger.info("check response signature " + checkSignResult);
+        else if (protoName.equals("aksk")) {
+            if (logger.isInfoEnabled()){
+                logger.info("use aksk protocol");
             }
+            return new AKSKProtocol(
+                    clientId,
+                    accessKey,
+                    secretKey,
+                    signed
+            );
         }
-
-        resultContent = data.getContent();
-        // 4. decrypt
-        if (encrypted) {
-            if (data.getHeader().get("Encrypt") != null) {
-                Map<String, String> encrypt = splitEncryptOrSignature(data.getHeader().get("Encrypt").get(0));
-                if (encrypt != null && encrypt.get("symmetricKey") != null) {
-                    byte[] decryptedAESKey = RSAUtil.decrypt(merchantPrivateKey,
-                            URLDecoder.decode(encrypt.get("symmetricKey"), StandardCharsets.UTF_8.name()));
-                    resultContent = AESUtil.decrypt(decryptedAESKey, resultContent);
-                }
-            }
+        else {
+            throw new IllegalArgumentException("unknown protocol: " + protoName);
         }
-        return resultContent;
     }
 
-    private String sign(String merchantPrivateKey, String api, String clientId, String reqTime, String request) throws Exception {
-        StringBuffer sb = new StringBuffer(request.length() + 256);
-        sb.append("POST ").append("/api/").append(api.replaceAll("\\.", "/")).append("\n");
-        sb.append(clientId).append(".").append(reqTime).append(".").append(request);
-        String str = sb.toString();
-        return GenSignUtil.sign(merchantPrivateKey, str);
+    /**
+     * initialize api context
+     * @param apiName api name
+     * @param headers headers
+     * @return context object
+     */
+    protected OpenApiContext initContext(String apiName, Map<String, String> headers) {
+        OpenApiContext context = new OpenApiContext();
+        context.setApiHost(hostUrl);
+        context.setApiName(apiName);
+        context.setRequestHeaders(new HashMap<>());
+        if (isLoadTest) {
+            context.getRequestHeaders().put("loadTestMode", "true");
+        }
+        if (headers != null) {
+            for (Entry<String, String> entry: headers.entrySet()) {
+                context.getRequestHeaders().put(entry.getKey(), entry.getValue());
+            }
+        }
+        return context;
     }
 
-    private OpenApiData post(String baseUrl, String encryptKey, String clientId, String reqTime, String signature, String request, Map<String,String> headers) throws IOException {
-        OpenApiData data = new OpenApiData();
+    /**
+     * Creates URL from string
+     * @param host the host
+     * @param apiName the api name
+     * @return URL object
+     * @throws MalformedURLException host or apiName is invalid
+     */
+    protected URLConnection createConnection(String host, String apiName) throws IOException {
+        String apiUrl = host + "/api/" + apiName.replaceAll("\\.", "/");
+        if (logger.isInfoEnabled()) {
+            logger.info("API URL = " + apiUrl);
+        }
+        URL url = new URL(apiUrl);
+        return url.openConnection();
+    }
+
+     /**
+     * post data via network
+     * @param context api context
+     * @throws IOException network error
+     */
+    protected void postData(OpenApiContext context) throws IOException {
         OutputStreamWriter out = null;
         BufferedReader in = null;
         StringBuffer result = new StringBuffer(1024 * 20);
 
         try {
-            URL realUrl = new URL(baseUrl);
-            URLConnection conn = realUrl.openConnection();
+            String apiName = context.getApiName();
+            URLConnection conn = createConnection(hostUrl, apiName);
 
             conn.setConnectTimeout(connTimeout);
             conn.setReadTimeout(readTimeout);
 
-            if (encryptKey != null) {
-                conn.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
-            } else {
-                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            }
-            conn.setRequestProperty("Client-Id", clientId);
-            conn.setRequestProperty("Request-Time", reqTime);
-            if (isLoadTest) {
-                conn.setRequestProperty("loadTestMode", "true");
-            }
-            if (signature != null) {
-                conn.setRequestProperty("Signature",
-                        "algorithm=RSA256, signature=" + URLEncoder.encode(signature, StandardCharsets.UTF_8.name()));
-            }
-            if (encryptKey != null) {
-                conn.setRequestProperty("Encrypt",
-                        "algorithm=RSA_AES, symmetricKey=" + URLEncoder.encode(encryptKey, StandardCharsets.UTF_8.name()));
-            }
-            // Add header properties to HttpURLConnection
-            if (headers != null && !headers.isEmpty()) {
-                for (Map.Entry<String, String> entry : headers.entrySet()) {
+            if (context.getRequestHeaders() != null) {
+                for (Entry<String, String> entry: context.getRequestHeaders().entrySet()) {
                     conn.setRequestProperty(entry.getKey(), entry.getValue());
+
+                    if (logger.isInfoEnabled()) {
+                        logger.info(entry.getKey() + "=" + entry.getValue());
+                    }
                 }
             }
+
             if (logger.isInfoEnabled()) {
                 for (String key : conn.getRequestProperties().keySet()) {
                     logger.info(key + "=" + conn.getRequestProperties().get(key).get(0));
@@ -274,17 +332,17 @@ public class OpenApiClient {
             conn.setDoOutput(true);
             conn.setDoInput(true);
             out = new OutputStreamWriter(conn.getOutputStream(), StandardCharsets.UTF_8.name());
-            out.write(request);
+            out.write(context.getRequestBody());
             out.flush();
             in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8.name()));
             String line;
             while ((line = in.readLine()) != null) {
                 result.append(line);
             }
-            data.setContent(result.toString());
-            data.setHeader(conn.getHeaderFields());
+            context.setResponseBody(result.toString());
+            context.setResponseHeaders(conn.getHeaderFields());
         } catch (IOException e) {
-            logger.error("failed to do request:{}.", request);
+            logger.error("failed to do request:{}.", context.getRequestBody());
             throw e;
         } finally {
             try {
@@ -298,35 +356,5 @@ public class OpenApiClient {
                 logger.error("close io fail.", ex);
             }
         }
-        return data;
     }
-
-    private Map<String, String> splitEncryptOrSignature(String value) {
-        if (value == null) {
-            return null;
-        }
-        Map<String, String> map = new HashMap<>();
-        String[] pairs = value.split(",");
-        if (pairs == null) {
-            return map;
-        }
-        for (String pair : pairs) {
-            if (pair == null) {
-                continue;
-            }
-            String[] kv = pair.trim().split("=");
-            if (kv != null && kv.length == 2 && kv[0] != null) {
-                map.put(kv[0].trim(), kv[1].trim());
-            }
-        }
-        return map;
-    }
-
-    private String buildResponseSignatureContent(String apiName, String clientId, String responseTime, String response) {
-        StringBuffer sb = new StringBuffer(response.length() + 256);
-        sb.append("POST ").append("/api").append("/").append(apiName.replaceAll("\\.", "/")).append("\n");
-        sb.append(clientId).append(".").append(responseTime).append(".").append(response);
-        return sb.toString();
-    }
-
 }

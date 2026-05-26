@@ -22,16 +22,25 @@
 
 package com.zoloz.api.sdk.util;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+
+import lombok.SneakyThrows;
 
 /**
  * AESUtil
  *
- * @author: Zhongyang MA
+ * @author: Zhang Fang
  */
 public class AESUtil {
     /**
@@ -39,14 +48,26 @@ public class AESUtil {
      * @param key the AES key
      * @param content to be encrypted
      * @return encrypted content in base64 format
-     * @throws Exception exception
      */
-    public static String encrypt(byte[] key, String content) throws Exception {
-        SecretKeySpec spec = new SecretKeySpec(key, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(1, spec);
-        byte[] byteEnc = cipher.doFinal(content.getBytes("UTF-8"));
-        return Base64.getEncoder().encodeToString(byteEnc);
+    @SneakyThrows({GeneralSecurityException.class, UnsupportedEncodingException.class})
+    public static String encrypt(byte[] key, String content) {
+
+        try {
+            SecretKeySpec spec = new SecretKeySpec(key, "AES");
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(1, spec);
+            byte[] byteEnc = cipher.doFinal(content.getBytes("UTF-8"));
+            return Base64.getEncoder().encodeToString(byteEnc);
+        }
+        catch (InvalidKeyException ex) {
+            throw new IllegalArgumentException("invalid key", ex);
+        }
+        catch (IllegalBlockSizeException ex) {
+            throw new IllegalArgumentException("invalid key or content", ex);
+        }
+        catch (BadPaddingException ex) {
+            throw new IllegalArgumentException("invalid key or content", ex);
+        }
     }
 
     /**
@@ -54,28 +75,39 @@ public class AESUtil {
      * @param key the AES key
      * @param content to be decrypted
      * @return the original content
-     * @throws Exception exception
      */
-    public static String decrypt(byte[] key, String content) throws Exception {
-        SecretKeySpec spec = new SecretKeySpec(key, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(2, spec);
-        byte[] encryptByte = Base64.getDecoder().decode(content);
-        byte[] original = cipher.doFinal(encryptByte);
-        return new String(original, "UTF-8");
+    @SneakyThrows({GeneralSecurityException.class, UnsupportedEncodingException.class})
+    public static String decrypt(byte[] key, String content) {
+        try {
+            SecretKeySpec spec = new SecretKeySpec(key, "AES");
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(2, spec);
+            byte[] encryptByte = Base64.getDecoder().decode(content);
+            byte[] original = cipher.doFinal(encryptByte);
+            return new String(original, "UTF-8");
+        }
+        catch (InvalidKeyException ex) {
+            throw new IllegalArgumentException("invalid key", ex);
+        }
+        catch (IllegalBlockSizeException ex) {
+            throw new IllegalArgumentException("invalid key or content", ex);
+        }
+        catch (BadPaddingException ex) {
+            throw new IllegalArgumentException("invalid key or content", ex);
+        }
     }
 
     /**
      * AES key generation
      * @param length key length
      * @return key in byte array
-     * @throws Exception exception
      */
-    public static byte[] generateKey(int length) throws Exception {
-        KeyGenerator keyGen = KeyGenerator.getInstance("AES");//密钥生成器
-        keyGen.init(length); //默认128，获得无政策权限后可为192或256
-        SecretKey secretKey = keyGen.generateKey();//生成密钥
-        byte[] key = secretKey.getEncoded();//密钥字节数组
+    @SneakyThrows(NoSuchAlgorithmException.class)
+    public static byte[] generateKey(int length) {
+        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+        keyGen.init(length); 
+        SecretKey secretKey = keyGen.generateKey();
+        byte[] key = secretKey.getEncoded();
         return key;
     }
 

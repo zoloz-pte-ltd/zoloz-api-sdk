@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 ZOLOZ PTE.LTD.
+ * Copyright (c) 2020 ZOLOZ PTE.LTD.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,29 +20,39 @@
  * SOFTWARE.
  */
 
-package com.zoloz.api.sdk.util;
+package com.zoloz.api.sdk.model.connectv2;
 
-import lombok.Data;
+import com.zoloz.api.sdk.model.OpenApiCommonResult;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * OpenApiData
+ * result bean
  *
- * @author: Zhongyang MA
+ * @author the
  */
-@Data
-public class OpenApiData {
+public class ConnectV2CheckAvailableResponse extends OpenApiCommonResult {
+    /**
+     * Product Status
+     */
+    private List<ProductStatus> productStatus;
 
     /**
-     * the header of http data
+     * Getter method for property <tt>productStatus</tt>.
+     *
+     * @return property value of productStatus
      */
-    private Map<String,List<String>> header;
+    public List<ProductStatus> getProductStatus() {
+        return productStatus;
+    }
 
     /**
-     * the body of http data
+     * Setter method for property <tt>productStatus</tt>.
+     *
+     * @param productStatus value to be assigned to property productStatus
      */
-    private String content;
+    public void setProductStatus(List<ProductStatus> productStatus) {
+        this.productStatus = productStatus;
+    }
 
 }
