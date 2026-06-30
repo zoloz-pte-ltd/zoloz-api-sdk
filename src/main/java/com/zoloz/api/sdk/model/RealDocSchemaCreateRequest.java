@@ -24,62 +24,49 @@ package com.zoloz.api.sdk.model;
 
 import lombok.Data;
 
+import java.util.Map;
+
 /**
- * RealDocParseRequest
- * Legacy sync RealDoc document extraction request for v1.zoloz.realdoc.parse.
- * This is used for REALDOC_DOCUMENT_EXTRACTION, not REALDOC_DOCUMENT_PARSING markdown parsing.
+ * RealDocSchemaCreateRequest
+ * Request for creating a RealDoc document extraction schema.
  *
- * @author yirong
+ * @author realdoc-biz team
  */
 @Data
-public class RealDocParseRequest {
+public class RealDocSchemaCreateRequest {
 
     /**
-     * File type
+     * Business ID used to distinguish merchant requests or tasks.
      */
-    private String fileType;
+    private String bizId;
 
     /**
-     * Schema ID
+     * Schema ID, unique under the same merchant.
+     * Supported characters are letters, numbers, underscores and hyphens.
      */
     private String schemaId;
 
     /**
-     * Whether to include extended extraction information in the response.
-     * Supported values:
-     * Y: include confidence score, bbox coordinates, and page number.
-     * N: do not include extended information. This is the default server behavior.
+     * Product type of this schema.
+     * Currently only REALDOC_DOCUMENT_EXTRACTION is supported.
      *
-     * This parameter is supported by the sync RealDoc document extraction product
-     * REALDOC_DOCUMENT_EXTRACTION through v1.zoloz.realdoc.parse.
-     * It is not used for REALDOC_DOCUMENT_PARSING markdown parsing.
+     * @see RealDocProductType
      */
-    private String includeExtInfo;
+    private String productType;
 
     /**
-     * File content
+     * Schema definition data.
+     * The value must be a JSON Schema Draft 7 object with the supported field whitelist.
      */
-    private String fileContent;
-
-    /**
-     * File URL
-     */
-    private String fileUrl;
-
-    /**
-     * Business ID
-     */
-    private String bizId;
+    private Map<String, Object> schemaData;
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("fileType=").append(fileType);
+        sb.append("bizId=").append(bizId);
         sb.append(",schemaId=").append(schemaId);
-        sb.append(",includeExtInfo=").append(includeExtInfo);
-        sb.append(",fileContentLength=").append(fileContent == null ? 0 : fileContent.length());
-        sb.append(",fileUrl=").append(fileUrl);
-        sb.append(",bizId=").append(bizId);
+        sb.append(",productType=").append(productType);
+        sb.append(",schemaData=").append(schemaData);
         return sb.toString();
     }
 }

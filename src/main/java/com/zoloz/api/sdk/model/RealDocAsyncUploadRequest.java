@@ -64,6 +64,20 @@ public class RealDocAsyncUploadRequest {
     private String schemaId;
 
     /**
+     * Whether to include extended extraction information in the async extraction result.
+     * Supported values:
+     * Y: include confidence score, bbox coordinates, and page number.
+     * N: do not include extended information. This is the default server behavior.
+     *
+     * This parameter is only effective when productType is REALDOC_DOCUMENT_EXTRACTION.
+     * It is not supported for REALDOC_FORGERY_DETECTION, REALDOC_DOCUMENT_INSIGHT,
+     * REALDOC_CROSS_MATCHING, or REALDOC_DOCUMENT_PARSING.
+     *
+     * @see RealDocProductType#REALDOC_DOCUMENT_EXTRACTION
+     */
+    private String includeExtInfo;
+
+    /**
      * File content (Base64 encoded), max 10MB
      */
     private String fileContent;
@@ -85,6 +99,7 @@ public class RealDocAsyncUploadRequest {
         sb.append(",productType=").append(productType);
         sb.append(",fileType=").append(fileType);
         sb.append(",schemaId=").append(schemaId);
+        sb.append(",includeExtInfo=").append(includeExtInfo);
         sb.append(",fileContentLength=").append(fileContent == null ? 0 : fileContent.length());
         sb.append(",fileUrl=").append(fileUrl);
         sb.append(",documents=").append(documents);

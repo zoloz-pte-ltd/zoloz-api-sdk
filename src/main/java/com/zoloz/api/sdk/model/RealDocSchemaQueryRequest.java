@@ -25,61 +25,39 @@ package com.zoloz.api.sdk.model;
 import lombok.Data;
 
 /**
- * RealDocParseRequest
- * Legacy sync RealDoc document extraction request for v1.zoloz.realdoc.parse.
- * This is used for REALDOC_DOCUMENT_EXTRACTION, not REALDOC_DOCUMENT_PARSING markdown parsing.
+ * RealDocSchemaQueryRequest
+ * Request for querying one RealDoc schema or all current RealDoc schemas.
  *
- * @author yirong
+ * @author realdoc-biz team
  */
 @Data
-public class RealDocParseRequest {
+public class RealDocSchemaQueryRequest {
 
     /**
-     * File type
+     * Business ID used to distinguish merchant requests or tasks.
      */
-    private String fileType;
+    private String bizId;
 
     /**
-     * Schema ID
+     * Schema ID to query.
+     * Pass a specific schemaId to query one schema, or pass All to query all schemas.
      */
     private String schemaId;
 
     /**
-     * Whether to include extended extraction information in the response.
-     * Supported values:
-     * Y: include confidence score, bbox coordinates, and page number.
-     * N: do not include extended information. This is the default server behavior.
+     * Optional product type filter.
+     * Currently only REALDOC_DOCUMENT_EXTRACTION is supported.
      *
-     * This parameter is supported by the sync RealDoc document extraction product
-     * REALDOC_DOCUMENT_EXTRACTION through v1.zoloz.realdoc.parse.
-     * It is not used for REALDOC_DOCUMENT_PARSING markdown parsing.
+     * @see RealDocProductType
      */
-    private String includeExtInfo;
-
-    /**
-     * File content
-     */
-    private String fileContent;
-
-    /**
-     * File URL
-     */
-    private String fileUrl;
-
-    /**
-     * Business ID
-     */
-    private String bizId;
+    private String productType;
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("fileType=").append(fileType);
+        sb.append("bizId=").append(bizId);
         sb.append(",schemaId=").append(schemaId);
-        sb.append(",includeExtInfo=").append(includeExtInfo);
-        sb.append(",fileContentLength=").append(fileContent == null ? 0 : fileContent.length());
-        sb.append(",fileUrl=").append(fileUrl);
-        sb.append(",bizId=").append(bizId);
+        sb.append(",productType=").append(productType);
         return sb.toString();
     }
 }

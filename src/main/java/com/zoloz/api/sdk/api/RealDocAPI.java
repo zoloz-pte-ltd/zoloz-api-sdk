@@ -39,6 +39,12 @@ import com.zoloz.api.sdk.model.RealDocDocumentInsightResponse;
 import com.zoloz.api.sdk.model.RealDocDocumentParsingResponse;
 import com.zoloz.api.sdk.model.RealDocParseRequest;
 import com.zoloz.api.sdk.model.RealDocParseResponse;
+import com.zoloz.api.sdk.model.RealDocSchemaCreateRequest;
+import com.zoloz.api.sdk.model.RealDocSchemaCreateResponse;
+import com.zoloz.api.sdk.model.RealDocSchemaQueryRequest;
+import com.zoloz.api.sdk.model.RealDocSchemaQueryResponse;
+import com.zoloz.api.sdk.model.RealDocSchemaUpdateRequest;
+import com.zoloz.api.sdk.model.RealDocSchemaUpdateResponse;
 import com.zoloz.api.sdk.util.JSONUtil;
 
 /**
@@ -88,6 +94,21 @@ public class RealDocAPI {
      * async document markdown parsing result api name for REALDOC_DOCUMENT_PARSING.
      */
     private static final String ASYNC_DOCUMENT_PARSING_RESULT_API_NAME = "v1.zoloz.realdoc.async.documentparsemarkdown.result";
+
+    /**
+     * schema creation api name
+     */
+    private static final String SCHEMA_CREATE_API_NAME = "v1.zoloz.realdoc.schema.create";
+
+    /**
+     * schema update api name
+     */
+    private static final String SCHEMA_UPDATE_API_NAME = "v1.zoloz.realdoc.schema.update";
+
+    /**
+     * schema query api name
+     */
+    private static final String SCHEMA_QUERY_API_NAME = "v1.zoloz.realdoc.schema.query";
 
     private OpenApiClient openApiClient;
 
@@ -193,6 +214,45 @@ public class RealDocAPI {
     public RealDocDocumentParsingResponse asyncDocumentParseMarkdownResult(RealDocAsyncDocumentParseMarkdownResultRequest request) {
         String response = openApiClient.callOpenApi(ASYNC_DOCUMENT_PARSING_RESULT_API_NAME, JSONUtil.toJSONString(request));
         return JSONUtil.parseObject(response, RealDocDocumentParsingResponse.class);
+    }
+
+    /**
+     * Create a RealDoc schema for document extraction.
+     * The schemaId is unique under the same merchant, and schemaData must follow JSON Schema Draft 7.
+     * @param request schema creation request
+     * @see RealDocSchemaCreateRequest
+     * @return schema creation response
+     * @see RealDocSchemaCreateResponse
+     */
+    public RealDocSchemaCreateResponse createSchema(RealDocSchemaCreateRequest request) {
+        String response = openApiClient.callOpenApi(SCHEMA_CREATE_API_NAME, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, RealDocSchemaCreateResponse.class);
+    }
+
+    /**
+     * Update a RealDoc schema definition.
+     * The schemaData field replaces the current effective schema definition.
+     * @param request schema update request
+     * @see RealDocSchemaUpdateRequest
+     * @return schema update response
+     * @see RealDocSchemaUpdateResponse
+     */
+    public RealDocSchemaUpdateResponse updateSchema(RealDocSchemaUpdateRequest request) {
+        String response = openApiClient.callOpenApi(SCHEMA_UPDATE_API_NAME, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, RealDocSchemaUpdateResponse.class);
+    }
+
+    /**
+     * Query RealDoc schemas.
+     * Pass a specific schemaId to query one schema, or pass All to query all current schemas.
+     * @param request schema query request
+     * @see RealDocSchemaQueryRequest
+     * @return schema query response
+     * @see RealDocSchemaQueryResponse
+     */
+    public RealDocSchemaQueryResponse querySchema(RealDocSchemaQueryRequest request) {
+        String response = openApiClient.callOpenApi(SCHEMA_QUERY_API_NAME, JSONUtil.toJSONString(request));
+        return JSONUtil.parseObject(response, RealDocSchemaQueryResponse.class);
     }
 
 }
