@@ -29,7 +29,7 @@
     <groupId>com.zoloz.api.sdk</groupId>
     <artifactId>zoloz-api-sdk</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
 
     <name>ZOLOZ SaaS API SDK</name>
     <description>This SDK is provided for ZOLOZ's SaaS customer, to make it easier to integrate ZOLOZ SaaS APIs.</description>
@@ -70,7 +70,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.83</version>
+            <version>1.2.83_noneautotype</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -170,11 +170,8 @@
                         </goals>
                         <configuration>
                             <executable>gpg</executable>
-                            <gpgArguments>
-                                <arg>--batch</arg>
-                                <arg>--pinentry-mode</arg>
-                                <arg>loopback</arg>
-                            </gpgArguments>
+                            <!-- GnuPG 1.x does not support pinentry-mode; batch mode is sufficient for loopback -->
+                            <useAgent>false</useAgent>
                         </configuration>
                     </execution>
                 </executions>
