@@ -132,6 +132,12 @@ public class OpenApiClient {
     private Integer aesLength = 256;
 
     /**
+     * whether to use AES-GCM for 2way content encryption (true=GCM, false=ECB legacy)
+     * optional, default false for backward compatibility
+     */
+    private boolean useGCM = true;
+
+    /**
      * access key
      * mandatory for aksk protocol
      */
@@ -240,7 +246,8 @@ public class OpenApiClient {
                     openApiPublicKey,
                     encrypted,
                     signed,
-                    aesLength
+                    aesLength,
+                    useGCM
             );
         }
         else if (protoName.equals("aksk")) {

@@ -36,6 +36,7 @@ import com.zoloz.api.sdk.client.exception.ApigwParseException;
 import com.zoloz.api.sdk.util.AESUtil;
 import com.zoloz.api.sdk.util.GenSignUtil;
 import com.zoloz.api.sdk.client.model.OpenApiContext;
+import com.zoloz.api.sdk.util.GcmCipher;
 import com.zoloz.api.sdk.util.RSAUtil;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
@@ -84,6 +85,20 @@ public class TwoWayAuthProtocol implements IApigwProtocol {
     private Integer aesLength = 256;
 
     /**
+     * whether to use AES-GCM for content encryption (true=GCM, false=ECB legacy)
+     */
+    private boolean useGCM;
+
+    /**
+     * algorithm constant: RSA-wrapped AES key + AES-ECB (legacy)
+     */
+    private static final String ALGORITHM_RSA_AES = "RSA_AES";
+    /**
+     * algorithm constant: RSA-wrapped AES key + AES-GCM (AEAD)
+     */
+    private static final String ALGORITHM_RSA_AES_GCM = "RSA_AES_GCM";
+
+    /**
      * ctor
      * @param clientId client id
      * @param merchantPrivateKey merchant private key
@@ -91,6 +106,7 @@ public class TwoWayAuthProtocol implements IApigwProtocol {
      * @param encrypt whether to encrypt request/response body
      * @param validateSign whether to verify signature of the response
      * @param aesLength the length of randomly generated AES key
+     * @param useGCM whether to use AES-GCM (true) or AES-ECB (false)
      */
     public TwoWayAuthProtocol(
             String clientId,
@@ -98,7 +114,8 @@ public class TwoWayAuthProtocol implements IApigwProtocol {
             String openApiPublicKey,
             boolean encrypt,
             boolean validateSign,
-            Integer aesLength
+            Integer aesLength,
+            boolean useGCM
     )
     {
         this.clientId = clientId;
@@ -107,6 +124,7 @@ public class TwoWayAuthProtocol implements IApigwProtocol {
         this.verifySign = validateSign;
         this.encrypt = encrypt;
         this.aesLength = aesLength;
+        this.useGCM = useGCM;
     }
 
     /**
@@ -185,14 +203,26 @@ public class TwoWayAuthProtocol implements IApigwProtocol {
             // set content-type header
             headers.put("Content-Type", "text/plain; charset=UTF-8");
 
-            // generate aes key
+            // generate aes key (session key, 每次随机;上下行复用)
             byte[] key = AESUtil.generateKey(aesLength);
-            // encrypt content
-            reqBody = AESUtil.encrypt(key, rawReq);
-            // encrypt aes key
+            // encrypt aes key (RSA 包封,用 zoloz 公钥;GCM 不动 RSA 层)
             String encryptKey = RSAUtil.encrypt(openApiPublicKey, key);
-            // construct header value
-            String encryptHeadVal = "algorithm=RSA_AES, symmetricKey=" + URLEncoder.encode(encryptKey, StandardCharsets.UTF_8.name());
+
+            String encryptHeadVal;
+            if (useGCM) {
+                // GCM: AEAD,加密 + 认证一体;iv/tag 进 Encrypt 头(base64url 无 padding),body 只放密文
+                GcmCipher g = AESUtil.encryptGCM(key, rawReq);
+                reqBody = g.getCipher();
+                encryptHeadVal = "algorithm=" + ALGORITHM_RSA_AES_GCM
+                        + ", symmetricKey=" + URLEncoder.encode(encryptKey, StandardCharsets.UTF_8.name())
+                        + ", iv=" + URLEncoder.encode(g.getIv(), StandardCharsets.UTF_8.name())
+                        + ", tag=" + URLEncoder.encode(g.getTag(), StandardCharsets.UTF_8.name());
+            } else {
+                // ECB: 原逻辑(模式泄露,合规 finding,保留兼容)
+                reqBody = AESUtil.encrypt(key, rawReq);
+                encryptHeadVal = "algorithm=" + ALGORITHM_RSA_AES
+                        + ", symmetricKey=" + URLEncoder.encode(encryptKey, StandardCharsets.UTF_8.name());
+            }
             // set encrypt header
             headers.put("Encrypt", encryptHeadVal);
         }
@@ -274,7 +304,19 @@ public class TwoWayAuthProtocol implements IApigwProtocol {
                             merchantPrivateKey,
                             URLDecoder.decode(encrypt.get("symmetricKey"), StandardCharsets.UTF_8.name())
                     );
-                    resultContent = AESUtil.decrypt(decryptedAESKey, resultContent);
+                    // 按响应 Encrypt.algorithm 分流解密(看响应头,不看本地 useGCM)
+                    // —— 保证服务端回滚回 ECB 时,新客户端也能正确解 ECB 响应
+                    String respAlg = encrypt.get("algorithm");
+                    if (ALGORITHM_RSA_AES_GCM.equals(respAlg)) {
+                        resultContent = AESUtil.decryptGCM(
+                                decryptedAESKey,
+                                resultContent,
+                                URLDecoder.decode(encrypt.get("iv"), StandardCharsets.UTF_8.name()),
+                                URLDecoder.decode(encrypt.get("tag"), StandardCharsets.UTF_8.name())
+                        );
+                    } else {
+                        resultContent = AESUtil.decrypt(decryptedAESKey, resultContent);
+                    }
                 }
             }
         }

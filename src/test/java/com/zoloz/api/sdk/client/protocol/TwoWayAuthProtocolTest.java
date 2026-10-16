@@ -49,7 +49,7 @@ public class TwoWayAuthProtocolTest {
 
     @Test
     public void testBuildRequest_WithoutEncryption() {
-        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, false, true, 256);
+        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, false, true, 256, false);
 
         try (MockedStatic<GenSignUtil> genSignUtil = Mockito.mockStatic(GenSignUtil.class);
              MockedStatic<ZonedDateTime> zonedDateTime = Mockito.mockStatic(ZonedDateTime.class)) {
@@ -70,7 +70,7 @@ public class TwoWayAuthProtocolTest {
 
     @Test
     public void testBuildRequest_WithEncryption() {
-        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, true, true, 256);
+        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, true, true, 256, false);
 
         try (MockedStatic<GenSignUtil> genSignUtil = Mockito.mockStatic(GenSignUtil.class);
              MockedStatic<ZonedDateTime> zonedDateTime = Mockito.mockStatic(ZonedDateTime.class);
@@ -97,7 +97,7 @@ public class TwoWayAuthProtocolTest {
 
     @Test
     public void testParseResponse_WithoutEncryption_WithSignature() throws ApigwParseException {
-        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, false, true, 256);
+        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, false, true, 256, false);
         
         Map<String, List<String>> responseHeaders = new HashMap<>();
         responseHeaders.put("Signature", new ArrayList<String>(){{add("algorithm=RSA256, signature=" + SIGNATURE);}});
@@ -115,7 +115,7 @@ public class TwoWayAuthProtocolTest {
 
     @Test
     public void testParseResponse_WithEncryption_WithSignature() throws ApigwParseException {
-        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, true, true, 256);
+        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, true, true, 256, false);
         
         Map<String, List<String>> responseHeaders = new HashMap<>();
         responseHeaders.put("Signature", new ArrayList<String>(){{add("algorithm=RSA256, signature=" + SIGNATURE);}});
@@ -139,7 +139,7 @@ public class TwoWayAuthProtocolTest {
 
     @Test
     public void testParseResponse_SignatureVerificationFailed() {
-        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, false, true, 256);
+        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, false, true, 256, false);
         
         Map<String, List<String>> responseHeaders = new HashMap<>();
         responseHeaders.put("Signature", new ArrayList<String>(){{add("algorithm=RSA256, signature=" + SIGNATURE);}});
@@ -156,7 +156,7 @@ public class TwoWayAuthProtocolTest {
 
     @Test
     public void testParseResponse_NoSignatureWhenVerificationRequired() {
-        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, false, true, 256);
+        protocol = new TwoWayAuthProtocol(CLIENT_ID, MERCHANT_PRIVATE_KEY, OPEN_API_PUBLIC_KEY, false, true, 256, false);
         
         Map<String, List<String>> responseHeaders = new HashMap<>();
         // Don't add Signature header but add Response-Time to trigger verification
